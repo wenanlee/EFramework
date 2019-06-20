@@ -1,4 +1,0 @@
-sceneSetups:
-- path: Assets/qq.unity
-  isLoaded: 1
-  isActive: 1
