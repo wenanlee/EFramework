@@ -1,7 +1,4 @@
-﻿
-using UnityEngine;
-
-public abstract class Singleton<T> where T : Singleton<T>, new()
+﻿public abstract class Singleton<T> where T : Singleton<T>, new()
 {
     private static T ms_instance = default(T);
 
