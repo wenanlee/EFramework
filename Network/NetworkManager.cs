@@ -1,108 +1,52 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
-public class NetworkManager : Singleton<NetworkManager>, IEventHandler
+public class NetworkManager : Singleton<NetworkManager>
 {
-    //private Queue<Package> packages = new Queue<Package>();
-    private Network.UDPClient udpClient;
-    private Network.UDPServer udpServer;
-    private Network.TCPClient tcpClient;
-    private Network.TCPServer tcpServer;
+    public Server MessageServer;
+    public Server ImageServer;
+    public Client client;
     protected override void InitSingleton()
     {
-        EventManager.Instance.Registration(HandlerEvent, PackageDir.send, PackageDir.receive);
-        udpClient = new Network.UDPClient();
-        udpServer = new Network.UDPServer();
-        tcpClient = new Network.TCPClient();
-        tcpServer = new Network.TCPServer();
-        udpServer.Init();
-        tcpServer.Init();
-
-        udpClient.Init("127.0.0.1");
-        tcpClient.Init("127.0.0.1");
+        MessageServer = new Server();
+        client = new Client();
+        MessageServer.Init();
+        client.Init();
+        GameEventCenter.AddListener(Events.Login, Login);
     }
 
-    /// <summary>
-    /// 注册监听者
-    /// </summary>
-    /// <param name="e"></param>
-    /// <param name="action"></param>
-    public void Registration(Enum e, Action<EventBase> action)
+    public void SendToHandler()
     {
-        EventManager.Instance.Registration(e, action);
+       
+    }
+
+    public void SendToAll(Package package)
+    {
+        MessageServer.SendToAll(package);
     }
     /// <summary>
-    /// 注册监听者(监听多个Enum)
+    /// 发送给一个客户端
     /// </summary>
-    /// <param name="action"></param>
-    /// <param name="enums"></param>
-    public void Registration(Action<EventBase> action, params Enum[] enums)
+    public void SendToClient(ServerMsg client, Package package)
     {
-        for (int i = 0; i < enums.Length; i++)
-        {
-            Registration(enums[i], action);
-        }
+        //NetworkManager.Instance.MessageServer.Send(client, new Package { type = type, data = new byte[0] });
     }
     /// <summary>
-    /// 注销监听者
+    /// 发送给服务器
     /// </summary>
-    public void Cancellation(Enum e, Action<EventBase> action)
+    public void SendToServer(Package package)
     {
-        EventManager.Instance.Registration(e, action);
+        client.Send(package);
+        //NetworkManager.Instance.client.Send(new Package { type = type, data = new byte[0] });
     }
-    /// <summary>
-    /// 注销多个监听者
-    /// </summary>
-    /// <param name="action"></param>
-    /// <param name="enums"></param>
-    public void Cancellation(Action<EventBase> action, params Enum[] enums)
+    public void SendToRoom(int id,Package package)
     {
-        for (int i = 0; i < enums.Length; i++)
-        {
-            Cancellation(enums[i], action);
-        }
-    }
 
-    public void HandlerEvent(EventBase eventid)
-    {
-        switch ((PackageDir)eventid.eid)
-        {
-            case PackageDir.send:
-                Send((EventData<Package>)eventid);
-                break;
-            case PackageDir.receive:
-                Receive((EventData<Package>)eventid);
-                break;
-            default:
-                break;
-        }
     }
-
-    private void Receive(EventData<Package> msg)
+    private void Login(string username,string password)
     {
-        //Debug.Log(msg.args[0].type);
-        foreach (var item in msg.args)
-        {
-            //Debug.Log((MessageType)item.type);
-            EventData<Package>.CreateEvent((MessageType)item.type, item).Send();
-        }
-    }
-
-    private void Send(EventData<Package> msg)
-    {
-        foreach (Package item in msg.args)
-        {
-            if (item.size >= 1024)
-            {
-                tcpClient.Send(item);
-                Console.WriteLine("从TCP发送");
-            }
-            else
-            {
-                udpClient.Send(item);
-                Console.WriteLine("从UDP发送");
-            }
-        }
+        Debug.Log(username+password);
+        SendToServer(new Package(MessageType.login,username,password));
     }
 }

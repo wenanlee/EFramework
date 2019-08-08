@@ -8,7 +8,7 @@ public class EventManager:Singleton<EventManager>
 
     public void SendEvent(EventBase eventBase)
     {
-        HandlerList[eventBase.eid].Invoke(eventBase);
+        //HandlerList[eventBase.eid].Invoke(eventBase);
     }
     /// <summary>
     /// 注册监听者
