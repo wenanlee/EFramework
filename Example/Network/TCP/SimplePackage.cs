@@ -1,15 +1,15 @@
-﻿using PENet;
+﻿using EFramework;
 using System;
 using System.Linq;
 using System.Net;
 using System.Text;
 using UnityEngine;
 [Serializable]
-public class Package : PEMsg
+public class SimplePackage : PEMsg
 {
     public Enum type;
     public byte[] data;                                  //真正的消息
-    public Package()
+    public SimplePackage()
     {
         type = null;
         data = null;
@@ -21,7 +21,7 @@ public class Package : PEMsg
     /// <param name="port">端口号</param>
     /// <param name="type">消息类型</param>
     /// <param name="msg">消息体</param>
-    public Package(Enum type, byte[] msg)
+    public SimplePackage(Enum type, byte[] msg)
     {
         Format(type, msg);
     }
@@ -32,7 +32,7 @@ public class Package : PEMsg
     /// <param name="port">端口号</param>
     /// <param name="type">消息类型</param>
     /// <param name="msg">消息体</param>
-    public Package(Enum type, string msg)
+    public SimplePackage(Enum type, string msg)
     {
         Format(type, Encoding.UTF8.GetBytes(msg));
     }
@@ -41,7 +41,7 @@ public class Package : PEMsg
     /// </summary>
     /// <param name="type"></param>
     /// <param name="msgs"></param>
-    public Package(Enum type, params string[] msgs)
+    public SimplePackage(Enum type, params string[] msgs)
     {
         Format(type, Encoding.UTF8.GetBytes(string.Join("|", msgs)));
     }
@@ -52,7 +52,7 @@ public class Package : PEMsg
     /// <param name="port">端口号</param>
     /// <param name="type">消息类型</param>
     /// <param name="msg">消息体</param>
-    public Package(Enum type, int msg)
+    public SimplePackage(Enum type, int msg)
     {
         Format(type, BitConverter.GetBytes(msg));
     }

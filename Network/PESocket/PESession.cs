@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Net.Sockets;
+using UnityEngine;
 
-namespace PENet {
+namespace EFramework {
     public abstract class PESession<T> where T : PEMsg {
         private Socket skt;
         private Action closeCB;
@@ -116,7 +117,16 @@ namespace PENet {
             byte[] data = PETool.PackLenInfo(PETool.Serialize<T>(msg));
             SendMsg(data);
         }
-
+        public void SendTo(T msg)
+        {
+            byte[] data = PETool.PackLenInfo(PETool.Serialize<T>(msg));
+            SendTo(data);
+        }
+        public void SendTo(byte[] data)
+        {
+            Debug.Log("aa");
+            skt.Send(data);
+        }
         /// <summary>
         /// Send binary data
         /// </summary>
@@ -134,6 +144,7 @@ namespace PENet {
                 }
             }
             catch (Exception e) {
+                Debug.Log("a");
                 PETool.LogMsg("SndMsgError:" + e.Message, LogLevel.Error);
             }
         }
@@ -146,6 +157,7 @@ namespace PENet {
                 ns.Close();
             }
             catch (Exception e) {
+                Debug.Log("b");
                 PETool.LogMsg("SndMsgError:" + e.Message, LogLevel.Error);
             }
         }

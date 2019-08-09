@@ -8,7 +8,7 @@
 
 using System;
 
-namespace PENet {
+namespace EFramework {
     class PEPkg {
         public int headLen = 4;
         public byte[] headBuff = null;

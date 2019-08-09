@@ -10,7 +10,7 @@ using System;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
-namespace PENet {
+namespace EFramework {
     public class PETool {
 
         public static byte[] PackNetMsg<T>(T msg) where T : PEMsg {

@@ -6,7 +6,7 @@
 	功能：消息定义类
 *****************************************************/
 
-namespace PENet {
+namespace EFramework {
 
     using System;
 

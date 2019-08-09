@@ -1,15 +1,17 @@
-﻿using Protocol;
+﻿using EFramework;
+using Protocol;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using EFramework.Network;
 
-public class Client
+public class SimpleClient
 {
-    PENet.PESocket<ClientSession, Package> skt = null;
+    EFramework.Network.TCPSocket<SimpleClientSession, SimplePackage> skt = null;
 
     public void Init()
     {
-        skt = new PENet.PESocket<ClientSession, Package>();
+        skt = new TCPSocket<SimpleClientSession, SimplePackage>();
         skt.StartAsClient(IPCfg.srvIP, IPCfg.srvPort);
 
         skt.SetLog(true, (string msg, int lv) =>
@@ -35,8 +37,26 @@ public class Client
             }
         });
     }
-    public void Send(Package package)
+    public void Send(SimplePackage package)
     {
         skt.session.SendMsg(package); 
+    }
+}
+public class SimpleClientSession : PESession<SimplePackage>
+{
+    protected override void OnConnected()
+    {
+        Debug.Log("Client: 连接到服务器成功");
+    }
+
+    protected override void OnReciveMsg(SimplePackage msg)
+    {
+        //PETool.LogMsg("Server Response:" + msg.GetString());
+        //EventData<Package>.CreateEvent(msg.type,msg).SendToHandler();
+    }
+
+    protected override void OnDisConnected()
+    {
+        Debug.Log("断开连接");
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Text;
-using PENet;
+using EFramework;
 
 namespace Protocol {
     [Serializable]
