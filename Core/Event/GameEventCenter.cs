@@ -33,7 +33,6 @@ public class GameEventCenter
     {
         GameEventAgent.Instance.AddListener(eid, action);
     }
-
     public static void AddListener(GameEvents.Event gameEvent, Action action)
     {
         GameEventAgent.Instance.AddListener(gameEvent.eid, action);
