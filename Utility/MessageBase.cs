@@ -6,12 +6,12 @@
 	功能：消息定义类
 *****************************************************/
 
-namespace EFramework {
+namespace EFramework.Network {
 
     using System;
 
     [Serializable]
-    public abstract class PEMsg {
+    public abstract class MessageBase {
         public int seq;
         public int cmd;
         public int err;

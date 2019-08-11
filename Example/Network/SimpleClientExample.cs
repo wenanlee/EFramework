@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EFramework.Core;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
@@ -11,7 +12,7 @@ public class SimpleClientExample : MonoBehaviour
     void Start()
     {
 
-        GameEventCenter.AddListener(SimpleNetworkEvents.Init, handler);
+        EventManager.AddListener(SimpleNetworkEvents.Init, handler);
     }
     private void Update()
     {

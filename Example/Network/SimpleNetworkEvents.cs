@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SimpleNetworkEvents : MonoBehaviour
 {
-    public static GameEvents.Event<byte[]> Init = new GameEvents.Event<byte[]>(SimpleTest.Test1);
+    public static Events.Event<byte[]> Init = new Events.Event<byte[]>(SimpleTest.Test1);
 }
 public enum SimpleNetworkType
 {

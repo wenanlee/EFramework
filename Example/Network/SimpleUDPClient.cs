@@ -1,4 +1,5 @@
-﻿using EFramework.Network;
+﻿using EFramework.Core;
+using EFramework.Network;
 using System.Collections;
 using System.Collections.Generic;
 using System.Net;
@@ -9,16 +10,20 @@ public class SimpleUDPClient
     SocketClient client;
     public void Init(string ip,int port)
     {
+        Init(IPAddress.Parse(ip), port);
+    }
+    public void Init(IPAddress ip, int port)
+    {
         client = new SocketClient(NetworkType.Udp);
         client.OnConnected += Client_OnConnected;
         client.OnDisconnected += Client_OnDisconnected;
         client.OnReceived += Client_OnReceived;
-        client.Connect(IPAddress.Parse(ip), port);
+        client.Connect(ip, port);
     }
 
     private void Client_OnReceived(object sender, SocketClientEventArgs e)
     {
-        GameEventCenter.SendEvent(SimpleNetworkEvents.Init, e.Data);
+        EventManager.SendEvent(SimpleNetworkEvents.Init, e.Data);
     }
 
     private void Client_OnDisconnected(object sender, System.EventArgs e)

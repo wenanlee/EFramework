@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SimpleEvent
 {
-    public static GameEvents.Event<int> Test_1 = new GameEvents.Event<int>(SimpleTest.Test1);
+    public static Events.Event<int> Test_1 = new Events.Event<int>(SimpleTest.Test1);
 }
 public enum SimpleTest
 {
