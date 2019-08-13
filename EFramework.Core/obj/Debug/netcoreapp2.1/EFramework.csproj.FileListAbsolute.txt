@@ -1,0 +1,9 @@
+D:\Project\EFramework\EFramework\obj\Debug\netcoreapp2.1\EFramework.csproj.CoreCompileInputs.cache
+D:\Project\EFramework\EFramework\obj\Debug\netcoreapp2.1\EFramework.AssemblyInfoInputs.cache
+D:\Project\EFramework\EFramework\obj\Debug\netcoreapp2.1\EFramework.AssemblyInfo.cs
+D:\Project\EFramework\EFramework\bin\Debug\netcoreapp2.1\EFramework.Core.deps.json
+D:\Project\EFramework\EFramework\bin\Debug\netcoreapp2.1\EFramework.Core.dll
+D:\Project\EFramework\EFramework\bin\Debug\netcoreapp2.1\EFramework.Core.pdb
+D:\Project\EFramework\EFramework\obj\Debug\netcoreapp2.1\EFramework.Core.dll
+D:\Project\EFramework\EFramework\obj\Debug\netcoreapp2.1\EFramework.Core.pdb
+D:\Project\EFramework\EFramework\obj\Debug\netcoreapp2.1\EFramework.csprojAssemblyReference.cache

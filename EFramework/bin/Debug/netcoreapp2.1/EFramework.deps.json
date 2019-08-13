@@ -1,0 +1,47 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v2.1",
+    "signature": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v2.1": {
+      "EFramework/1.0.0": {
+        "dependencies": {
+          "EFramework.Core": "1.0.0",
+          "EFramework.Network": "1.0.0"
+        },
+        "runtime": {
+          "EFramework.dll": {}
+        }
+      },
+      "EFramework.Core/1.0.0": {
+        "runtime": {
+          "EFramework.Core.dll": {}
+        }
+      },
+      "EFramework.Network/1.0.0": {
+        "runtime": {
+          "EFramework.Network.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "EFramework/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "EFramework.Core/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "EFramework.Network/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

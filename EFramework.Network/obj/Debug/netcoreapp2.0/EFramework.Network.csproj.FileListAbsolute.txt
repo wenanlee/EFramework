@@ -1,0 +1,9 @@
+C:\Users\Wenan\Desktop\新建文件夹\EFramework.Network\bin\Debug\netcoreapp2.0\EFramework.Network.deps.json
+C:\Users\Wenan\Desktop\新建文件夹\EFramework.Network\bin\Debug\netcoreapp2.0\EFramework.Network.dll
+C:\Users\Wenan\Desktop\新建文件夹\EFramework.Network\bin\Debug\netcoreapp2.0\EFramework.Network.pdb
+C:\Users\Wenan\Desktop\新建文件夹\EFramework.Network\obj\Debug\netcoreapp2.0\EFramework.Network.csprojAssemblyReference.cache
+C:\Users\Wenan\Desktop\新建文件夹\EFramework.Network\obj\Debug\netcoreapp2.0\EFramework.Network.csproj.CoreCompileInputs.cache
+C:\Users\Wenan\Desktop\新建文件夹\EFramework.Network\obj\Debug\netcoreapp2.0\EFramework.Network.AssemblyInfoInputs.cache
+C:\Users\Wenan\Desktop\新建文件夹\EFramework.Network\obj\Debug\netcoreapp2.0\EFramework.Network.AssemblyInfo.cs
+C:\Users\Wenan\Desktop\新建文件夹\EFramework.Network\obj\Debug\netcoreapp2.0\EFramework.Network.dll
+C:\Users\Wenan\Desktop\新建文件夹\EFramework.Network\obj\Debug\netcoreapp2.0\EFramework.Network.pdb

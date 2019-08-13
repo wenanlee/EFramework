@@ -1,0 +1,7 @@
+C:\Users\Wenan\Desktop\新建文件夹\EFramework.Core\bin\Debug\net35\EFramework.Core.dll
+C:\Users\Wenan\Desktop\新建文件夹\EFramework.Core\bin\Debug\net35\EFramework.Core.pdb
+C:\Users\Wenan\Desktop\新建文件夹\EFramework.Core\obj\Debug\net35\EFramework.Core.csproj.CoreCompileInputs.cache
+C:\Users\Wenan\Desktop\新建文件夹\EFramework.Core\obj\Debug\net35\EFramework.Core.AssemblyInfoInputs.cache
+C:\Users\Wenan\Desktop\新建文件夹\EFramework.Core\obj\Debug\net35\EFramework.Core.AssemblyInfo.cs
+C:\Users\Wenan\Desktop\新建文件夹\EFramework.Core\obj\Debug\net35\EFramework.Core.dll
+C:\Users\Wenan\Desktop\新建文件夹\EFramework.Core\obj\Debug\net35\EFramework.Core.pdb

@@ -1,0 +1,8 @@
+C:\Users\Wenan\Desktop\新建文件夹\EFramework.Network\bin\Debug\net45\EFramework.Network.dll
+C:\Users\Wenan\Desktop\新建文件夹\EFramework.Network\bin\Debug\net45\EFramework.Network.pdb
+C:\Users\Wenan\Desktop\新建文件夹\EFramework.Network\obj\Debug\net45\EFramework.Network.csprojAssemblyReference.cache
+C:\Users\Wenan\Desktop\新建文件夹\EFramework.Network\obj\Debug\net45\EFramework.Network.csproj.CoreCompileInputs.cache
+C:\Users\Wenan\Desktop\新建文件夹\EFramework.Network\obj\Debug\net45\EFramework.Network.AssemblyInfoInputs.cache
+C:\Users\Wenan\Desktop\新建文件夹\EFramework.Network\obj\Debug\net45\EFramework.Network.AssemblyInfo.cs
+C:\Users\Wenan\Desktop\新建文件夹\EFramework.Network\obj\Debug\net45\EFramework.Network.dll
+C:\Users\Wenan\Desktop\新建文件夹\EFramework.Network\obj\Debug\net45\EFramework.Network.pdb
