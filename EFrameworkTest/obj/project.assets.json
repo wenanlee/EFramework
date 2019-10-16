@@ -710,11 +710,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Wenan\\Desktop\\新建文件夹\\EFrameworkTest\\EFrameworkTest.csproj",
+      "projectUniqueName": "D:\\Project\\EFramework\\EFrameworkTest\\EFrameworkTest.csproj",
       "projectName": "EFrameworkTest",
-      "projectPath": "C:\\Users\\Wenan\\Desktop\\新建文件夹\\EFrameworkTest\\EFrameworkTest.csproj",
+      "projectPath": "D:\\Project\\EFramework\\EFrameworkTest\\EFrameworkTest.csproj",
       "packagesPath": "C:\\Users\\Wenan\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Wenan\\Desktop\\新建文件夹\\EFrameworkTest\\obj\\",
+      "outputPath": "D:\\Project\\EFramework\\EFrameworkTest\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -733,8 +733,8 @@
       "frameworks": {
         "netcoreapp2.1": {
           "projectReferences": {
-            "C:\\Users\\Wenan\\Desktop\\新建文件夹\\EFramework.Core\\EFramework.Core.csproj": {
-              "projectPath": "C:\\Users\\Wenan\\Desktop\\新建文件夹\\EFramework.Core\\EFramework.Core.csproj"
+            "D:\\Project\\EFramework\\EFramework.Core\\EFramework.Core.csproj": {
+              "projectPath": "D:\\Project\\EFramework\\EFramework.Core\\EFramework.Core.csproj"
             }
           }
         }
@@ -749,16 +749,23 @@
       "netcoreapp2.1": {
         "dependencies": {
           "Microsoft.NETCore.App": {
+            "suppressParent": "All",
             "target": "Package",
             "version": "[2.1.0, )",
             "autoReferenced": true
           }
         },
         "imports": [
-          "net461"
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48"
         ],
         "assetTargetFallback": true,
-        "warn": true
+        "warn": true,
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -1,0 +1,8 @@
+D:\Project\EFramework\EFramework.Network\bin\Release\net40\EFramework.Network.dll
+D:\Project\EFramework\EFramework.Network\bin\Release\net40\EFramework.Network.pdb
+D:\Project\EFramework\EFramework.Network\obj\Release\net40\EFramework.Network.csprojAssemblyReference.cache
+D:\Project\EFramework\EFramework.Network\obj\Release\net40\EFramework.Network.csproj.CoreCompileInputs.cache
+D:\Project\EFramework\EFramework.Network\obj\Release\net40\EFramework.Network.AssemblyInfoInputs.cache
+D:\Project\EFramework\EFramework.Network\obj\Release\net40\EFramework.Network.AssemblyInfo.cs
+D:\Project\EFramework\EFramework.Network\obj\Release\net40\EFramework.Network.dll
+D:\Project\EFramework\EFramework.Network\obj\Release\net40\EFramework.Network.pdb

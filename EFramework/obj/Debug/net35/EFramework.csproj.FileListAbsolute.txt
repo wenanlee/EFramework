@@ -11,3 +11,16 @@ C:\Users\Wenan\Desktop\新建文件夹\EFramework\obj\Debug\net35\EFramework.Ass
 C:\Users\Wenan\Desktop\新建文件夹\EFramework\obj\Debug\net35\EFramework.csproj.CopyComplete
 C:\Users\Wenan\Desktop\新建文件夹\EFramework\obj\Debug\net35\EFramework.dll
 C:\Users\Wenan\Desktop\新建文件夹\EFramework\obj\Debug\net35\EFramework.pdb
+D:\Project\EFramework\EFramework\bin\Debug\net35\EFramework.dll
+D:\Project\EFramework\EFramework\bin\Debug\net35\EFramework.pdb
+D:\Project\EFramework\EFramework\bin\Debug\net35\EFramework.Core.dll
+D:\Project\EFramework\EFramework\bin\Debug\net35\EFramework.Network.dll
+D:\Project\EFramework\EFramework\bin\Debug\net35\EFramework.Core.pdb
+D:\Project\EFramework\EFramework\bin\Debug\net35\EFramework.Network.pdb
+D:\Project\EFramework\EFramework\obj\Debug\net35\EFramework.csprojAssemblyReference.cache
+D:\Project\EFramework\EFramework\obj\Debug\net35\EFramework.csproj.CoreCompileInputs.cache
+D:\Project\EFramework\EFramework\obj\Debug\net35\EFramework.AssemblyInfoInputs.cache
+D:\Project\EFramework\EFramework\obj\Debug\net35\EFramework.AssemblyInfo.cs
+D:\Project\EFramework\EFramework\obj\Debug\net35\EFramework.csproj.CopyComplete
+D:\Project\EFramework\EFramework\obj\Debug\net35\EFramework.dll
+D:\Project\EFramework\EFramework\obj\Debug\net35\EFramework.pdb

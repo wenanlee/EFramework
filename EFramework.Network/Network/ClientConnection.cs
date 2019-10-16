@@ -27,7 +27,7 @@ namespace EFramework.Network
         /// <summary>
         /// Socket connection state.
         /// </summary>
-        public bool IsConnected => !((Socket.Poll(1000, SelectMode.SelectRead) && (Socket.Available == 0)) || !Socket.Connected);
+        public bool IsConnected => !((Socket.Poll(1000, SelectMode.SelectRead) && false) || !Socket.Connected);
         /// <summary>
         /// Client ip.
         /// </summary>

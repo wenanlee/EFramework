@@ -12,3 +12,17 @@ C:\Users\Wenan\Desktop\新建文件夹\EFramework\obj\Debug\netcoreapp2.0\EFrame
 C:\Users\Wenan\Desktop\新建文件夹\EFramework\obj\Debug\netcoreapp2.0\EFramework.csproj.CopyComplete
 C:\Users\Wenan\Desktop\新建文件夹\EFramework\obj\Debug\netcoreapp2.0\EFramework.dll
 C:\Users\Wenan\Desktop\新建文件夹\EFramework\obj\Debug\netcoreapp2.0\EFramework.pdb
+D:\Project\EFramework\EFramework\bin\Debug\netcoreapp2.0\EFramework.deps.json
+D:\Project\EFramework\EFramework\bin\Debug\netcoreapp2.0\EFramework.dll
+D:\Project\EFramework\EFramework\bin\Debug\netcoreapp2.0\EFramework.pdb
+D:\Project\EFramework\EFramework\bin\Debug\netcoreapp2.0\EFramework.Core.dll
+D:\Project\EFramework\EFramework\bin\Debug\netcoreapp2.0\EFramework.Network.dll
+D:\Project\EFramework\EFramework\bin\Debug\netcoreapp2.0\EFramework.Core.pdb
+D:\Project\EFramework\EFramework\bin\Debug\netcoreapp2.0\EFramework.Network.pdb
+D:\Project\EFramework\EFramework\obj\Debug\netcoreapp2.0\EFramework.csprojAssemblyReference.cache
+D:\Project\EFramework\EFramework\obj\Debug\netcoreapp2.0\EFramework.csproj.CoreCompileInputs.cache
+D:\Project\EFramework\EFramework\obj\Debug\netcoreapp2.0\EFramework.AssemblyInfoInputs.cache
+D:\Project\EFramework\EFramework\obj\Debug\netcoreapp2.0\EFramework.AssemblyInfo.cs
+D:\Project\EFramework\EFramework\obj\Debug\netcoreapp2.0\EFramework.csproj.CopyComplete
+D:\Project\EFramework\EFramework\obj\Debug\netcoreapp2.0\EFramework.dll
+D:\Project\EFramework\EFramework\obj\Debug\netcoreapp2.0\EFramework.pdb

@@ -1,59 +1,61 @@
 ﻿using System.Collections;
 using System;
-
-/// <summary>
-/// 定义事件
-/// </summary>
-public class Events
+namespace EFramework.Core
 {
-    public class Event
+    /// <summary>
+    /// 定义事件
+    /// </summary>
+    public class Events
     {
-        public readonly Enum eid;
-        public Event(Enum eid)
+        public class Event
         {
-            this.eid = eid;
-        }
-        public static Event CreateEvent(Enum eid)
-        {
-            return new Event(eid);
-        }
-        public void Send()
-        {
+            public readonly Enum eid;
+            public Event(Enum eid)
+            {
+                this.eid = eid;
+            }
+            public static Event CreateEvent(Enum eid)
+            {
+                return new Event(eid);
+            }
+            public void Send()
+            {
 
+            }
         }
-    }
 
-    public class Event<T>
-    {
-        public readonly Enum eid;
-        public Event(Enum eid)
+        public class Event<T>
         {
-            this.eid = eid;
+            public readonly Enum eid;
+            public Event(Enum eid)
+            {
+                this.eid = eid;
+            }
         }
-    }
-    public class Event<T1, T2>
-    {
-        public readonly Enum eid;
-        public Event(Enum eid)
+        public class Event<T1, T2>
         {
-            this.eid = eid;
+            public readonly Enum eid;
+            public Event(Enum eid)
+            {
+                this.eid = eid;
+            }
         }
-    }
-    public class Event<T1, T2, T3>
-    {
-        public readonly Enum eid;
-        public Event(Enum eid)
+        public class Event<T1, T2, T3>
         {
-            this.eid = eid;
+            public readonly Enum eid;
+            public Event(Enum eid)
+            {
+                this.eid = eid;
+            }
         }
-    }
-    public class Event<T1, T2, T3, T4>
-    {
-        public readonly Enum eid;
-        public Event(Enum eid)
+        public class Event<T1, T2, T3, T4>
         {
-            this.eid = eid;
+            public readonly Enum eid;
+            public Event(Enum eid)
+            {
+                this.eid = eid;
+            }
         }
+
     }
-   
 }
