@@ -10,8 +10,8 @@ C:\Users\Wenan\Desktop\新建文件夹\EFramework.Core\obj\Debug\netcoreapp2.0\E
 D:\Project\EFramework\EFramework.Core\bin\Debug\netcoreapp2.0\EFramework.Core.deps.json
 D:\Project\EFramework\EFramework.Core\bin\Debug\netcoreapp2.0\EFramework.Core.dll
 D:\Project\EFramework\EFramework.Core\bin\Debug\netcoreapp2.0\EFramework.Core.pdb
-D:\Project\EFramework\EFramework.Core\obj\Debug\netcoreapp2.0\EFramework.Core.csproj.CoreCompileInputs.cache
 D:\Project\EFramework\EFramework.Core\obj\Debug\netcoreapp2.0\EFramework.Core.AssemblyInfoInputs.cache
 D:\Project\EFramework\EFramework.Core\obj\Debug\netcoreapp2.0\EFramework.Core.AssemblyInfo.cs
 D:\Project\EFramework\EFramework.Core\obj\Debug\netcoreapp2.0\EFramework.Core.dll
 D:\Project\EFramework\EFramework.Core\obj\Debug\netcoreapp2.0\EFramework.Core.pdb
+D:\Project\EFramework\EFramework.Core\obj\Debug\netcoreapp2.0\EFramework.Core.csprojAssemblyReference.cache

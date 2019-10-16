@@ -8,19 +8,19 @@ namespace EFramework.Core
     /// 事件系统底层类
     /// </summary>
 
-    public class EventAgent : IEventAgent
+    public class EventAgent<T> : IEventAgent
     {
 
-        private static EventAgent mInatance;
-        public static EventAgent Instance
+        private static EventAgent<T> inatance;
+        public static EventAgent<T> Instance
         {
             get
             {
-                if (mInatance == null)
+                if (inatance == null)
                 {
-                    mInatance = new EventAgent();
+                    inatance = new EventAgent<T>();
                 }
-                return mInatance;
+                return inatance;
             }
         }
 
@@ -105,13 +105,13 @@ namespace EFramework.Core
             }
         }
 
-        Dictionary<Enum, GameEventDelegate> eventList = new Dictionary<Enum, GameEventDelegate>();
+        Dictionary<T, GameEventDelegate> eventList = new Dictionary<T, GameEventDelegate>();
 
         private EventAgent()
         {
         }
 
-        public void AddListener(Enum eid, Action action)
+        public void AddListener(T eid, Action action)
         {
             GameEventDelegate gameEventDelegate;
             if (eventList.TryGetValue(eid, out gameEventDelegate) == false)
@@ -122,7 +122,7 @@ namespace EFramework.Core
             gameEventDelegate.Add(action);
         }
 
-        public void Invoke(Enum eid)
+        public void Invoke(T eid)
         {
             GameEventDelegate gameEventDelegate;
             if (eventList.TryGetValue(eid, out gameEventDelegate))
@@ -131,7 +131,7 @@ namespace EFramework.Core
             }
         }
 
-        public void RemoveListener(Enum eid, Action action)
+        public void RemoveListener(T eid, Action action)
         {
             GameEventDelegate gameEventDelegate;
             if (eventList.TryGetValue(eid, out gameEventDelegate))
@@ -139,7 +139,7 @@ namespace EFramework.Core
                 gameEventDelegate.Remove(action);
             }
         }
-        private void RemoveListener(Enum eid)
+        private void RemoveListener(T eid)
         {
             if (CheckHaveListener(eid))
             {
@@ -147,7 +147,7 @@ namespace EFramework.Core
             }
         }
 
-        public bool CheckHaveListener(Enum eid)
+        public bool CheckHaveListener(T eid)
         {
             GameEventDelegate eventDelegate;
             if (eventList.TryGetValue(eid, out eventDelegate))
@@ -161,7 +161,7 @@ namespace EFramework.Core
 
         private void RemoveListener(object listener)
         {
-            Dictionary<Enum, GameEventDelegate>.Enumerator tor = eventList.GetEnumerator();//返回实例的枚举数 就是返回集的中所有元素一个一个列出来
+            Dictionary<T, GameEventDelegate>.Enumerator tor = eventList.GetEnumerator();//返回实例的枚举数 就是返回集的中所有元素一个一个列出来
             while (tor.MoveNext())
             {
                 tor.Current.Value.Remove(listener);
@@ -172,17 +172,17 @@ namespace EFramework.Core
     /// <summary>
     /// T1参数
     /// </summary>
-    public class EventAgent<T> : IEventAgent
+    public class EventAgent<T,T1> : IEventAgent
     {
 
-        private static EventAgent<T> mInatance;
-        public static EventAgent<T> Instance
+        private static EventAgent<T,T1> mInatance;
+        public static EventAgent<T,T1> Instance
         {
             get
             {
                 if (mInatance == null)
                 {
-                    mInatance = new EventAgent<T>();
+                    mInatance = new EventAgent<T, T1>();
                 }
                 return mInatance;
             }
@@ -190,18 +190,18 @@ namespace EFramework.Core
 
         private class GameEventDelegate
         {
-            Action<T> mAction;
+            Action<T1> mAction;
             bool needUpdate;
             private Delegate[] delegateList;
 
-            public void Add(Action<T> action)
+            public void Add(Action<T1> action)
             {
                 mAction -= action;
                 mAction += action;
                 needUpdate = true;
             }
 
-            public void Remove(Action<T> action)
+            public void Remove(Action<T1> action)
             {
                 mAction -= action;
                 needUpdate = true;
@@ -217,12 +217,12 @@ namespace EFramework.Core
                     Delegate mDelegate = delegateList[i];
                     if (mDelegate.Target == listener)
                     {
-                        Remove(mDelegate as Action<T>);
+                        Remove(mDelegate as Action<T1>);
                     }
                 }
             }
 
-            public void Invoke(T param)
+            public void Invoke(T1 param)
             {
                 if (mAction == null)
                     return;
@@ -234,7 +234,7 @@ namespace EFramework.Core
                 {
                     try
                     {
-                        Action<T> mDeleate = delegateList[i] as Action<T>;
+                        Action<T1> mDeleate = delegateList[i] as Action<T1>;
                         mDeleate(param);
                     }
                     catch (Exception e)
@@ -269,13 +269,13 @@ namespace EFramework.Core
             }
         }
 
-        Dictionary<Enum, GameEventDelegate> eventList = new Dictionary<Enum, GameEventDelegate>();
+        Dictionary<T, GameEventDelegate> eventList = new Dictionary<T, GameEventDelegate>();
 
         private EventAgent()
         {
         }
 
-        public void AddListener(Enum eid, Action<T> action)
+        public void AddListener(T eid, Action<T1> action)
         {
             GameEventDelegate gameEventDelegate;
             if (eventList.TryGetValue(eid, out gameEventDelegate) == false)
@@ -286,7 +286,7 @@ namespace EFramework.Core
             gameEventDelegate.Add(action);
         }
 
-        public void Invoke(Enum eid, T param)
+        public void Invoke(T eid, T1 param)
         {
             GameEventDelegate gameEventDelegate;
             if (eventList.TryGetValue(eid, out gameEventDelegate))
@@ -295,7 +295,7 @@ namespace EFramework.Core
             }
         }
 
-        public void RemoveListener(Enum eid, Action<T> action)
+        public void RemoveListener(T eid, Action<T1> action)
         {
             GameEventDelegate gameEventDelegate;
             if (eventList.TryGetValue(eid, out gameEventDelegate))
@@ -303,7 +303,7 @@ namespace EFramework.Core
                 gameEventDelegate.Remove(action);
             }
         }
-        private void RemoveListener(Enum eid)
+        private void RemoveListener(T eid)
         {
             if (CheckHaveListener(eid))
             {
@@ -311,7 +311,7 @@ namespace EFramework.Core
             }
         }
 
-        public bool CheckHaveListener(Enum eid)
+        public bool CheckHaveListener(T eid)
         {
             GameEventDelegate eventDelegate;
             if (eventList.TryGetValue(eid, out eventDelegate))
@@ -325,7 +325,7 @@ namespace EFramework.Core
 
         private void RemoveListener(object listener)
         {
-            Dictionary<Enum, GameEventDelegate>.Enumerator tor = eventList.GetEnumerator();//返回实例的枚举数 就是返回集的中所有元素一个一个列出来
+            Dictionary<T, GameEventDelegate>.Enumerator tor = eventList.GetEnumerator();//返回实例的枚举数 就是返回集的中所有元素一个一个列出来
             while (tor.MoveNext())
             {
                 tor.Current.Value.Remove(listener);
@@ -336,17 +336,17 @@ namespace EFramework.Core
     /// <summary>
     /// T1 T2参数
     /// </summary>
-    public class EventAgent<T1, T2> : IEventAgent
+    public class EventAgent<T,T1, T2> : IEventAgent
     {
 
-        private static EventAgent<T1, T2> mInatance;
-        public static EventAgent<T1, T2> Instance
+        private static EventAgent<T,T1, T2> mInatance;
+        public static EventAgent<T,T1, T2> Instance
         {
             get
             {
                 if (mInatance == null)
                 {
-                    mInatance = new EventAgent<T1, T2>();
+                    mInatance = new EventAgent<T,T1, T2>();
                 }
                 return mInatance;
             }
@@ -433,13 +433,13 @@ namespace EFramework.Core
             }
         }
 
-        Dictionary<Enum, GameEventDelegate> eventList = new Dictionary<Enum, GameEventDelegate>();
+        Dictionary<T, GameEventDelegate> eventList = new Dictionary<T, GameEventDelegate>();
 
         private EventAgent()
         {
         }
 
-        public void AddListener(Enum eid, Action<T1, T2> action)
+        public void AddListener(T eid, Action<T1, T2> action)
         {
             GameEventDelegate gameEventDelegate;
             if (eventList.TryGetValue(eid, out gameEventDelegate) == false)
@@ -450,7 +450,7 @@ namespace EFramework.Core
             gameEventDelegate.Add(action);
         }
 
-        public void Invoke(Enum eid, T1 param1, T2 param2)
+        public void Invoke(T eid, T1 param1, T2 param2)
         {
             GameEventDelegate gameEventDelegate;
             if (eventList.TryGetValue(eid, out gameEventDelegate))
@@ -459,7 +459,7 @@ namespace EFramework.Core
             }
         }
 
-        public void RemoveListener(Enum eid, Action<T1, T2> action)
+        public void RemoveListener(T eid, Action<T1, T2> action)
         {
             GameEventDelegate gameEventDelegate;
             if (eventList.TryGetValue(eid, out gameEventDelegate))
@@ -467,7 +467,7 @@ namespace EFramework.Core
                 gameEventDelegate.Remove(action);
             }
         }
-        private void RemoveListener(Enum eid)
+        private void RemoveListener(T eid)
         {
             if (CheckHaveListener(eid))
             {
@@ -475,7 +475,7 @@ namespace EFramework.Core
             }
         }
 
-        public bool CheckHaveListener(Enum eid)
+        public bool CheckHaveListener(T eid)
         {
             GameEventDelegate eventDelegate;
             if (eventList.TryGetValue(eid, out eventDelegate))
@@ -489,7 +489,7 @@ namespace EFramework.Core
 
         private void RemoveListener(object listener)
         {
-            Dictionary<Enum, GameEventDelegate>.Enumerator tor = eventList.GetEnumerator();//返回实例的枚举数 就是返回集的中所有元素一个一个列出来
+            Dictionary<T, GameEventDelegate>.Enumerator tor = eventList.GetEnumerator();//返回实例的枚举数 就是返回集的中所有元素一个一个列出来
             while (tor.MoveNext())
             {
                 tor.Current.Value.Remove(listener);
@@ -500,17 +500,17 @@ namespace EFramework.Core
     /// <summary>
     /// T1 T2 T3参数
     /// </summary>
-    public class EventAgent<T1, T2, T3> : IEventAgent
+    public class EventAgent<T,T1, T2, T3> : IEventAgent
     {
 
-        private static EventAgent<T1, T2, T3> mInatance;
-        public static EventAgent<T1, T2, T3> Instance
+        private static EventAgent<T,T1, T2, T3> mInatance;
+        public static EventAgent<T,T1, T2, T3> Instance
         {
             get
             {
                 if (mInatance == null)
                 {
-                    mInatance = new EventAgent<T1, T2, T3>();
+                    mInatance = new EventAgent<T,T1, T2, T3>();
                 }
                 return mInatance;
             }
@@ -597,13 +597,13 @@ namespace EFramework.Core
             }
         }
 
-        Dictionary<Enum, GameEventDelegate> eventList = new Dictionary<Enum, GameEventDelegate>();
+        Dictionary<T, GameEventDelegate> eventList = new Dictionary<T, GameEventDelegate>();
 
         private EventAgent()
         {
         }
 
-        public void AddListener(Enum eid, Action<T1, T2, T3> action)
+        public void AddListener(T eid, Action<T1, T2, T3> action)
         {
             GameEventDelegate gameEventDelegate;
             if (eventList.TryGetValue(eid, out gameEventDelegate) == false)
@@ -614,7 +614,7 @@ namespace EFramework.Core
             gameEventDelegate.Add(action);
         }
 
-        public void Invoke(Enum eid, T1 param1, T2 param2, T3 param3)
+        public void Invoke(T eid, T1 param1, T2 param2, T3 param3)
         {
             GameEventDelegate gameEventDelegate;
             if (eventList.TryGetValue(eid, out gameEventDelegate))
@@ -623,7 +623,7 @@ namespace EFramework.Core
             }
         }
 
-        public void RemoveListener(Enum eid, Action<T1, T2, T3> action)
+        public void RemoveListener(T eid, Action<T1, T2, T3> action)
         {
             GameEventDelegate gameEventDelegate;
             if (eventList.TryGetValue(eid, out gameEventDelegate))
@@ -631,7 +631,7 @@ namespace EFramework.Core
                 gameEventDelegate.Remove(action);
             }
         }
-        private void RemoveListener(Enum eid)
+        private void RemoveListener(T eid)
         {
             if (CheckHaveListener(eid))
             {
@@ -639,7 +639,7 @@ namespace EFramework.Core
             }
         }
 
-        public bool CheckHaveListener(Enum eid)
+        public bool CheckHaveListener(T eid)
         {
             GameEventDelegate eventDelegate;
             if (eventList.TryGetValue(eid, out eventDelegate))
@@ -653,7 +653,7 @@ namespace EFramework.Core
 
         private void RemoveListener(object listener)
         {
-            Dictionary<Enum, GameEventDelegate>.Enumerator tor = eventList.GetEnumerator();//返回实例的枚举数 就是返回集的中所有元素一个一个列出来
+            Dictionary<T, GameEventDelegate>.Enumerator tor = eventList.GetEnumerator();//返回实例的枚举数 就是返回集的中所有元素一个一个列出来
             while (tor.MoveNext())
             {
                 tor.Current.Value.Remove(listener);
@@ -664,17 +664,17 @@ namespace EFramework.Core
     /// <summary>
     /// T1 T2 T3 T4参数
     /// </summary>
-    public class EventAgent<T1, T2, T3, T4> : IEventAgent
+    public class EventAgent<T,T1, T2, T3, T4> : IEventAgent
     {
 
-        private static EventAgent<T1, T2, T3, T4> mInatance;
-        public static EventAgent<T1, T2, T3, T4> Instance
+        private static EventAgent<T,T1, T2, T3, T4> mInatance;
+        public static EventAgent<T,T1, T2, T3, T4> Instance
         {
             get
             {
                 if (mInatance == null)
                 {
-                    mInatance = new EventAgent<T1, T2, T3, T4>();
+                    mInatance = new EventAgent<T,T1, T2, T3, T4>();
                 }
                 return mInatance;
             }
@@ -761,13 +761,13 @@ namespace EFramework.Core
             }
         }
 
-        Dictionary<Enum, GameEventDelegate> eventList = new Dictionary<Enum, GameEventDelegate>();
+        Dictionary<T, GameEventDelegate> eventList = new Dictionary<T, GameEventDelegate>();
 
         private EventAgent()
         {
         }
 
-        public void AddListener(Enum eid, Action<T1, T2, T3, T4> action)
+        public void AddListener(T eid, Action<T1, T2, T3, T4> action)
         {
             GameEventDelegate gameEventDelegate;
             if (eventList.TryGetValue(eid, out gameEventDelegate) == false)
@@ -778,7 +778,7 @@ namespace EFramework.Core
             gameEventDelegate.Add(action);
         }
 
-        public void Invoke(Enum eid, T1 param1, T2 param2, T3 param3, T4 param4)
+        public void Invoke(T eid, T1 param1, T2 param2, T3 param3, T4 param4)
         {
             GameEventDelegate gameEventDelegate;
             if (eventList.TryGetValue(eid, out gameEventDelegate))
@@ -787,7 +787,7 @@ namespace EFramework.Core
             }
         }
 
-        public void RemoveListener(Enum eid, Action<T1, T2, T3, T4> action)
+        public void RemoveListener(T eid, Action<T1, T2, T3, T4> action)
         {
             GameEventDelegate gameEventDelegate;
             if (eventList.TryGetValue(eid, out gameEventDelegate))
@@ -795,7 +795,7 @@ namespace EFramework.Core
                 gameEventDelegate.Remove(action);
             }
         }
-        private void RemoveListener(Enum eid)
+        private void RemoveListener(T eid)
         {
             if (CheckHaveListener(eid))
             {
@@ -803,7 +803,7 @@ namespace EFramework.Core
             }
         }
 
-        public bool CheckHaveListener(Enum eid)
+        public bool CheckHaveListener(T eid)
         {
             GameEventDelegate eventDelegate;
             if (eventList.TryGetValue(eid, out eventDelegate))
@@ -817,7 +817,7 @@ namespace EFramework.Core
 
         private void RemoveListener(object listener)
         {
-            Dictionary<Enum, GameEventDelegate>.Enumerator tor = eventList.GetEnumerator();//返回实例的枚举数 就是返回集的中所有元素一个一个列出来
+            Dictionary<T, GameEventDelegate>.Enumerator tor = eventList.GetEnumerator();//返回实例的枚举数 就是返回集的中所有元素一个一个列出来
             while (tor.MoveNext())
             {
                 tor.Current.Value.Remove(listener);

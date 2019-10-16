@@ -6,7 +6,6 @@ D:\Project\EFramework\EFrameworkTest\bin\Debug\netcoreapp2.1\EFrameworkTest.pdb
 D:\Project\EFramework\EFrameworkTest\bin\Debug\netcoreapp2.1\EFramework.Core.dll
 D:\Project\EFramework\EFrameworkTest\bin\Debug\netcoreapp2.1\EFramework.Core.pdb
 D:\Project\EFramework\EFrameworkTest\obj\Debug\netcoreapp2.1\EFrameworkTest.csprojAssemblyReference.cache
-D:\Project\EFramework\EFrameworkTest\obj\Debug\netcoreapp2.1\EFrameworkTest.csproj.CoreCompileInputs.cache
 D:\Project\EFramework\EFrameworkTest\obj\Debug\netcoreapp2.1\EFrameworkTest.AssemblyInfoInputs.cache
 D:\Project\EFramework\EFrameworkTest\obj\Debug\netcoreapp2.1\EFrameworkTest.AssemblyInfo.cs
 D:\Project\EFramework\EFrameworkTest\obj\Debug\netcoreapp2.1\EFrameworkTest.csproj.CopyComplete

@@ -8,23 +8,20 @@ namespace EFrameworkTest
         static void Main(string[] args)
         {
             TestEvent();
-            //NetEvent.Instance.Dispatch(1001, new Events());
+            
         }
 
         public static void TestEvent()
         {
-            //NetEvent.Instance.AddListener(1001, handler);
+            EventManager.AddListener("test", Handler);
+            EventManager.SendEvent("test");
         }
 
-        private static void handler(Events p)
+        private static void Handler()
         {
-            throw new NotImplementedException();
+            Debugger.Log("Test");
         }
 
-        private static void handler(string p)
-        {
-            Debugger.Log(p);
-        }
 
         public void TestDebug()
         {
