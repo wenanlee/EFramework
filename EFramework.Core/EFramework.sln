@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EFrameworkTest", "..\EFrame
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EFramework.Network", "..\EFramework.Network\EFramework.Network.csproj", "{9EFFC56D-3532-4F63-92FC-6650C934C810}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EFramework", "..\EFramework\EFramework.csproj", "{7019993C-03AC-4D17-93A3-AEF24FA81A5D}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,10 +27,6 @@ Global
 		{9EFFC56D-3532-4F63-92FC-6650C934C810}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9EFFC56D-3532-4F63-92FC-6650C934C810}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9EFFC56D-3532-4F63-92FC-6650C934C810}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7019993C-03AC-4D17-93A3-AEF24FA81A5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7019993C-03AC-4D17-93A3-AEF24FA81A5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7019993C-03AC-4D17-93A3-AEF24FA81A5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7019993C-03AC-4D17-93A3-AEF24FA81A5D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
