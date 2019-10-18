@@ -4,7 +4,7 @@ using System;
 using EFramework.Core;
 namespace EFramework.Core
 {
-    public class EventManager : Singleton<EventManager>
+    public class EventManager
     {
         private List<IEventAgent> gameEventAgentList = new List<IEventAgent>(30);//根据项目中的事件数量调整
 
@@ -12,6 +12,7 @@ namespace EFramework.Core
         {
             gameEventAgentList.Add(agent);
         }
+
         #region Enum
         //----------------------------------------无参--------------------------------------------
         public static void AddListener(Enum eid, Action action)

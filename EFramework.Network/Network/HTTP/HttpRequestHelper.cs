@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Text;
+using EFramework.Utility;
 /// <summary>
 ///HttpRequestHelper.HttpPostRequestAsync("http://api.ugmax.cn:8000/ugwpage/echo.php", "str=ddd&school=0", (string x)=> {Debug.Log(x);});
 /// </summary>
@@ -46,7 +47,7 @@ public static class HttpRequestHelper
         {
             strGetResponse = ex.Message;
         }
-        Log("reslut:" + strGetResponse);
+        Debuger.Log("reslut:" + strGetResponse);
         
     }
 
@@ -85,7 +86,7 @@ public static class HttpRequestHelper
             var postRequest = CreateHttpRequest(url, "POST", postData);
             var postResponse = await postRequest.GetResponseAsync() as HttpWebResponse;
             strPostReponse = GetHttpResponse(postResponse, "POST");
-            Debug.Log(strPostReponse.Length);
+            Debuger.Log(strPostReponse.Length.ToString());
         }
         catch (Exception ex)
         {
@@ -93,8 +94,8 @@ public static class HttpRequestHelper
         }
         if (strPostReponse != "true")
         {
-            Debug.Log("--> reslut : " + strPostReponse);
-            Debug.Log(postData);
+            Debuger.Log("--> reslut : " + strPostReponse);
+            Debuger.Log(postData);
         }
     }
     public static async void HttpPostRequestAsync(string url, string postData,Action<string> action)
@@ -105,7 +106,7 @@ public static class HttpRequestHelper
             var postRequest = CreateHttpRequest(url, "POST", postData);
             var postResponse = await postRequest.GetResponseAsync() as HttpWebResponse;
             strPostReponse = GetHttpResponse(postResponse, "POST");
-            Debug.Log(strPostReponse.Length);
+            Debuger.Log(strPostReponse.Length.ToString());
         }
         catch (Exception ex)
         {

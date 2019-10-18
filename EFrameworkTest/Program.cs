@@ -1,5 +1,6 @@
 ﻿using System;
 using EFramework.Core;
+using EFramework.Utility;
 
 namespace EFrameworkTest
 {
@@ -7,8 +8,12 @@ namespace EFrameworkTest
     {
         static void Main(string[] args)
         {
-            TestEvent();
-            
+            //TestEvent();
+            Student wenan = new Student();
+            wenan.id = 1001;
+            wenan.name = "Wenan";
+            Console.WriteLine();
+            //Debuger.Log("");
         }
 
         public static void TestEvent()
@@ -19,15 +24,21 @@ namespace EFrameworkTest
 
         private static void Handler()
         {
-            Debugger.Log("Test");
+            Debuger.Log("Test");
+
         }
 
 
         public void TestDebug()
         {
-            Debugger.Log("log");
-            Debugger.LogError("error");
-            Debugger.LogWarning("warning");
+            Debuger.Log("log");
+            Debuger.LogError("error");
+            Debuger.LogWarning("warning");
         }
+    }
+    public class Student
+    {
+        public int id;
+        public string name;
     }
 }

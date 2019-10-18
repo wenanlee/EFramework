@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System;
-
+using EFramework.Utility;
 
 namespace EFramework.Core
 {
@@ -75,7 +75,7 @@ namespace EFramework.Core
                     }
                     catch (Exception e)
                     {
-                        Debugger.LogError(e.Message);
+                        Debuger.LogError(e.Message);
                         //Console.WriteLine(e);
                         //Debug.Log(e);
                     }
@@ -239,7 +239,7 @@ namespace EFramework.Core
                     }
                     catch (Exception e)
                     {
-                        Debugger.LogError(e.Message);
+                        Debuger.LogError(e.Message);
                         //Console.WriteLine(e);
                         //Debug.Log(e);
                     }
@@ -403,7 +403,7 @@ namespace EFramework.Core
                     }
                     catch (Exception e)
                     {
-                        Debugger.LogError(e.Message);
+                        Debuger.LogError(e.Message);
                         //Console.WriteLine(e);
                         //Debug.Log(e);
                     }
@@ -567,7 +567,7 @@ namespace EFramework.Core
                     }
                     catch (Exception e)
                     {
-                        Debugger.LogError(e.Message);
+                        Debuger.LogError(e.Message);
                         //Console.WriteLine(e);
                         //Debug.Log(e);
                     }
@@ -731,7 +731,7 @@ namespace EFramework.Core
                     }
                     catch (Exception e)
                     {
-                        Debugger.LogError(e.Message);
+                        Debuger.LogError(e.Message);
                         //Console.WriteLine(e);
                         //Debug.Log(e);
                     }

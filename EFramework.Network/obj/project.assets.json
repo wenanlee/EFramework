@@ -207,9 +207,30 @@
         "build": {
           "build/netstandard2.0/NETStandard.Library.targets": {}
         }
+      },
+      "EFramework.Core/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.1",
+        "compile": {
+          "bin/placeholder/EFramework.Core.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/EFramework.Core.dll": {}
+        }
       }
     },
-    ".NETFramework,Version=v4.5": {}
+    ".NETFramework,Version=v4.5": {
+      "EFramework.Core/1.0.0": {
+        "type": "project",
+        "framework": ".NETFramework,Version=v4.5",
+        "compile": {
+          "bin/placeholder/EFramework.Core.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/EFramework.Core.dll": {}
+        }
+      }
+    }
   },
   "libraries": {
     "Microsoft.NETCore.App/2.1.0": {
@@ -681,13 +702,21 @@
         "netstandard.library.2.0.3.nupkg.sha512",
         "netstandard.library.nuspec"
       ]
+    },
+    "EFramework.Core/1.0.0": {
+      "type": "project",
+      "path": "../EFramework.Core/EFramework.Core.csproj",
+      "msbuildProject": "../EFramework.Core/EFramework.Core.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.1": [
+      "EFramework.Core >= 1.0.0",
       "Microsoft.NETCore.App >= 2.1.0"
     ],
-    ".NETFramework,Version=v4.5": []
+    ".NETFramework,Version=v4.5": [
+      "EFramework.Core >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "C:\\Users\\Wenan\\.nuget\\packages\\": {},
@@ -720,10 +749,18 @@
       },
       "frameworks": {
         "netcoreapp2.1": {
-          "projectReferences": {}
+          "projectReferences": {
+            "D:\\Project\\EFramework\\EFramework.Core\\EFramework.Core.csproj": {
+              "projectPath": "D:\\Project\\EFramework\\EFramework.Core\\EFramework.Core.csproj"
+            }
+          }
         },
         "net45": {
-          "projectReferences": {}
+          "projectReferences": {
+            "D:\\Project\\EFramework\\EFramework.Core\\EFramework.Core.csproj": {
+              "projectPath": "D:\\Project\\EFramework\\EFramework.Core\\EFramework.Core.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

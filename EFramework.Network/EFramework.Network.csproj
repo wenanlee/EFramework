@@ -4,4 +4,8 @@
    <TargetFrameworks>netcoreapp2.1;net45</TargetFrameworks>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\EFramework.Core\EFramework.Core.csproj" />
+  </ItemGroup>
+
 </Project>
