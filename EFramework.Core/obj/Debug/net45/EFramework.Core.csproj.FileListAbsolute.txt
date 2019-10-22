@@ -11,3 +11,4 @@ D:\Project\EFramework\EFramework.Core\obj\Debug\net45\EFramework.Core.AssemblyIn
 D:\Project\EFramework\EFramework.Core\obj\Debug\net45\EFramework.Core.AssemblyInfo.cs
 D:\Project\EFramework\EFramework.Core\obj\Debug\net45\EFramework.Core.dll
 D:\Project\EFramework\EFramework.Core\obj\Debug\net45\EFramework.Core.pdb
+D:\Project\EFramework\EFramework.Core\obj\Debug\net45\EFramework.Core.csprojAssemblyReference.cache

@@ -1,9 +1,11 @@
 D:\Project\EFramework\EFramework.Network\bin\Release\netcoreapp2.1\EFramework.Network.deps.json
 D:\Project\EFramework\EFramework.Network\bin\Release\netcoreapp2.1\EFramework.Network.dll
 D:\Project\EFramework\EFramework.Network\bin\Release\netcoreapp2.1\EFramework.Network.pdb
-D:\Project\EFramework\EFramework.Network\obj\Release\netcoreapp2.1\EFramework.Network.csproj.CoreCompileInputs.cache
 D:\Project\EFramework\EFramework.Network\obj\Release\netcoreapp2.1\EFramework.Network.AssemblyInfoInputs.cache
 D:\Project\EFramework\EFramework.Network\obj\Release\netcoreapp2.1\EFramework.Network.AssemblyInfo.cs
 D:\Project\EFramework\EFramework.Network\obj\Release\netcoreapp2.1\EFramework.Network.dll
 D:\Project\EFramework\EFramework.Network\obj\Release\netcoreapp2.1\EFramework.Network.pdb
 D:\Project\EFramework\EFramework.Network\obj\Release\netcoreapp2.1\EFramework.Network.csprojAssemblyReference.cache
+D:\Project\EFramework\EFramework.Network\bin\Release\netcoreapp2.1\EFramework.Core.dll
+D:\Project\EFramework\EFramework.Network\bin\Release\netcoreapp2.1\EFramework.Core.pdb
+D:\Project\EFramework\EFramework.Network\obj\Release\netcoreapp2.1\EFramework.Network.csproj.CopyComplete

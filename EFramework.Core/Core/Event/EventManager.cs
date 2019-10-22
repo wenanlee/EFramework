@@ -12,7 +12,7 @@ namespace EFramework.Core
         {
             gameEventAgentList.Add(agent);
         }
-
+        
         #region Enum
         //----------------------------------------无参--------------------------------------------
         public static void AddListener(Enum eid, Action action)
