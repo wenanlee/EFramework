@@ -564,11 +564,12 @@
       ]
     },
     "NETStandard.Library/2.0.3": {
-      "sha512": "YlIcWiDSNycT8I3ZT2SVTRE0SpFtq4SKFMTe+X0dTBW+S+yDQL/QBTfY24qaP2QX3UQWLi5YhgDA7D3jBCqEMw==",
+      "sha512": "st47PosZSHrjECdjeIzZQbzivYBJFv6P2nv4cj2ypdI204DO+vZ7l5raGMiX4eXMJ53RfOIg+/s4DHVZ54Nu2A==",
       "type": "package",
       "path": "netstandard.library/2.0.3",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "LICENSE.TXT",
         "THIRD-PARTY-NOTICES.TXT",
         "build/netstandard2.0/NETStandard.Library.targets",
@@ -704,8 +705,7 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Wenan\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\Wenan\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
@@ -716,9 +716,6 @@
       "packagesPath": "C:\\Users\\Wenan\\.nuget\\packages\\",
       "outputPath": "D:\\Project\\EFramework\\EFrameworkTest\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
         "C:\\Users\\Wenan\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
