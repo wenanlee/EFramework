@@ -25,3 +25,5 @@ C:\Users\Wenan\Desktop\新建文件夹\EFrameworkTest\obj\Debug\netcoreapp2.1\EF
 C:\Users\Wenan\Desktop\新建文件夹\EFrameworkTest\obj\Debug\netcoreapp2.1\EFrameworkTest.csproj.CopyComplete
 C:\Users\Wenan\Desktop\新建文件夹\EFrameworkTest\obj\Debug\netcoreapp2.1\EFrameworkTest.dll
 C:\Users\Wenan\Desktop\新建文件夹\EFrameworkTest\obj\Debug\netcoreapp2.1\EFrameworkTest.pdb
+D:\Project\EFramework\EFrameworkTest\bin\Debug\netcoreapp2.1\EFramework.Network.dll
+D:\Project\EFramework\EFrameworkTest\bin\Debug\netcoreapp2.1\EFramework.Network.pdb

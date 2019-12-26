@@ -210,12 +210,22 @@
       },
       "EFramework.Core/1.0.0": {
         "type": "project",
-        "framework": ".NETCoreApp,Version=v2.1",
+        "framework": ".NETFramework,Version=v4.5",
         "compile": {
           "bin/placeholder/EFramework.Core.dll": {}
         },
         "runtime": {
           "bin/placeholder/EFramework.Core.dll": {}
+        }
+      },
+      "EFramework.Network/1.0.0": {
+        "type": "project",
+        "framework": ".NETFramework,Version=v4.5",
+        "compile": {
+          "bin/placeholder/EFramework.Network.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/EFramework.Network.dll": {}
         }
       }
     }
@@ -696,11 +706,17 @@
       "type": "project",
       "path": "../EFramework.Core/EFramework.Core.csproj",
       "msbuildProject": "../EFramework.Core/EFramework.Core.csproj"
+    },
+    "EFramework.Network/1.0.0": {
+      "type": "project",
+      "path": "../EFramework.Network/EFramework.Network.csproj",
+      "msbuildProject": "../EFramework.Network/EFramework.Network.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.1": [
       "EFramework.Core >= 1.0.0",
+      "EFramework.Network >= 1.0.0",
       "Microsoft.NETCore.App >= 2.1.0"
     ]
   },
@@ -732,6 +748,9 @@
           "projectReferences": {
             "D:\\Project\\EFramework\\EFramework.Core\\EFramework.Core.csproj": {
               "projectPath": "D:\\Project\\EFramework\\EFramework.Core\\EFramework.Core.csproj"
+            },
+            "D:\\Project\\EFramework\\EFramework.Network\\EFramework.Network.csproj": {
+              "projectPath": "D:\\Project\\EFramework\\EFramework.Network\\EFramework.Network.csproj"
             }
           }
         }
@@ -762,7 +781,7 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100\\RuntimeIdentifierGraph.json"
       }
     }
   }

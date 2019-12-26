@@ -8,7 +8,8 @@
     ".NETCoreApp,Version=v2.1": {
       "EFrameworkTest/1.0.0": {
         "dependencies": {
-          "EFramework.Core": "1.0.0"
+          "EFramework.Core": "1.0.0",
+          "EFramework.Network": "1.0.0"
         },
         "runtime": {
           "EFrameworkTest.dll": {}
@@ -17,6 +18,11 @@
       "EFramework.Core/1.0.0": {
         "runtime": {
           "EFramework.Core.dll": {}
+        }
+      },
+      "EFramework.Network/1.0.0": {
+        "runtime": {
+          "EFramework.Network.dll": {}
         }
       }
     }
@@ -28,6 +34,11 @@
       "sha512": ""
     },
     "EFramework.Core/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "EFramework.Network/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
