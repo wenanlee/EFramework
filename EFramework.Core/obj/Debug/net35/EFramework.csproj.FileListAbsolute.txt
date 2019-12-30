@@ -1,8 +1,0 @@
-D:\Project\EFramework\EFramework\obj\Debug\net35\EFramework.csprojAssemblyReference.cache
-D:\Project\EFramework\EFramework\obj\Debug\net35\EFramework.csproj.CoreCompileInputs.cache
-D:\Project\EFramework\EFramework\obj\Debug\net35\EFramework.AssemblyInfoInputs.cache
-D:\Project\EFramework\EFramework\obj\Debug\net35\EFramework.AssemblyInfo.cs
-D:\Project\EFramework\EFramework\bin\Debug\net35\EFramework.Core.dll
-D:\Project\EFramework\EFramework\bin\Debug\net35\EFramework.Core.pdb
-D:\Project\EFramework\EFramework\obj\Debug\net35\EFramework.Core.dll
-D:\Project\EFramework\EFramework\obj\Debug\net35\EFramework.Core.pdb
