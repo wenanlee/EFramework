@@ -1,0 +1,15 @@
+<ui base="1024;768;1" nav="false">
+    <align side="top">
+        <image color="#1f1f1fee" size=",400" offset=",-200">
+            <scrollView name="logScroll" size=",400" contentSize="100%,400" clamp="true" onChange="DeveloperConsole">
+                <text name="logText" align="left,bottom" color="#90ff90"/>
+            </scrollView>
+        </image>
+        <input name="input" color="#ffffff" offset=",-424" size=",48" onChange="DeveloperConsole">Enter command here...</input>
+        <align side="right,top">
+            <button name="close" offset="-64,-424" size="128,48" onClick="DeveloperConsole">
+                <text color="#ff0000">Close</text>
+            </button>
+        </align>
+    </align>
+</ui>
