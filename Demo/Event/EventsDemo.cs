@@ -10,10 +10,10 @@ public class EventsDemo : MonoBehaviour
     public Signal<string, string> Login = new Signal<string, string>();
     private void Start()
     {
-        //Login.AddListener(Loginn);
         Login += Loginn;
         Login.InvokeSafe("wenan", "123321123");
-        
+
+       
     }
     private void Loginn(string name,string password)
     {

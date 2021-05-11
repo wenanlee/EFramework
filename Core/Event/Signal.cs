@@ -144,6 +144,11 @@ namespace EFramework.Core
         {
             return _methodCount;
         }
+
+        public Delegate[] GetInvokeList()
+        {
+            throw new NotImplementedException();
+        }
     }
 
 
@@ -363,6 +368,7 @@ namespace EFramework.Core
         public Signal()
         {
         }
+
     }
 
     public class Signal<T1, T2, T3> : SignalBase

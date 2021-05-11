@@ -8,13 +8,6 @@ namespace EFramework.Core
 {
     public class EventManager
     {
-        private List<IEventAgent> gameEventAgentList = new List<IEventAgent>(100);//根据项目中的事件数量调整
-
-        public void AddEventAgent(IEventAgent agent)
-        {
-            gameEventAgentList.Add(agent);
-        }
-        
         #region Enum
         //----------------------------------------无参--------------------------------------------
         public static void AddListener(Enum eid, Action action)

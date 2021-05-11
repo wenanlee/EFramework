@@ -8,7 +8,7 @@ namespace EFramework.Core
     /// 事件系统底层类
     /// </summary>
 
-    public class EventAgent<T> : IEventAgent
+    public class EventAgent<T>
     {
 
         private static EventAgent<T> inatance;
@@ -24,88 +24,7 @@ namespace EFramework.Core
             }
         }
 
-        private class GameEventDelegate
-        {
-            Action mAction;
-            bool needUpdate;
-            private Delegate[] delegateList;
-
-            public void Add(Action action)
-            {
-                mAction -= action;
-                mAction += action;
-                needUpdate = true;
-            }
-
-            public void Remove(Action action)
-            {
-                mAction -= action;
-                needUpdate = true;
-            }
-
-            public void Remove(object listener)
-            {
-                CheckUpdate();
-                if (delegateList == null)
-                    return;
-                for (int i = 0; i < delegateList.Length; i++)
-                {
-                    Delegate mDelegate = delegateList[i];
-                    if (mDelegate.Target == listener)
-                    {
-                        Remove(mDelegate as Action);
-                    }
-                }
-            }
-
-            public void Invoke()
-            {
-                if (mAction == null)
-                    return;
-                CheckUpdate();
-                if (delegateList == null)
-                    return;
-
-                for (int i = 0; i < delegateList.Length; i++)
-                {
-                    try
-                    {
-                        Action mDeleate = delegateList[i] as Action;
-                        mDeleate();
-                    }
-                    catch (Exception e)
-                    {
-                        Debug.LogError(e.Message);
-                        //Console.WriteLine(e);
-                        //Debug.Log(e);
-                    }
-                }
-            }
-
-            public Delegate[] GetInvokeList()
-            {
-                CheckUpdate();
-                return delegateList;
-            }
-
-            private void CheckUpdate()
-            {
-                if (needUpdate)
-                {
-                    needUpdate = false;
-                    if (mAction != null)
-                    {
-                        delegateList = mAction.GetInvocationList();//得到mAction链中所有方法并存入delegateList
-                    }
-                    else
-                    {
-                        delegateList = null;
-                    }
-                }
-            }
-        }
-
-        Dictionary<T, GameEventDelegate> eventList = new Dictionary<T, GameEventDelegate>();
+        Dictionary<T, Signal> eventList = new Dictionary<T, Signal>();
 
         private EventAgent()
         {
@@ -113,30 +32,30 @@ namespace EFramework.Core
 
         public void AddListener(T eid, Action action)
         {
-            GameEventDelegate gameEventDelegate;
-            if (eventList.TryGetValue(eid, out gameEventDelegate) == false)
+            Signal eventDelegate;
+            if (eventList.TryGetValue(eid, out eventDelegate) == false)
             {
-                gameEventDelegate = new GameEventDelegate();
-                eventList.Add(eid, gameEventDelegate);
+                eventDelegate = new Signal();
+                eventList.Add(eid, eventDelegate);
             }
-            gameEventDelegate.Add(action);
+            eventDelegate.AddListener(action);
         }
 
         public void Invoke(T eid)
         {
-            GameEventDelegate gameEventDelegate;
-            if (eventList.TryGetValue(eid, out gameEventDelegate))
+            Signal eventDelegate;
+            if (eventList.TryGetValue(eid, out eventDelegate))
             {
-                gameEventDelegate.Invoke();
+                eventDelegate.InvokeSafe();
             }
         }
 
         public void RemoveListener(T eid, Action action)
         {
-            GameEventDelegate gameEventDelegate;
-            if (eventList.TryGetValue(eid, out gameEventDelegate))
+            Signal eventDelegate;
+            if (eventList.TryGetValue(eid, out eventDelegate))
             {
-                gameEventDelegate.Remove(action);
+                eventDelegate.RemoveListener(action);
             }
         }
         private void RemoveListener(T eid)
@@ -149,7 +68,7 @@ namespace EFramework.Core
 
         public bool CheckHaveListener(T eid)
         {
-            GameEventDelegate eventDelegate;
+            Signal eventDelegate;
             if (eventList.TryGetValue(eid, out eventDelegate))
             {
                 Delegate[] delegateList = eventDelegate.GetInvokeList();
@@ -159,24 +78,20 @@ namespace EFramework.Core
             return false;
         }
 
-        private void RemoveListener(object listener)
+        private void RemoveListener(Action listener)
         {
-            Dictionary<T, GameEventDelegate>.Enumerator tor = eventList.GetEnumerator();//返回实例的枚举数 就是返回集的中所有元素一个一个列出来
+            Dictionary<T, Signal>.Enumerator tor = eventList.GetEnumerator();//返回实例的枚举数 就是返回集的中所有元素一个一个列出来
             while (tor.MoveNext())
             {
-                tor.Current.Value.Remove(listener);
+                tor.Current.Value.RemoveListener(listener);
             }
         }
     }
-
-    /// <summary>
-    /// T1参数
-    /// </summary>
-    public class EventAgent<T,T1> : IEventAgent
+    public class EventAgent<T, T1>
     {
 
-        private static EventAgent<T,T1> mInatance;
-        public static EventAgent<T,T1> Instance
+        private static EventAgent<T, T1> mInatance;
+        public static EventAgent<T, T1> Instance
         {
             get
             {
@@ -188,88 +103,8 @@ namespace EFramework.Core
             }
         }
 
-        private class GameEventDelegate
-        {
-            Action<T1> mAction;
-            bool needUpdate;
-            private Delegate[] delegateList;
 
-            public void Add(Action<T1> action)
-            {
-                mAction -= action;
-                mAction += action;
-                needUpdate = true;
-            }
-
-            public void Remove(Action<T1> action)
-            {
-                mAction -= action;
-                needUpdate = true;
-            }
-
-            public void Remove(object listener)
-            {
-                CheckUpdate();
-                if (delegateList == null)
-                    return;
-                for (int i = 0; i < delegateList.Length; i++)
-                {
-                    Delegate mDelegate = delegateList[i];
-                    if (mDelegate.Target == listener)
-                    {
-                        Remove(mDelegate as Action<T1>);
-                    }
-                }
-            }
-
-            public void Invoke(T1 param)
-            {
-                if (mAction == null)
-                    return;
-                CheckUpdate();
-                if (delegateList == null)
-                    return;
-
-                for (int i = 0; i < delegateList.Length; i++)
-                {
-                    try
-                    {
-                        Action<T1> mDeleate = delegateList[i] as Action<T1>;
-                        mDeleate(param);
-                    }
-                    catch (Exception e)
-                    {
-                        Debug.LogError(e.Message);
-                        //Console.WriteLine(e);
-                        //Debug.Log(e);
-                    }
-                }
-            }
-
-            public Delegate[] GetInvokeList()
-            {
-                CheckUpdate();
-                return delegateList;
-            }
-
-            private void CheckUpdate()
-            {
-                if (needUpdate)
-                {
-                    needUpdate = false;
-                    if (mAction != null)
-                    {
-                        delegateList = mAction.GetInvocationList();//得到mAction链中所有方法并存入delegateList
-                    }
-                    else
-                    {
-                        delegateList = null;
-                    }
-                }
-            }
-        }
-
-        Dictionary<T, GameEventDelegate> eventList = new Dictionary<T, GameEventDelegate>();
+        Dictionary<T, Signal<T1>> eventList = new Dictionary<T, Signal<T1>>();
 
         private EventAgent()
         {
@@ -277,30 +112,30 @@ namespace EFramework.Core
 
         public void AddListener(T eid, Action<T1> action)
         {
-            GameEventDelegate gameEventDelegate;
+            Signal<T1> gameEventDelegate;
             if (eventList.TryGetValue(eid, out gameEventDelegate) == false)
             {
-                gameEventDelegate = new GameEventDelegate();
+                gameEventDelegate = new Signal<T1>();
                 eventList.Add(eid, gameEventDelegate);
             }
-            gameEventDelegate.Add(action);
+            gameEventDelegate.AddListener(action);
         }
 
-        public void Invoke(T eid, T1 param)
+        public void Invoke(T eid, T1 param1)
         {
-            GameEventDelegate gameEventDelegate;
+            Signal<T1> gameEventDelegate;
             if (eventList.TryGetValue(eid, out gameEventDelegate))
             {
-                gameEventDelegate.Invoke(param);
+                gameEventDelegate.Invoke(param1);
             }
         }
 
         public void RemoveListener(T eid, Action<T1> action)
         {
-            GameEventDelegate gameEventDelegate;
+            Signal<T1> gameEventDelegate;
             if (eventList.TryGetValue(eid, out gameEventDelegate))
             {
-                gameEventDelegate.Remove(action);
+                gameEventDelegate.RemoveListener(action);
             }
         }
         private void RemoveListener(T eid)
@@ -313,7 +148,7 @@ namespace EFramework.Core
 
         public bool CheckHaveListener(T eid)
         {
-            GameEventDelegate eventDelegate;
+            Signal<T1> eventDelegate;
             if (eventList.TryGetValue(eid, out eventDelegate))
             {
                 Delegate[] delegateList = eventDelegate.GetInvokeList();
@@ -323,122 +158,33 @@ namespace EFramework.Core
             return false;
         }
 
-        private void RemoveListener(object listener)
+        private void RemoveListener(Action<T1> listener)
         {
-            Dictionary<T, GameEventDelegate>.Enumerator tor = eventList.GetEnumerator();//返回实例的枚举数 就是返回集的中所有元素一个一个列出来
+            Dictionary<T, Signal<T1>>.Enumerator tor = eventList.GetEnumerator();//返回实例的枚举数 就是返回集的中所有元素一个一个列出来
             while (tor.MoveNext())
             {
-                tor.Current.Value.Remove(listener);
+                tor.Current.Value.RemoveListener(listener);
             }
         }
-
-        internal void AddListener(EventAgent<string, string> login)
-        {
-            throw new NotImplementedException();
-        }
     }
-
-    /// <summary>
-    /// T1 T2参数
-    /// </summary>
-    public class EventAgent<T,T1, T2> : IEventAgent
+    public class EventAgent<T, T1, T2>
     {
 
-        private static EventAgent<T,T1, T2> mInatance;
-        public static EventAgent<T,T1, T2> Instance
+        private static EventAgent<T, T1, T2> mInatance;
+        public static EventAgent<T, T1, T2> Instance
         {
             get
             {
                 if (mInatance == null)
                 {
-                    mInatance = new EventAgent<T,T1, T2>();
+                    mInatance = new EventAgent<T, T1, T2>();
                 }
                 return mInatance;
             }
         }
 
-        private class GameEventDelegate
-        {
-            Action<T1, T2> mAction;
-            bool needUpdate;
-            private Delegate[] delegateList;
 
-            public void Add(Action<T1, T2> action)
-            {
-                mAction -= action;
-                mAction += action;
-                needUpdate = true;
-            }
-
-            public void Remove(Action<T1, T2> action)
-            {
-                mAction -= action;
-                needUpdate = true;
-            }
-
-            public void Remove(object listener)
-            {
-                CheckUpdate();
-                if (delegateList == null)
-                    return;
-                for (int i = 0; i < delegateList.Length; i++)
-                {
-                    Delegate mDelegate = delegateList[i];
-                    if (mDelegate.Target == listener)
-                    {
-                        Remove(mDelegate as Action<T1, T2>);
-                    }
-                }
-            }
-
-            public void Invoke(T1 param1, T2 param2)
-            {
-                if (mAction == null)
-                    return;
-                CheckUpdate();
-                if (delegateList == null)
-                    return;
-
-                for (int i = 0; i < delegateList.Length; i++)
-                {
-                    try
-                    {
-                        Action<T1, T2> mDeleate = delegateList[i] as Action<T1, T2>;
-                        mDeleate(param1, param2);
-                    }
-                    catch (Exception e)
-                    {
-                        Debug.LogError(e.Message);
-                        //Console.WriteLine(e);
-                        //Debug.Log(e);
-                    }
-                }
-            }
-
-            public Delegate[] GetInvokeList()
-            {
-                CheckUpdate();
-                return delegateList;
-            }
-
-            private void CheckUpdate()
-            {
-                if (needUpdate)
-                {
-                    needUpdate = false;
-                    if (mAction != null)
-                    {
-                        delegateList = mAction.GetInvocationList();//得到mAction链中所有方法并存入delegateList
-                    }
-                    else
-                    {
-                        delegateList = null;
-                    }
-                }
-            }
-        }
-
-        Dictionary<T, GameEventDelegate> eventList = new Dictionary<T, GameEventDelegate>();
+        Dictionary<T, Signal<T1, T2>> eventList = new Dictionary<T, Signal<T1, T2>>();
 
         private EventAgent()
         {
@@ -446,18 +192,18 @@ namespace EFramework.Core
 
         public void AddListener(T eid, Action<T1, T2> action)
         {
-            GameEventDelegate gameEventDelegate;
+            Signal<T1, T2> gameEventDelegate;
             if (eventList.TryGetValue(eid, out gameEventDelegate) == false)
             {
-                gameEventDelegate = new GameEventDelegate();
+                gameEventDelegate = new Signal<T1, T2>();
                 eventList.Add(eid, gameEventDelegate);
             }
-            gameEventDelegate.Add(action);
+            gameEventDelegate.AddListener(action);
         }
 
         public void Invoke(T eid, T1 param1, T2 param2)
         {
-            GameEventDelegate gameEventDelegate;
+            Signal<T1, T2> gameEventDelegate;
             if (eventList.TryGetValue(eid, out gameEventDelegate))
             {
                 gameEventDelegate.Invoke(param1, param2);
@@ -466,10 +212,10 @@ namespace EFramework.Core
 
         public void RemoveListener(T eid, Action<T1, T2> action)
         {
-            GameEventDelegate gameEventDelegate;
+            Signal<T1, T2> gameEventDelegate;
             if (eventList.TryGetValue(eid, out gameEventDelegate))
             {
-                gameEventDelegate.Remove(action);
+                gameEventDelegate.RemoveListener(action);
             }
         }
         private void RemoveListener(T eid)
@@ -482,7 +228,7 @@ namespace EFramework.Core
 
         public bool CheckHaveListener(T eid)
         {
-            GameEventDelegate eventDelegate;
+            Signal<T1, T2> eventDelegate;
             if (eventList.TryGetValue(eid, out eventDelegate))
             {
                 Delegate[] delegateList = eventDelegate.GetInvokeList();
@@ -492,117 +238,34 @@ namespace EFramework.Core
             return false;
         }
 
-        private void RemoveListener(object listener)
+        private void RemoveListener(Action<T1, T2> listener)
         {
-            Dictionary<T, GameEventDelegate>.Enumerator tor = eventList.GetEnumerator();//返回实例的枚举数 就是返回集的中所有元素一个一个列出来
+            Dictionary<T, Signal<T1, T2>>.Enumerator tor = eventList.GetEnumerator();//返回实例的枚举数 就是返回集的中所有元素一个一个列出来
             while (tor.MoveNext())
             {
-                tor.Current.Value.Remove(listener);
+                tor.Current.Value.RemoveListener(listener);
             }
         }
     }
 
-    /// <summary>
-    /// T1 T2 T3参数
-    /// </summary>
-    public class EventAgent<T,T1, T2, T3> : IEventAgent
+    public class EventAgent<T, T1, T2, T3>
     {
 
-        private static EventAgent<T,T1, T2, T3> mInatance;
-        public static EventAgent<T,T1, T2, T3> Instance
+        private static EventAgent<T, T1, T2, T3> mInatance;
+        public static EventAgent<T, T1, T2, T3> Instance
         {
             get
             {
                 if (mInatance == null)
                 {
-                    mInatance = new EventAgent<T,T1, T2, T3>();
+                    mInatance = new EventAgent<T, T1, T2, T3>();
                 }
                 return mInatance;
             }
         }
 
-        private class GameEventDelegate
-        {
-            Action<T1, T2, T3> mAction;
-            bool needUpdate;
-            private Delegate[] delegateList;
 
-            public void Add(Action<T1, T2, T3> action)
-            {
-                mAction -= action;
-                mAction += action;
-                needUpdate = true;
-            }
-
-            public void Remove(Action<T1, T2, T3> action)
-            {
-                mAction -= action;
-                needUpdate = true;
-            }
-
-            public void Remove(object listener)
-            {
-                CheckUpdate();
-                if (delegateList == null)
-                    return;
-                for (int i = 0; i < delegateList.Length; i++)
-                {
-                    Delegate mDelegate = delegateList[i];
-                    if (mDelegate.Target == listener)
-                    {
-                        Remove(mDelegate as Action<T1, T2, T3>);
-                    }
-                }
-            }
-
-            public void Invoke(T1 param1, T2 param2, T3 param3)
-            {
-                if (mAction == null)
-                    return;
-                CheckUpdate();
-                if (delegateList == null)
-                    return;
-
-                for (int i = 0; i < delegateList.Length; i++)
-                {
-                    try
-                    {
-                        Action<T1, T2, T3> mDeleate = delegateList[i] as Action<T1, T2, T3>;
-                        mDeleate(param1, param2, param3);
-                    }
-                    catch (Exception e)
-                    {
-                        Debug.LogError(e.Message);
-                        //Console.WriteLine(e);
-                        //Debug.Log(e);
-                    }
-                }
-            }
-
-            public Delegate[] GetInvokeList()
-            {
-                CheckUpdate();
-                return delegateList;
-            }
-
-            private void CheckUpdate()
-            {
-                if (needUpdate)
-                {
-                    needUpdate = false;
-                    if (mAction != null)
-                    {
-                        delegateList = mAction.GetInvocationList();//得到mAction链中所有方法并存入delegateList
-                    }
-                    else
-                    {
-                        delegateList = null;
-                    }
-                }
-            }
-        }
-
-        Dictionary<T, GameEventDelegate> eventList = new Dictionary<T, GameEventDelegate>();
+        Dictionary<T, Signal<T1, T2, T3>> eventList = new Dictionary<T, Signal<T1, T2, T3>>();
 
         private EventAgent()
         {
@@ -610,18 +273,18 @@ namespace EFramework.Core
 
         public void AddListener(T eid, Action<T1, T2, T3> action)
         {
-            GameEventDelegate gameEventDelegate;
+            Signal<T1, T2, T3> gameEventDelegate;
             if (eventList.TryGetValue(eid, out gameEventDelegate) == false)
             {
-                gameEventDelegate = new GameEventDelegate();
+                gameEventDelegate = new Signal<T1, T2, T3>();
                 eventList.Add(eid, gameEventDelegate);
             }
-            gameEventDelegate.Add(action);
+            gameEventDelegate.AddListener(action);
         }
 
         public void Invoke(T eid, T1 param1, T2 param2, T3 param3)
         {
-            GameEventDelegate gameEventDelegate;
+            Signal<T1, T2, T3> gameEventDelegate;
             if (eventList.TryGetValue(eid, out gameEventDelegate))
             {
                 gameEventDelegate.Invoke(param1, param2, param3);
@@ -630,10 +293,10 @@ namespace EFramework.Core
 
         public void RemoveListener(T eid, Action<T1, T2, T3> action)
         {
-            GameEventDelegate gameEventDelegate;
+            Signal<T1, T2, T3> gameEventDelegate;
             if (eventList.TryGetValue(eid, out gameEventDelegate))
             {
-                gameEventDelegate.Remove(action);
+                gameEventDelegate.RemoveListener(action);
             }
         }
         private void RemoveListener(T eid)
@@ -646,7 +309,7 @@ namespace EFramework.Core
 
         public bool CheckHaveListener(T eid)
         {
-            GameEventDelegate eventDelegate;
+            Signal<T1, T2, T3> eventDelegate;
             if (eventList.TryGetValue(eid, out eventDelegate))
             {
                 Delegate[] delegateList = eventDelegate.GetInvokeList();
@@ -656,117 +319,34 @@ namespace EFramework.Core
             return false;
         }
 
-        private void RemoveListener(object listener)
+        private void RemoveListener(Action<T1, T2, T3> listener)
         {
-            Dictionary<T, GameEventDelegate>.Enumerator tor = eventList.GetEnumerator();//返回实例的枚举数 就是返回集的中所有元素一个一个列出来
+            Dictionary<T, Signal<T1, T2, T3>>.Enumerator tor = eventList.GetEnumerator();//返回实例的枚举数 就是返回集的中所有元素一个一个列出来
             while (tor.MoveNext())
             {
-                tor.Current.Value.Remove(listener);
+                tor.Current.Value.RemoveListener(listener);
             }
         }
     }
 
-    /// <summary>
-    /// T1 T2 T3 T4参数
-    /// </summary>
-    public class EventAgent<T,T1, T2, T3, T4> : IEventAgent
+    public class EventAgent<T, T1, T2, T3, T4>
     {
 
-        private static EventAgent<T,T1, T2, T3, T4> mInatance;
-        public static EventAgent<T,T1, T2, T3, T4> Instance
+        private static EventAgent<T, T1, T2, T3, T4> mInatance;
+        public static EventAgent<T, T1, T2, T3, T4> Instance
         {
             get
             {
                 if (mInatance == null)
                 {
-                    mInatance = new EventAgent<T,T1, T2, T3, T4>();
+                    mInatance = new EventAgent<T, T1, T2, T3, T4>();
                 }
                 return mInatance;
             }
         }
 
-        private class GameEventDelegate
-        {
-            Action<T1, T2, T3, T4> mAction;
-            bool needUpdate;
-            private Delegate[] delegateList;
 
-            public void Add(Action<T1, T2, T3, T4> action)
-            {
-                mAction -= action;
-                mAction += action;
-                needUpdate = true;
-            }
-
-            public void Remove(Action<T1, T2, T3, T4> action)
-            {
-                mAction -= action;
-                needUpdate = true;
-            }
-
-            public void Remove(object listener)
-            {
-                CheckUpdate();
-                if (delegateList == null)
-                    return;
-                for (int i = 0; i < delegateList.Length; i++)
-                {
-                    Delegate mDelegate = delegateList[i];
-                    if (mDelegate.Target == listener)
-                    {
-                        Remove(mDelegate as Action<T1, T2, T3, T4>);
-                    }
-                }
-            }
-
-            public void Invoke(T1 param1, T2 param2, T3 param3, T4 param4)
-            {
-                if (mAction == null)
-                    return;
-                CheckUpdate();
-                if (delegateList == null)
-                    return;
-
-                for (int i = 0; i < delegateList.Length; i++)
-                {
-                    try
-                    {
-                        Action<T1, T2, T3, T4> mDeleate = delegateList[i] as Action<T1, T2, T3, T4>;
-                        mDeleate(param1, param2, param3, param4);
-                    }
-                    catch (Exception e)
-                    {
-                        Debug.LogError(e.Message);
-                        //Console.WriteLine(e);
-                        //Debug.Log(e);
-                    }
-                }
-            }
-
-            public Delegate[] GetInvokeList()
-            {
-                CheckUpdate();
-                return delegateList;
-            }
-
-            private void CheckUpdate()
-            {
-                if (needUpdate)
-                {
-                    needUpdate = false;
-                    if (mAction != null)
-                    {
-                        delegateList = mAction.GetInvocationList();//得到mAction链中所有方法并存入delegateList
-                    }
-                    else
-                    {
-                        delegateList = null;
-                    }
-                }
-            }
-        }
-
-        Dictionary<T, GameEventDelegate> eventList = new Dictionary<T, GameEventDelegate>();
+        Dictionary<T, Signal<T1, T2, T3, T4>> eventList = new Dictionary<T, Signal<T1, T2, T3, T4>>();
 
         private EventAgent()
         {
@@ -774,18 +354,18 @@ namespace EFramework.Core
 
         public void AddListener(T eid, Action<T1, T2, T3, T4> action)
         {
-            GameEventDelegate gameEventDelegate;
+            Signal<T1, T2, T3, T4> gameEventDelegate;
             if (eventList.TryGetValue(eid, out gameEventDelegate) == false)
             {
-                gameEventDelegate = new GameEventDelegate();
+                gameEventDelegate = new Signal<T1, T2, T3, T4>();
                 eventList.Add(eid, gameEventDelegate);
             }
-            gameEventDelegate.Add(action);
+            gameEventDelegate.AddListener(action);
         }
 
         public void Invoke(T eid, T1 param1, T2 param2, T3 param3, T4 param4)
         {
-            GameEventDelegate gameEventDelegate;
+            Signal<T1, T2, T3, T4> gameEventDelegate;
             if (eventList.TryGetValue(eid, out gameEventDelegate))
             {
                 gameEventDelegate.Invoke(param1, param2, param3, param4);
@@ -794,10 +374,10 @@ namespace EFramework.Core
 
         public void RemoveListener(T eid, Action<T1, T2, T3, T4> action)
         {
-            GameEventDelegate gameEventDelegate;
+            Signal<T1, T2, T3, T4> gameEventDelegate;
             if (eventList.TryGetValue(eid, out gameEventDelegate))
             {
-                gameEventDelegate.Remove(action);
+                gameEventDelegate.RemoveListener(action);
             }
         }
         private void RemoveListener(T eid)
@@ -810,7 +390,7 @@ namespace EFramework.Core
 
         public bool CheckHaveListener(T eid)
         {
-            GameEventDelegate eventDelegate;
+            Signal<T1, T2, T3, T4> eventDelegate;
             if (eventList.TryGetValue(eid, out eventDelegate))
             {
                 Delegate[] delegateList = eventDelegate.GetInvokeList();
@@ -820,12 +400,12 @@ namespace EFramework.Core
             return false;
         }
 
-        private void RemoveListener(object listener)
+        private void RemoveListener(Action<T1, T2, T3, T4> listener)
         {
-            Dictionary<T, GameEventDelegate>.Enumerator tor = eventList.GetEnumerator();//返回实例的枚举数 就是返回集的中所有元素一个一个列出来
+            Dictionary<T, Signal<T1, T2, T3, T4>>.Enumerator tor = eventList.GetEnumerator();//返回实例的枚举数 就是返回集的中所有元素一个一个列出来
             while (tor.MoveNext())
             {
-                tor.Current.Value.Remove(listener);
+                tor.Current.Value.RemoveListener(listener);
             }
         }
     }
