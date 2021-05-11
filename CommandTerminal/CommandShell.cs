@@ -3,6 +3,7 @@ using System.Reflection;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using EFramework.Core;
 
 namespace CommandTerminal
 {
@@ -219,8 +220,8 @@ namespace CommandTerminal
 
                 return;
             }
-
-            command.proc(arguments);
+            EventManager.SendEvent(command_name, arguments);
+            //command.proc(arguments);
         }
 
         public void AddCommand(string name, CommandInfo info) {
@@ -231,6 +232,7 @@ namespace CommandTerminal
                 return;
             }
             commands.Add(name, info);
+            EventManager.AddListener(name,info.proc);
         }
 
         public void AddCommand(string name, Action<CommandArg[]> proc, int min_args = 0, int max_args = -1, string help = "", string hint = null) {

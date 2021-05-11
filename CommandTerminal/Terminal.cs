@@ -73,6 +73,7 @@ namespace CommandTerminal
         public static CommandHistory History { get; private set; }
         public static CommandAutocomplete Autocomplete { get; private set; }
 
+        //public static EFramework.Core.Signal<CommandArg[]> commandEvents = new EFramework.Core.Signal<CommandArg[]>();
         public static bool IssuedError {
             get { return Shell.IssuedErrorMessage != null; }
         }
