@@ -7,7 +7,8 @@ public class Car : MonoBehaviour
 {
     void Start()
     {
-        Terminal.Shell.AddCommand("test", Test, 0, 1, "测试非静态", "提示");
+        Terminal.Shell.AddCommand("set.car", Test, 0, 1, "测试非静态", "提示");
+        Terminal.Shell.AddCommand("set.car", Test1, 0, 1, "测试非静态", "提示");
         //自动补全
         Terminal.Autocomplete.Register("test");
     }
@@ -32,8 +33,12 @@ public class Car : MonoBehaviour
                 break;
         }
     }
+    public void Test1(CommandArg[] args)
+    {
+        Debug.Log(name+"1");
+    }
     public void Test(CommandArg[] args)
     {
-        Terminal.Log(name);
+        Debug.Log(name);
     }
 }
