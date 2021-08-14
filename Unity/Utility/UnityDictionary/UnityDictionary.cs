@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using UnityEngine;
+
 [System.Serializable]
 public class UnityDictionary<K,V>
 {
@@ -25,6 +27,12 @@ public class UnityDictionary<K,V>
     public void Remove(K k)
     {
         cache.Remove(k);
+        for (int i = 0; i < dict.Count; i++)
+        {
+            if(dict[i].key.Equals(k))
+                dict.Remove(dict[i]);
+        }
+        
     }
     [System.Serializable]
     public class Dict
