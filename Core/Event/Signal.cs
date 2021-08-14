@@ -112,7 +112,7 @@ namespace EFramework.Core
 
         protected void RemoveListener(Delegate del)
         {
-            int j = 0;
+            //int j = 0;
             int c = _methodCount;
             for (int i = 0; i < c; i++)
             {
@@ -214,7 +214,7 @@ namespace EFramework.Core
             }
             catch (Exception e)
             {
-                Debuger.LogError(e);
+                Debug.LogError(e);
             }
         }
 
@@ -284,7 +284,7 @@ namespace EFramework.Core
             }
             catch (Exception e)
             {
-                Debuger.LogError(e);
+                Debug.LogError(e);
             }
         }
 
@@ -357,7 +357,7 @@ namespace EFramework.Core
             }
             catch (Exception e)
             {
-                Debuger.LogError(e);
+                Debug.LogError(e);
             }
         }
 
@@ -426,7 +426,7 @@ namespace EFramework.Core
             }
             catch (Exception e)
             {
-                Debuger.LogError(e);
+                Debug.LogError(e);
             }
 
         }
@@ -494,7 +494,7 @@ namespace EFramework.Core
             }
             catch (Exception e)
             {
-                Debuger.LogError(e);
+                Debug.LogError(e);
             }
         }
 

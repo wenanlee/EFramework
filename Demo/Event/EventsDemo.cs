@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static EFramework.Core.Events;
-using EFramework.Tweening;
 
 public class EventsDemo : MonoBehaviour
 {
@@ -18,6 +17,5 @@ public class EventsDemo : MonoBehaviour
     private void Loginn(string name, string password)
     {
         Debug.Log(name + "   " + password);
-        TweeningRotate.Begin(gameObject, Vector3.zero, Vector3.up * 360, 10);
     }
 }
