@@ -10,7 +10,6 @@ namespace EFramework.Core
 
     public class EventAgent<T>
     {
-
         private static EventAgent<T> inatance;
         public static EventAgent<T> Instance
         {
@@ -81,6 +80,115 @@ namespace EFramework.Core
         private void RemoveListener(Action listener)
         {
             Dictionary<T, Signal>.Enumerator tor = eventList.GetEnumerator();//返回实例的枚举数 就是返回集的中所有元素一个一个列出来
+            while (tor.MoveNext())
+            {
+                tor.Current.Value.RemoveListener(listener);
+            }
+        }
+    }
+
+    public class EventAgentDelegate<T>
+    {
+        private static EventAgentDelegate<T> inatance;
+        public static EventAgentDelegate<T> Instance
+        {
+            get
+            {
+                if (inatance == null)
+                {
+                    inatance = new EventAgentDelegate<T>();
+                }
+                return inatance;
+            }
+        }
+
+        Dictionary<T, SignalDelegate> eventList = new Dictionary<T, SignalDelegate>();
+
+        private EventAgentDelegate()
+        {
+        }
+
+        public void AddListener(T eid, Delegate action)
+        {
+            SignalDelegate eventDelegate;
+            if (eventList.TryGetValue(eid, out eventDelegate) == false)
+            {
+                eventDelegate = new SignalDelegate();
+                eventList.Add(eid, eventDelegate);
+            }
+            eventDelegate.AddListener(action, false);
+        }
+        public void Invoke(T eid)
+        {
+            SignalDelegate eventDelegate;
+            if (eventList.TryGetValue(eid, out eventDelegate))
+            {
+                eventDelegate.Invoke();
+            }
+        }
+        public void Invoke<T1>(T eid, T1 t1)
+        {
+            SignalDelegate eventDelegate;
+            if (eventList.TryGetValue(eid, out eventDelegate))
+            {
+                eventDelegate.Invoke(t1);
+            }
+        }
+        public void Invoke<T1, T2>(T eid, T1 t1, T2 t2)
+        {
+            SignalDelegate eventDelegate;
+            if (eventList.TryGetValue(eid, out eventDelegate))
+            {
+                eventDelegate.Invoke(t1, t2);
+            }
+        }
+        public void Invoke<T1, T2, T3>(T eid, T1 t1, T2 t2, T3 t3)
+        {
+            SignalDelegate eventDelegate;
+            if (eventList.TryGetValue(eid, out eventDelegate))
+            {
+                eventDelegate.Invoke(t1, t2, t3);
+            }
+        }
+        public void Invoke<T1, T2, T3, T4>(T eid, T1 t1, T2 t2, T3 t3, T4 t4)
+        {
+            SignalDelegate eventDelegate;
+            if (eventList.TryGetValue(eid, out eventDelegate))
+            {
+                eventDelegate.Invoke(t1, t2, t3, t4);
+            }
+        }
+        public void RemoveListener(T eid, Delegate action)
+        {
+            SignalDelegate eventDelegate;
+            if (eventList.TryGetValue(eid, out eventDelegate))
+            {
+                eventDelegate.RemoveListener(action);
+            }
+        }
+        private void RemoveListener(T eid)
+        {
+            if (CheckHaveListener(eid))
+            {
+                eventList.Remove(eid);
+            }
+        }
+
+        public bool CheckHaveListener(T eid)
+        {
+            SignalDelegate eventDelegate;
+            if (eventList.TryGetValue(eid, out eventDelegate))
+            {
+                Delegate[] delegateList = eventDelegate.GetInvokeList();
+                if (delegateList != null && delegateList.Length > 0)
+                    return true;
+            }
+            return false;
+        }
+
+        private void RemoveListener(Delegate listener)
+        {
+            Dictionary<T, SignalDelegate>.Enumerator tor = eventList.GetEnumerator();//返回实例的枚举数 就是返回集的中所有元素一个一个列出来
             while (tor.MoveNext())
             {
                 tor.Current.Value.RemoveListener(listener);

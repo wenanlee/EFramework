@@ -48,7 +48,7 @@ namespace EFramework.Core
             _methodCount = 0;
         }
 
-        protected void AddListener(Delegate del, bool bInsertAtFirst)
+        public void AddListener(Delegate del, bool bInsertAtFirst)
         {
             if (bInsertAtFirst)
             {
@@ -110,7 +110,7 @@ namespace EFramework.Core
 
         }
 
-        protected void RemoveListener(Delegate del)
+        public void RemoveListener(Delegate del)
         {
             //int j = 0;
             int c = _methodCount;
@@ -151,6 +151,142 @@ namespace EFramework.Core
         }
     }
 
+    public class SignalDelegate : SignalBase
+    {
+        public static SignalDelegate operator +(SignalDelegate p1, Delegate p2)
+        {
+            p1.AddListener(p2, false);
+            return p1;
+        }
+
+        public static SignalDelegate operator -(SignalDelegate p1, Delegate p2)
+        {
+            p1.RemoveListener(p2);
+            return p1;
+        }
+        public void Invoke()
+        {
+            int c = _methodCount;
+            for (int i = 0; i < c; i++)
+            {
+                var item = _methods[i];
+                if (item == null)
+                    continue;
+                var action = item as Action;
+                action();
+            }
+        }
+        public void Invoke<T0>(T0 t0)
+        {
+            int c = _methodCount;
+            for (int i = 0; i < c; i++)
+            {
+                var item = _methods[i];
+                if (item == null)
+                    continue;
+                var action = item as Action<T0>;
+                action(t0);
+            }
+        }
+        public void Invoke<T0, T1>(T0 t0, T1 t1)
+        {
+            int c = _methodCount;
+            for (int i = 0; i < c; i++)
+            {
+                var item = _methods[i];
+                if (item == null)
+                    continue;
+                var action = item as Action<T0, T1>;
+                action(t0, t1);
+            }
+        }
+        public void Invoke<T0, T1, T2>(T0 t0, T1 t1, T2 t2)
+        {
+            int c = _methodCount;
+            for (int i = 0; i < c; i++)
+            {
+                var item = _methods[i];
+                if (item == null)
+                    continue;
+                var action = item as Action<T0, T1, T2>;
+                action(t0, t1, t2);
+            }
+        }
+        public void Invoke<T0, T1, T2, T3>(T0 t0, T1 t1, T2 t2, T3 t3)
+        {
+            int c = _methodCount;
+            for (int i = 0; i < c; i++)
+            {
+                var item = _methods[i];
+                if (item == null)
+                    continue;
+                var action = item as Action<T0, T1, T2, T3>;
+                action(t0, t1, t2, t3);
+            }
+        }
+        public void InvokeSafe()
+        {
+            try
+            {
+                Invoke();
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(e);
+            }
+        }
+        public void InvokeSafe<T0>(T0 t0)
+        {
+            try
+            {
+                Invoke(t0);
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(e);
+            }
+        }
+        public void InvokeSafe<T0, T1>(T0 t0, T1 t1)
+        {
+            try
+            {
+                Invoke(t0, t1);
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(e);
+            }
+        }
+        public void InvokeSafe<T0, T1, T2>(T0 t0, T1 t1, T2 t2)
+        {
+            try
+            {
+                Invoke(t0, t1, t2);
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(e);
+            }
+        }
+        public void InvokeSafe<T0, T1, T2, T3>(T0 t0, T1 t1, T2 t2, T3 t3)
+        {
+            try
+            {
+                Invoke(t0, t1, t2, t3);
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(e);
+            }
+        }
+        public SignalDelegate(int capacity) : base(capacity)
+        {
+        }
+
+        public SignalDelegate()
+        {
+        }
+    }
 
     /// <summary>
     /// 尽管Signal的实现已经具备很高性能
@@ -226,7 +362,6 @@ namespace EFramework.Core
         {
         }
     }
-
 
     public class Signal<T> : SignalBase
     {
@@ -409,7 +544,6 @@ namespace EFramework.Core
             }
 
         }
-
         public void InvokeSafe(T1 t1, T2 t2, T3 t3)
         {
             try
@@ -505,6 +639,6 @@ namespace EFramework.Core
         public Signal()
         {
         }
-        
+
     }
 }
