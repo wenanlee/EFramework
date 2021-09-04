@@ -27,12 +27,12 @@ public class TestCommand : MonoBehaviour
     {
         Debug.Log("Test2" + a);
     }
-    [RegisterCommand]
+    //[RegisterCommand]
     public void Test3(int a)
     {
         Debug.Log("Test3" + a);
     }
-    [RegisterCommand(command: "Test4")]
+    //[RegisterCommand(command: "Test4")]
     public void Test4(int a)
     {
         Debug.Log("Test4" + a);

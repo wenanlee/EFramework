@@ -9,6 +9,7 @@ namespace EFramework.Core
 
         private string m_command;
         private string m_description;
+        private object m_instance;
         private string[] m_parameterNames;
 
         public string Command { get {return m_command; }set { m_command = value; } }

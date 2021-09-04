@@ -7,44 +7,52 @@ using UnityEngine;
 
 public class CommandManager : MonoBehaviour
 {
+    public bool enabledLog = false;
     private void Start()
     {
         RegisterCommands();
+        //Debug.Log("<<<< "+Assembly.Load("Assembly-CSharp").GetName()+"  "+Assembly.GetCallingAssembly().GetName());
     }
     public void RegisterCommands()
     {
         var method_flags = BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
 
-        foreach (var type in Assembly.GetExecutingAssembly().GetTypes())
+        foreach (var type in Assembly.Load("Assembly-CSharp").GetTypes())
         {
+            //Debug.Log(type.Name);
+            //Debug.LogError((GameObject.FindObjectsOfType(type)[0].name));
             foreach (var method in type.GetMethods(method_flags))
             {
-                var attribute = Attribute.GetCustomAttribute(
-                    method, typeof(RegisterCommandAttribute)) as RegisterCommandAttribute;
-
+                var attribute = Attribute.GetCustomAttribute(method, typeof(RegisterCommandAttribute), false) as RegisterCommandAttribute;
                 if (attribute == null)
                 {
-                    if (method.Name.StartsWith("FRONTCOMMAND", StringComparison.CurrentCultureIgnoreCase))
-                    {
-                        attribute = new RegisterCommandAttribute();
-                    }
-                    else
-                    {
-                        continue;
-                    }
+                    continue;
+                    //if (method.Name.StartsWith("FRONTCOMMAND", StringComparison.CurrentCultureIgnoreCase))
+                    //{
+                    //    attribute = new RegisterCommandAttribute();
+                    //}
+                    //else
+                    //{
+                    //    continue;
+                    //}
                 }
-
                 if (string.IsNullOrEmpty(attribute.Command))
-                    attribute.Command = type.Name +"."+ method.Name;
+                    attribute.Command = type.Name + "." + method.Name;
+                foreach (UnityEngine.Object go in FindObjectsOfType(type))
+                {
+                    //if (enabledLog)
+                        Debug.Log((">>> Ìí¼Ó¶©ÔÄ: " + attribute.Command).ToColor(Color.red)+"  From: "+go.name);
+                    AddCommand(attribute.Command, attribute.Description, go, method, attribute.ParameterNames);
+                }
                 //if(attribute.Description==string.Empty)
                 //    attribute.Description = method.
-                AddCommand(attribute.Command, attribute.Description, method, attribute.ParameterNames);
+
 
             }
         }
     }
 
-    private static void AddCommand(string command, string description, MethodInfo method, string[] parameterNames)
+    private static void AddCommand(string command, string description, UnityEngine.Object targetComponent, MethodInfo method, string[] parameterNames)
     {
         if (string.IsNullOrEmpty(command))
         {
@@ -73,9 +81,9 @@ public class CommandManager : MonoBehaviour
             parameterTypes[i] = parameters[i].ParameterType;
         }
         //Debug.Log(command + "    " + parameterTypes.Length + "    " + parameterTypes[0].Name);
-        EventAgentDelegate<string>.Instance.AddListener(command, GetActionDelegate(method, null, parameterTypes));
+        EventAgentDelegate<string>.Instance.AddListener(command, GetActionDelegate(method, targetComponent, parameterTypes));
     }
-    private static Delegate GetActionDelegate(MethodInfo methodInfo, Component targetComponent, Type[] parameterTypes)
+    private static Delegate GetActionDelegate(MethodInfo methodInfo, object targetComponent, Type[] parameterTypes)
     {
         Type genericType;
 
