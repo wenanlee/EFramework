@@ -1,8 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class EventsCenter : MonoSingleton<EventsCenter>
+namespace EFramework.Unity
 {
-    public string[] EventLst;
+    public class EventsCenter : MonoSingleton<EventsCenter>
+    {
+        public string[] EventLst;
+    }
 }
+

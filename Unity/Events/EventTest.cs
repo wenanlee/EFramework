@@ -2,15 +2,18 @@ using EFramework.Core;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class EventTest : MonoBehaviour
+namespace EFramework.Unity
 {
-    [NaughtyAttributes.Dropdown("events")]
-    public string eventStr;
-    public string[] events { get => EventsCenter.Instance.EventLst; set => EventsCenter.Instance.EventLst = value; }
-
-    private void Start()
+    public class EventTest : MonoBehaviour
     {
-        EventManager.AddListener("干", (int id) => { Debug.Log("干 " + id); });
+        [NaughtyAttributes.Dropdown("events")]
+        public string eventStr;
+        public string[] events { get => EventsCenter.Instance.EventLst; set => EventsCenter.Instance.EventLst = value; }
+
+        private void Start()
+        {
+            EventManager.AddListener("干", (int id) => { Debug.Log("干 " + id); });
+        }
     }
+
 }
