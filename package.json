@@ -1,0 +1,10 @@
+{
+"name": "com.qshg.eframework",
+"displayName": "EFramework",
+"description": "简单框架",
+"version": "1.0.0",
+"unity": "2018.3",
+"license": "MIT",
+"dependencies": {
+ }
+}
