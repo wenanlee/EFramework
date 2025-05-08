@@ -2,9 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using EFramework.Unity.Utility;
 using UnityEditor;
 using UnityEngine;
-namespace EFramework.Process
+namespace EFramework.Unity.Process
 {
     public class ProcedureManager : MonoSingleton<ProcedureManager>
     {

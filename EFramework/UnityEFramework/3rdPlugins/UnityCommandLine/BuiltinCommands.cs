@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-namespace EFramework.UnityCommandLine
+namespace EFramework.Unity.UnityCommandLine
 {
     public class BuiltinCommands
     {
@@ -16,7 +16,7 @@ namespace EFramework.UnityCommandLine
                     space += "\t";
                 }
 
-                Debuger.Log($"> {item.Key}{space}:   {item.Value._Attribute.Help}");
+                //Debuger.Log($"> {item.Key}{space}:   {item.Value._Attribute.Help}");
             }
         }
     }

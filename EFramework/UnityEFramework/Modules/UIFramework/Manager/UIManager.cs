@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using EFramework.Unity.Utility;
 using UnityEngine;
-namespace EFramework.UIFramework
+namespace EFramework.Unity.UIFramework
 {
     /// <summary>
     ///     整个 UI框架 的管理器

@@ -1,10 +1,11 @@
-using EFramework.UnityCommandLine;
+using EFramework.Unity.Utility;
+using EFramework.Unity.UnityCommandLine;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace EFramework.Log
+namespace EFramework.Unity.Log
 {
     /// <summary>
     /// Unity游戏内调试控制台

@@ -3,8 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using EFramework.Unity.Utility;
 using UnityEngine;
-namespace EFramework.UnityCommandLine
+namespace EFramework.Unity.UnityCommandLine
 {
     public class UnityCommandLineManager : MonoSingleton<UnityCommandLineManager>
     {
