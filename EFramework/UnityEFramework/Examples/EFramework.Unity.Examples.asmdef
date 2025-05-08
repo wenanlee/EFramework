@@ -1,0 +1,14 @@
+{
+    "name": "EFramework.Unity.Examples",
+    "rootNamespace": "EFramework.Unity.Examples",
+    "references": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

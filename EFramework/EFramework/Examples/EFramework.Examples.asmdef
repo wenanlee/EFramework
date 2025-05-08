@@ -1,0 +1,16 @@
+{
+    "name": "EFramework.Examples",
+    "rootNamespace": "EFramework.Examples",
+    "references": [
+        "GUID:9097238730f49784495d0d4923148dad"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
