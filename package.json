@@ -1,0 +1,16 @@
+{
+    "name": "com.wenan.eframework",
+    "version": "1.0.0",
+    "displayName": "EFramework",
+    "description": "简单框架",
+    "unity": "2019.3",
+    "dependencies": {
+   },
+   "keywords": [
+      "Framework"
+    ],
+    "author": {
+      "name": "WenanLee",
+      "email": "WenanLee@outlook.com"
+    }
+  }
