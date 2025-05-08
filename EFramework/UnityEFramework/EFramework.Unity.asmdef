@@ -1,0 +1,17 @@
+{
+    "name": "EFramework.Unity",
+    "rootNamespace": "",
+    "references": [
+        "GUID:9097238730f49784495d0d4923148dad",
+        "GUID:0c0059e5b99824e2fb5ef4a639767d0e"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
