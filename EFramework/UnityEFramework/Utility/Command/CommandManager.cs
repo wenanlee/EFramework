@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
-namespace EFramework.Core
+namespace EFramework.Unity.Command
 {
     public class CommandManager : MonoBehaviour
     {

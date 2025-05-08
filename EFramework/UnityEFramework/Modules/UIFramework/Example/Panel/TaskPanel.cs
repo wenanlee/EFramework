@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using EFramework.Tweens;
 using EFramework.Core;
-namespace EFramework.UIFramework
+namespace EFramework.Unity.UIFramework
 {
     /// <summary>
     /// 任务面板
