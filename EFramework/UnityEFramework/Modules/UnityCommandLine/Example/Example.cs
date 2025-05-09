@@ -1,9 +1,11 @@
+using EFramework.Unity.Command;
 using EFramework.UnityCommandLine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class Example : MonoBehaviour
@@ -12,7 +14,6 @@ public class Example : MonoBehaviour
     public float speed = 1;
     private void Start()
     {
-
     }
     private void Update()
     {
@@ -26,8 +27,11 @@ public class Example : MonoBehaviour
         isRotate = (state == "start");
     }
     [RegisterCommandLine(Name ="SetSpeed",Help = "Set cube rotate speed")]
-    public void SetRotateSpeed(float speed)
+    public bool SetRotateSpeed(float speed)
     {
         this.speed = speed;
+        return true;
     }
+    
 }
+ 
