@@ -14,6 +14,11 @@ public class Example : MonoBehaviour
     public float speed = 1;
     private void Start()
     {
+        var commandLinesSO = CommandUtility.FindSOFiles();
+        foreach (var commandLines in commandLinesSO)
+        {
+            Debug.Log(commandLines);
+        }
     }
     private void Update()
     {

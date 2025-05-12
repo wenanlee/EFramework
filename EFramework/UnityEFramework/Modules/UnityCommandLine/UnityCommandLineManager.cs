@@ -16,7 +16,7 @@ namespace EFramework.UnityCommandLine
         private void Awake()
         {
             //commandInstances = GetAllMethods(m => m.GetCustomAttributes(typeof(RegisterCommandLine), true).Length > 0);
-            Debug.Log("Command count:" + commandInstances.ToArray().Length);
+            //Debug.Log("Command count:" + commandInstances.ToArray().Length);
         }
 
         /// <summary>
