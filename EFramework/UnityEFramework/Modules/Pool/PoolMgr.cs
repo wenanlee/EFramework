@@ -8,7 +8,7 @@ namespace EFramework.Unity.Pool
     /// <summary>
     /// 对象池管理器
     /// </summary>
-    public class PoolManager : MonoSingleton<PoolManager>, I_104_GameInit
+    public class PoolMgr : MonoSingleton<PoolMgr>, I_104_GameInit
     {
         /**
         [Header("HP")]
