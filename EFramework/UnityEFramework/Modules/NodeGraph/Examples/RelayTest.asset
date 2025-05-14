@@ -1,0 +1,270 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31390c44c9f3a3d40b424bf6821999a2, type: 3}
+  m_Name: RelayTest
+  m_EditorClassIdentifier: 
+  serializedNodes: []
+  nodes:
+  - rid: 3483856792558501943
+  - rid: 3483856792558501944
+  - rid: 3483856792558501945
+  - rid: 3483856792558501946
+  - rid: 3483856792558501947
+  - rid: 3483856792558501948
+  - rid: 3483856792558501949
+  - rid: 3483856792558501950
+  - rid: 3483856792558501951
+  edges:
+  - GUID: f872d302-326c-43f3-b2d5-959052395c8f
+    owner: {fileID: 11400000}
+    inputNodeGUID: 4e5ef614-ca4a-43e8-a0ec-d961dd59d439
+    outputNodeGUID: 0cc050da-4d24-48d1-b798-faafc0713d60
+    inputFieldName: input
+    outputFieldName: output
+    inputPortIdentifier: 0
+    outputPortIdentifier: 
+  - GUID: 38fe3a9d-455f-4e7c-b11c-853d9e1fc254
+    owner: {fileID: 11400000}
+    inputNodeGUID: 4e5ef614-ca4a-43e8-a0ec-d961dd59d439
+    outputNodeGUID: dd860c04-d6ea-405b-9142-cab299ed5f59
+    inputFieldName: input
+    outputFieldName: color
+    inputPortIdentifier: 0
+    outputPortIdentifier: 
+  - GUID: 3df68d55-dc29-4b0e-8a34-21bbf511eaa8
+    owner: {fileID: 11400000}
+    inputNodeGUID: 4e5ef614-ca4a-43e8-a0ec-d961dd59d439
+    outputNodeGUID: 006096c8-189d-43e9-9cf2-b1ecb8b03642
+    inputFieldName: input
+    outputFieldName: output
+    inputPortIdentifier: 0
+    outputPortIdentifier: 
+  - GUID: cd9a9402-5596-477e-abc5-66895427106f
+    owner: {fileID: 11400000}
+    inputNodeGUID: 7a8f519f-7242-4915-b269-ed002ee43250
+    outputNodeGUID: 4e5ef614-ca4a-43e8-a0ec-d961dd59d439
+    inputFieldName: input
+    outputFieldName: output
+    inputPortIdentifier: 0
+    outputPortIdentifier: 0
+  - GUID: 627ed1f8-7595-4c3b-887f-b075da6e5b68
+    owner: {fileID: 11400000}
+    inputNodeGUID: 96793346-7ea6-4a74-b735-727180178cf1
+    outputNodeGUID: 7a8f519f-7242-4915-b269-ed002ee43250
+    inputFieldName: input
+    outputFieldName: output
+    inputPortIdentifier: 0
+    outputPortIdentifier: 0
+  - GUID: d7263afa-a277-45d1-af28-5d87629775ab
+    owner: {fileID: 11400000}
+    inputNodeGUID: 45fe04a8-5c5e-4d98-acc2-77ec6f025395
+    outputNodeGUID: 96793346-7ea6-4a74-b735-727180178cf1
+    inputFieldName: obj
+    outputFieldName: output
+    inputPortIdentifier: 
+    outputPortIdentifier: 0
+  - GUID: 33676048-ab6d-46fd-988a-fa574355d5ff
+    owner: {fileID: 11400000}
+    inputNodeGUID: 024e9b3c-a985-44dd-b89b-d4772e51a0bf
+    outputNodeGUID: 96793346-7ea6-4a74-b735-727180178cf1
+    inputFieldName: obj
+    outputFieldName: output
+    inputPortIdentifier: 
+    outputPortIdentifier: 1
+  - GUID: d951fc51-c972-4f8e-9c61-4810b76f8c5e
+    owner: {fileID: 11400000}
+    inputNodeGUID: 3df63a58-6f2f-4844-b9e9-91bf7965bcb6
+    outputNodeGUID: 96793346-7ea6-4a74-b735-727180178cf1
+    inputFieldName: obj
+    outputFieldName: output
+    inputPortIdentifier: 
+    outputPortIdentifier: 2
+  groups: []
+  stackNodes: []
+  pinnedElements:
+  - position:
+      serializedVersion: 2
+      x: 644
+      y: 460
+      width: 150
+      height: 200
+    opened: 0
+    editorType:
+      serializedType: GraphProcessor.ExposedParameterView, com.alelievr.NodeGraphProcessor.Editor,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - position:
+      serializedVersion: 2
+      x: 0
+      y: 460
+      width: 150
+      height: 200
+    opened: 1
+    editorType:
+      serializedType: GraphProcessor.ProcessorView, com.alelievr.NodeGraphProcessor.Editor,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  exposedParameters: []
+  serializedParameterList: []
+  stickyNotes: []
+  nodeInspectorReference: {fileID: 0}
+  position: {x: 196.8, y: -67.2, z: 0}
+  scale: {x: 0.8695652, y: 0.8695652, z: 1}
+  references:
+    version: 2
+    RefIds:
+    - rid: 3483856792558501943
+      type: {class: FloatNode, ns: , asm: Assembly-CSharp}
+      data:
+        nodeCustomName: 
+        GUID: 0cc050da-4d24-48d1-b798-faafc0713d60
+        computeOrder: 0
+        position:
+          serializedVersion: 2
+          x: 117.86956
+          y: 356.6087
+          width: 111
+          height: 115.00001
+        expanded: 0
+        debug: 1
+        nodeLock: 0
+        output: 42
+        input: 42
+    - rid: 3483856792558501944
+      type: {class: PrintNode, ns: , asm: Assembly-CSharp}
+      data:
+        nodeCustomName: 
+        GUID: 024e9b3c-a985-44dd-b89b-d4772e51a0bf
+        computeOrder: 6
+        position:
+          serializedVersion: 2
+          x: 1482.9452
+          y: 436.90033
+          width: 74
+          height: 90
+        expanded: 0
+        debug: 0
+        nodeLock: 0
+    - rid: 3483856792558501945
+      type: {class: PrintNode, ns: , asm: Assembly-CSharp}
+      data:
+        nodeCustomName: 
+        GUID: 45fe04a8-5c5e-4d98-acc2-77ec6f025395
+        computeOrder: 7
+        position:
+          serializedVersion: 2
+          x: 1485
+          y: 327.5
+          width: 74
+          height: 91
+        expanded: 0
+        debug: 0
+        nodeLock: 0
+    - rid: 3483856792558501946
+      type: {class: PrintNode, ns: , asm: Assembly-CSharp}
+      data:
+        nodeCustomName: 
+        GUID: 3df63a58-6f2f-4844-b9e9-91bf7965bcb6
+        computeOrder: 8
+        position:
+          serializedVersion: 2
+          x: 1484.5
+          y: 541.5
+          width: 74
+          height: 90
+        expanded: 0
+        debug: 0
+        nodeLock: 0
+    - rid: 3483856792558501947
+      type: {class: ColorNode, ns: , asm: Assembly-CSharp}
+      data:
+        nodeCustomName: 
+        GUID: dd860c04-d6ea-405b-9142-cab299ed5f59
+        computeOrder: 1
+        position:
+          serializedVersion: 2
+          x: 29.652182
+          y: 483.08694
+          width: 200
+          height: 97
+        expanded: 0
+        debug: 0
+        nodeLock: 0
+        color: {r: 0.5729389, g: 0, b: 1, a: 0}
+    - rid: 3483856792558501948
+      type: {class: TextNode, ns: , asm: Assembly-CSharp}
+      data:
+        nodeCustomName: 
+        GUID: 006096c8-189d-43e9-9cf2-b1ecb8b03642
+        computeOrder: 2
+        position:
+          serializedVersion: 2
+          x: -7.6086936
+          y: 593.913
+          width: 240.00002
+          height: 96
+        expanded: 0
+        debug: 0
+        nodeLock: 0
+        output: Hello World
+    - rid: 3483856792558501949
+      type: {class: RelayNode, ns: , asm: com.alelievr.NodeGraphProcessor.Runtime}
+      data:
+        nodeCustomName: 
+        GUID: 4e5ef614-ca4a-43e8-a0ec-d961dd59d439
+        computeOrder: 3
+        position:
+          serializedVersion: 2
+          x: 373.0435
+          y: 540
+          width: 200
+          height: 200
+        expanded: 0
+        debug: 0
+        nodeLock: 0
+        unpackOutput: 0
+        packInput: 1
+        inputEdgeCount: 3
+    - rid: 3483856792558501950
+      type: {class: RelayNode, ns: , asm: com.alelievr.NodeGraphProcessor.Runtime}
+      data:
+        nodeCustomName: 
+        GUID: 7a8f519f-7242-4915-b269-ed002ee43250
+        computeOrder: 4
+        position:
+          serializedVersion: 2
+          x: 786.95654
+          y: 570.4348
+          width: 200
+          height: 200
+        expanded: 0
+        debug: 0
+        nodeLock: 0
+        unpackOutput: 0
+        packInput: 0
+        inputEdgeCount: 1
+    - rid: 3483856792558501951
+      type: {class: RelayNode, ns: , asm: com.alelievr.NodeGraphProcessor.Runtime}
+      data:
+        nodeCustomName: 
+        GUID: 96793346-7ea6-4a74-b735-727180178cf1
+        computeOrder: 5
+        position:
+          serializedVersion: 2
+          x: 1295.6086
+          y: 460.82608
+          width: 200
+          height: 200
+        expanded: 0
+        debug: 0
+        nodeLock: 0
+        unpackOutput: 1
+        packInput: 0
+        inputEdgeCount: 1
