@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Sirenix.OdinInspector;
 using UnityEngine;
 namespace EFramework.UnityCommandLine
 {
@@ -11,11 +12,11 @@ namespace EFramework.UnityCommandLine
         public IEnumerable<CommandInstance> commandInstances;
         public Dictionary<string, CommandInstance> commandDict = new Dictionary<string, CommandInstance>();
         public List<string> commandLineLst = new List<string>();
-        private static CommandTerminal.CommandAutocomplete Complete=new CommandTerminal.CommandAutocomplete();
+        private static CommandTerminal.CommandAutocomplete Complete = new CommandTerminal.CommandAutocomplete();
         private void Awake()
         {
-            commandInstances = GetAllMethods(m => m.GetCustomAttributes(typeof(RegisterCommandLine), true).Length > 0);
-            Debug.Log("Command count:" + commandInstances.ToArray().Length);
+            //commandInstances = GetAllMethods(m => m.GetCustomAttributes(typeof(RegisterCommandLine), true).Length > 0);
+            //Debug.Log("Command count:" + commandInstances.ToArray().Length);
         }
 
         /// <summary>
@@ -40,20 +41,32 @@ namespace EFramework.UnityCommandLine
         /// </summary>
         /// <param name="predicate"></param>
         /// <returns></returns>
-        public IEnumerable<CommandInstance> GetAllMethods(Func<MethodInfo, bool> predicate)
+        [Button("获取所有命令")]
+        public void GetAllMethods()
         {
-            List<Type> types = Assembly.GetExecutingAssembly().GetTypes().ToList();
-
-            for (int i = types.Count - 1; i >= 0; i--)
+            commandLineLst.Clear();
+            foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
             {
-                IEnumerable<MethodInfo> methodInfos = types[i]
-                    .GetMethods(BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.DeclaredOnly)
-                    .Where(predicate);
-
-                foreach (var methodInfo in methodInfos)
-                {
-                    yield return new CommandInstance(methodInfo);
-                }
+                if (assembly.FullName.Contains("UnityEngine") ||
+                    assembly.FullName.Contains("mscorlib") ||
+                    assembly.FullName.Contains("System") ||
+                    assembly.FullName.Contains("Unity.") ||
+                    assembly.FullName.Contains("UnityEditor"))
+                    continue;
+                foreach (var type in assembly.GetTypes())
+                    foreach (MethodInfo method in type.GetMethods(
+                               BindingFlags.Public |
+                               BindingFlags.NonPublic |
+                               BindingFlags.Instance |
+                               BindingFlags.Static))
+                    {
+                        // 查找带有特定特性的方法，例如ButtonAttribute
+                        if (method.GetCustomAttributes(typeof(RegisterCommandLine), true).Length > 0)
+                        {
+                            Debug.Log($"找到带RegisterCommandLine特性的方法: {type.FullName}.{method.Name}");
+                            commandLineLst.Add($"{type.FullName}.{method.Name}");
+                        }
+                    }
             }
         }
         [SerializeField]

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-namespace EFramework.UIFramework
+namespace EFramework.Unity.UIFramework
 {
     /// <summary>
     /// 主面板

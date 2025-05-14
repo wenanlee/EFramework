@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-namespace EFramework.UIFramework
+namespace EFramework.Unity.UIFramework
 {
     /// <summary>
     ///     整个 UI框架 的管理器
@@ -10,7 +10,7 @@ namespace EFramework.UIFramework
     ///     创建保存所有面板的实例，panelDict 字典
     ///     管理保存所有显示的面板，栈
     /// </summary>
-    public class UIManager : MonoSingleton<UIManager>
+    public partial class UIManager : MonoSingleton<UIManager>
     {
 
         private void Awake()

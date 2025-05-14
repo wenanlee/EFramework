@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using EFramework.Tweens;
-namespace EFramework.UIFramework
+namespace EFramework.Unity.UIFramework
 {
     /// <summary>
     /// 物品信息面板
