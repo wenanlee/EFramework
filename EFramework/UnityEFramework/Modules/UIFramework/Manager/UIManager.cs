@@ -4,141 +4,131 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace EFramework.Unity.UIFramework
 {
-    /// <summary>
-    ///     整个 UI框架 的管理器
-    ///     解析 Json 面板信息，保存到 panelPathDict 字典里
-    ///     创建保存所有面板的实例，panelDict 字典
-    ///     管理保存所有显示的面板，栈
+
+   /// <summary>
+    /// UI管理系统（GUID + SO版）
     /// </summary>
-    public partial class UIManager : MonoSingleton<UIManager>
+    public class UIManager : MonoSingleton<UIManager>
     {
+        //#region Serialized Fields
+        //[Header("UI配置")]
+        //[SerializeField] private UIConfig _uiConfig;
 
-        private void Awake()
-        {
-            Init();
-        }
-        public void Init()
-        {
-            //this.Work().AddWork(LoadUIPrefabs).Run();
-            uiPrefabs = new List<UIBase>();
-            uiPoolDict = new Dictionary<int, UIBase>();
-            uiDict = new Dictionary<int, UIBase>();
-            Debug.Log(CanvasTransform.name);
-        }
-        /// <summary>
-        /// 加载UI预制体
-        /// </summary>
-        private void LoadUIPrefabs()
-        {
-            var panels = Resources.LoadAll<UIPanelBase>("UI/Panel");
-            uiPrefabs.AddRange(panels);
-            foreach (var panel in panels)
-            {
-                uiDict.Add(panel.name.StringStratToInt(4), panel);
-            }
-            var windows = Resources.LoadAll<UIWindowBase>("UI/Window");
-            uiPrefabs.AddRange(windows);
-            foreach (var window in windows)
-            {
-                uiDict.Add(window.name.StringStratToInt(4), window);
-            }
-            var widgets = Resources.LoadAll<UIWidgetBase>("UI/Widget");
-            uiPrefabs.AddRange(widgets);
-            foreach (var widget in widgets)
-            {
-                uiDict.Add(widget.name.StringStratToInt(4), widget);
-            }
+        //[Header("UI层级")]
+        //[SerializeField] private Transform _panelLayer;
+        //[SerializeField] private Transform _widgetLayer;
+        //[SerializeField] private Transform _windowLayer;
+        //#endregion
 
-        }
+        //#region Private Fields
+        //private readonly Dictionary<UIType, Transform> _layerMapping = new();
+        //private readonly Dictionary<string, UIBase> _instancePool = new();
+        //private readonly Stack<UIBase> _uiStack = new(10);
+        //#endregion
 
-        // 会将生成的面板放在 Canvas 的下面，用于设置一个父子关系
-        [SerializeField] private Transform canvasTransform;
-        [SerializeField] private Transform panelLayer_down;
-        [SerializeField] private Transform widgetLayer_middle;
-        [SerializeField] private Transform windowLayer_top;
+        //#region Lifecycle
+        //protected override void Awake()
+        //{
+        //    base.Awake();
+        //    Initialize();
+        //}
 
-        [SerializeField] private List<UIBase> uiPrefabs;
-        private Dictionary<int, UIBase> uiDict;
-        private Dictionary<int, UIBase> uiPoolDict;
+        //private void Initialize()
+        //{
+        //    ValidateConfig();
+        //    SetupLayerMapping();
+        //    PrewarmPool();
+        //}
 
-        [SerializeField] private UIBase currentPanel;
-        [SerializeField] private UIBase currentWidget;
-        [SerializeField] private UIBase currentWindow;
+        //private void ValidateConfig()
+        //{
+        //    if (_uiConfig == null)
+        //        throw new NullReferenceException("UIConfig未配置");
 
-        public Transform CanvasTransform
-        {
-            get
-            {
-                if (canvasTransform == null)
-                {
-                    canvasTransform = FindObjectOfType<GameRoot>().transform;
-                    panelLayer_down = canvasTransform.Find("Down");
-                    widgetLayer_middle = canvasTransform.Find("Middle");
-                    windowLayer_top = canvasTransform.Find("Top");
-                }
-                return canvasTransform;
-            }
-        }
+        //    if (_panelLayer == null || _widgetLayer == null || _windowLayer == null)
+        //        throw new NullReferenceException("UI层级未完整配置");
+        //}
 
-        public void ShowUI(Enum type)
-        {
-            ShowUI(type.GetHashCode());
-        }
-        public void ShowUI(int type)
-        {
-            switch (type.GetHashCode() / 1000)
-            {
-                case 1:
-                    currentPanel?.OnExit();
-                    var ui = GetUIObj(type);
-                    if (currentPanel != ui)
-                    {
-                        currentPanel = ui;
-                        currentPanel?.OnEnter();
-                    }
-                    break;
-                case 2:
-                    currentPanel?.OnPause();
+        //private void SetupLayerMapping()
+        //{
+        //    _layerMapping.Add(UIType.Panel, _panelLayer);
+        //    _layerMapping.Add(UIType.Widget, _widgetLayer);
+        //    _layerMapping.Add(UIType.Window, _windowLayer);
+        //}
+        //#endregion
 
-                    currentWidget?.OnExit();
-                    currentWidget = GetUIObj(type);
-                    currentWidget?.OnEnter();
-                    break;
-                case 3:
-                    currentPanel?.OnPause();
-                    currentWidget?.OnPause();
+        //#region Public API
+        ///// <summary> 显示指定GUID的UI </summary>
+        //public void ShowUI(string guid)
+        //{
+        //    if (string.IsNullOrEmpty(guid))
+        //    {
+        //        Debug.LogError("GUID不能为空");
+        //        return;
+        //    }
 
-                    currentWindow?.OnExit();
-                    currentWindow = GetUIObj(type);
-                    currentWindow?.OnEnter();
-                    break;
-                default:
-                    break;
-            }
-        }
+        //    if (!_uiConfig.TryGetConfig(guid, out var config))
+        //    {
+        //        Debug.LogError($"找不到GUID对应的UI配置: {guid}");
+        //        return;
+        //    }
 
-        /// <summary>
-        /// 把某个页面出栈，栈顶面板出栈，启用第二个面板
-        /// </summary>
-        public void HideUI()
-        {
-            currentPanel?.OnExit();
-            currentWidget?.OnExit();
-            currentWindow?.OnExit();
-        }
+        //    HandleUIState(config);
+        //    var instance = GetOrCreateInstance(config);
+        //    instance.OnEnter();
+        //    _uiStack.Push(instance);
+        //}
 
-        public UIBase GetUIObj(int type)
-        {
-            if (uiPoolDict.ContainsKey(type))
-                return uiPoolDict[type];
-            else if (uiDict.ContainsKey(type))
-            {
-                var uiGO = Instantiate(uiDict[type], windowLayer_top, false);
-                uiPoolDict.Add(type, uiGO);
-                return uiGO;
-            }
-            Debug.LogError($"没有这个ID:{type}的UIWindow");
-            return null;
-        }
+        ///// <summary> 关闭最顶层的UI </summary>
+        //public void HideTopUI()
+        //{
+        //    if (_uiStack.Count == 0)
+        //    {
+        //        Debug.LogWarning("UI栈为空");
+        //        return;
+        //    }
+
+        //    var topUI = _uiStack.Pop();
+        //    topUI.OnExit();
+
+        //    if (_uiStack.TryPeek(out var newTop))
+        //        newTop.OnResume();
+        //}
+        //#endregion
+
+        //#region Core Logic
+        //private void HandleUIState(UIConfigItem config)
+        //{
+        //    if (_uiStack.TryPeek(out var current))
+        //    {
+        //        if (current.GetType() == config.Prefab.GetType())
+        //            current.OnExit();
+        //        else
+        //            current.OnPause();
+        //    }
+        //}
+
+        //private UIBase GetOrCreateInstance(UIConfigItem config)
+        //{
+        //    if (_instancePool.TryGetValue(config.GUID, out var instance))
+        //    {
+        //        instance.gameObject.SetActive(true);
+        //        return instance;
+        //    }
+
+        //    var newInstance = Instantiate(config.Prefab, _layerMapping[config.Type]);
+        //    _instancePool.Add(config.GUID, newInstance);
+        //    return newInstance;
+        //}
+
+        //private void PrewarmPool()
+        //{
+        //    foreach (var config in _uiConfig.Items)
+        //    {
+        //        if (config.Prefab.Prewarm)
+        //            GetOrCreateInstance(config).gameObject.SetActive(false);
+        //    }
+        //}
+        //#endregion
     }
 }
