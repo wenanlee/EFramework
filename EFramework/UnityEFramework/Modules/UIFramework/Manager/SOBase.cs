@@ -8,14 +8,17 @@ namespace EFramework.Unity
 {
     public class SOBase : ScriptableObject
     {
-        public string jsonPath;
-        public string jsonName;
-        [Button]
+        [Button, ButtonGroup]
+        public virtual void ReLoadSO()
+        {
+
+        }
+        [Button,ButtonGroup]
         public virtual void LoadFromJson()
         {
             
         }
-        [Button]
+        [Button,ButtonGroup]
         public virtual void SaveJson()
         {
 
