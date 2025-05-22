@@ -24,58 +24,23 @@ namespace EFramework.Unity
             window.Show();
         }
         [InlineEditor]
-        [InlineButton("CreateNewConfigIfNull","+",ShowIf = "@this.projectConfig == null")]
+        //[InlineButton("CreateNewConfigIfNull","+",ShowIf = "@this.projectConfig == null")]
         public ProjectConfig projectConfig;
-        [InlineEditor]
-        [InlineButton("CreateNewConfigIfNull", "+", ShowIf = "@this.commandEvents == null")]
-        public CommandEventSO commandEvents;
-        [Button("重新加载SO")]
-        public void ReLoadSO()
-        {
-            projectConfig = Resources.Load<ProjectConfig>("ProjectConfig");
-            commandEvents = Resources.Load<CommandEventSO>("CommandEvents");
-        }
+
         protected override void Initialize()
         {
-            // 加载或创建配置
-            ReLoadSO();
+            projectConfig = Resources.Load<ProjectConfig>("ProjectConfig");
             if (projectConfig == null)
             {
+               
                 //config = CreateInstance<ProjectConfig>();
                 //AssetDatabase.CreateAsset(config, $"{projectParentPath}/ProjectConfig.asset");
                 //AssetDatabase.SaveAssets();
                 //AssetDatabase.Refresh();
             }
+            projectConfig.LoadAllSOFiles();
         }
-        private void CreateNewConfigIfNull()
-        {
-            if (projectConfig == null)
-            {
-                CreateNewConfig();
-            }
-            else
-            {
-                EditorUtility.DisplayDialog("提示", "配置已存在，无需创建", "确定");
-            }
-        }
-
-        private void CreateNewConfig()
-        {
-            projectConfig = CreateInstance<ProjectConfig>();
-            if (Directory.Exists(Application.dataPath + "/")) { }
-            AssetDatabase.CreateAsset(projectConfig, "Assets/Config/ProjectConfig.asset");
-            AssetDatabase.SaveAssets();
-            AssetDatabase.Refresh();
-
-            EditorUtility.DisplayDialog("成功", "已创建新的项目配置文件", "确定");
-        }
-        [Button(ButtonSizes.Large)]
-        private void SaveConfig()
-        {
-            EditorUtility.SetDirty(projectConfig);
-            AssetDatabase.SaveAssets();
-            AssetDatabase.Refresh();
-        }
+        
 
     }
     [CreateAssetMenu(fileName = "ProjectConfig",menuName = "EFramework/ProjectConfig")]
@@ -87,6 +52,48 @@ namespace EFramework.Unity
         [LabelText("项目路径")]
         [FolderPath(ParentFolder = "Assets")]
         public string projectParentPath;
-        
+
+        [InlineEditor]
+        [InlineButton("@CreateNewConfigIfNull(this.commandEvents)", "+", ShowIf = "@this.commandEvents == null")]
+        public CommandEventSO commandEvents;
+
+        public void LoadAllSOFiles()
+        {
+            commandEvents = Resources.Load<CommandEventSO>("CommandEventSO");
+        }
+        private void CreateNewConfigIfNull<T>(T t) where T:ScriptableObject
+        {
+            if (t == null)
+            {
+                CreateNewConfig<T>(t,projectParentPath,typeof(T).Name);
+            }
+            else
+            {
+                EditorUtility.DisplayDialog("提示", "配置已存在，无需创建", "确定");
+            }
+        }
+
+        private void CreateNewConfig<T>(T t,string path,string fileName) where T : ScriptableObject
+        {
+            t = CreateInstance<T>();
+            string fullPath = Path.Combine(Application.dataPath, path);
+            Debug.Log(fullPath);
+            Debug.Log(path + "/" + fileName + ".asset");
+            if (Directory.Exists(fullPath) == false)
+                Directory.CreateDirectory(fullPath);
+
+            AssetDatabase.CreateAsset(t, "Assets/"+path +"/"+fileName+".asset");
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
+            LoadAllSOFiles();
+            EditorUtility.DisplayDialog("成功", "已创建新的项目配置文件", "确定");
+        }
+        [Button(ButtonSizes.Large)]
+        private void SaveConfig()
+        {
+            //EditorUtility.SetDirty(projectConfig);
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
+        }
     }
 }
