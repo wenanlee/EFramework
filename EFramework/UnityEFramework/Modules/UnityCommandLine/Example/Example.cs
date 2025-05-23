@@ -26,10 +26,9 @@ public class Example : MonoBehaviour
             transform.Rotate(0, speed, 0);
     }
     [RegisterCommandLine(Name ="fuck" ,Help = "Cube rotate state")]
-    public void SetRotateState(string state)
+    public static void SetRotateState(TestInfo info)
     {
-        Debug.LogError((state == "start"));
-        isRotate = (state == "start");
+        Debug.Log(info.name);
     }
     [RegisterCommandLine(Name ="SetSpeed",Help = "Set cube rotate speed")]
     public bool SetRotateSpeed(float speed)
@@ -39,4 +38,10 @@ public class Example : MonoBehaviour
     }
     
 }
- 
+ public class TestInfo
+{
+    public string name;
+    public int age;
+    public string description;
+    public GameObject gameObject;
+}

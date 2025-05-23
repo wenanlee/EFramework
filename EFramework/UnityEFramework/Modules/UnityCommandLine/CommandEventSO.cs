@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -51,7 +52,7 @@ namespace EFramework.Unity.Command
                             {
                                 commandName = commandName, // 使用特性中的Name而不是方法名
                                 uuid = UUID.New(),
-                                commandArgsType = method.GetParameters().Select(p => p.ParameterType).ToArray()
+                                commandArgsType = method.GetParameters().Select(p => p.ParameterType.FullName + "," + p.ParameterType.Assembly.GetName().Name).ToArray()
                             });
                         }
                     }
@@ -63,12 +64,26 @@ namespace EFramework.Unity.Command
     {
         public string uuid;
         public string commandName;
+        public string[] objUuid;
         [ShowInInspector]
-        public Type[] commandArgsType;
+        public string[] commandArgsType;
 
         public commandEventArgs()
         {
             uuid = UUID.New();
+        }
+
+        [ShowInInspector, HideLabel, ShowIf("@commandArgsType.Length>0")]
+        public object Value1;
+
+        public class MyClass<T> where T : new()
+        {
+            private T Value => new T();
+        }
+        [Button("测试")]
+        public void Test()
+        {
+            Value1 = Activator.CreateInstance(Type.GetType(commandArgsType[0]));
         }
     }
 }
