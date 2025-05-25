@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using CommandTerminal;
+using EFramework.Unity.Utility;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -13,10 +15,11 @@ namespace EFramework.Unity.Command
     public class CommandEventSO : SOBase
     {
         [TableList]
-        public List<commandEventArgs> commandEvents = new List<commandEventArgs>();
+        public List<CommandEventArgs> commandEvents = new List<CommandEventArgs>();
+
         public override void ReLoadSO()
         {
-            GetAllMethods();
+            //GetAllMethods();
         }
         /// <summary>
         /// 获取所有带CommandInstance的方法
@@ -48,42 +51,73 @@ namespace EFramework.Unity.Command
                             // 假设第一个特性是我们需要的
                             RegisterCommandLine attribute = (RegisterCommandLine)attributes[0];
                             string commandName = string.IsNullOrEmpty(attribute.Name) ? type.FullName + "." + method.Name : attribute.Name;
-                            commandEvents.Add(new commandEventArgs()
-                            {
-                                commandName = commandName, // 使用特性中的Name而不是方法名
-                                uuid = UUID.New(),
-                                commandArgsType = method.GetParameters().Select(p => p.ParameterType.FullName + "," + p.ParameterType.Assembly.GetName().Name).ToArray()
-                            });
+                            commandEvents.Add(new CommandEventArgs(commandName, method));
                         }
                     }
             }
         }
     }
     [Serializable]
-    public class commandEventArgs
+
+    /// <summary>
+    /// 表示包含方法调用信息的命令事件参数
+    /// </summary>
+    public class CommandEventArgs
     {
-        public string uuid;
-        public string commandName;
-        public string[] objUuid;
+        /// <summary>
+        /// 获取命令的唯一标识符
+        /// </summary>
+        [ShowInInspector] public string Uuid;
+
+        /// <summary>
+        /// 获取命令名称
+        /// </summary>
+        [ShowInInspector] public string CommandName;
+
+        /// <summary>
+        /// 获取声明方法的类型全限定名称
+        /// </summary>
+        [ShowInInspector] public string CommandTypeName;
+        /// <summary>
+        /// 获取要调用的方法名称
+        /// </summary>
+        [ShowInInspector] public string CommandMethodName;
+        [ShowInInspector] public string[] path;
+        /// <summary>
+        /// 获取方法参数类型的全限定名称数组
+        /// </summary>
+        [ShowInInspector] public string[] CommandArgsTypeStrs;
+        private MethodInfo CommandMethod { get; set; }
+        private object[] CommandInstanceLst { get; set; } // 实例列表
         [ShowInInspector]
-        public string[] commandArgsType;
-
-        public commandEventArgs()
+        public object[] CommandArgs { get; set; }
+        public CommandEventArgs(string commandName, MethodInfo method)
         {
-            uuid = UUID.New();
+            Uuid = Guid.NewGuid().ToString();
+            CommandName = commandName;
+            //CommandTypeName = method.DeclaringType.AssemblyQualifiedName;
+            CommandArgsTypeStrs = method.GetParameters()
+                                        .Select(p => p.ParameterType.AssemblyQualifiedName)
+                                        .ToArray();
+            //CommandMethodName = method.Name;
+            path = ReflectionHelper.GetMethodInfoDetailsToString(method);
         }
 
-        [ShowInInspector, HideLabel, ShowIf("@commandArgsType.Length>0")]
-        public object Value1;
-
-        public class MyClass<T> where T : new()
+        public object[] CreateParameterInstances()
         {
-            private T Value => new T();
+            if (CommandArgsTypeStrs == null || CommandArgsTypeStrs.Length == 0)
+                return null;
+            if (CommandArgs == null)
+            {
+                var paramTypes = CommandArgsTypeStrs.Select(t => Type.GetType(t)).ToArray();
+                CommandArgs = paramTypes.Select(p => p == typeof(string) ? string.Empty : Activator.CreateInstance(p)).ToArray();
+            }
+            return CommandArgs;
         }
-        [Button("测试")]
-        public void Test()
+
+        public void Invoke(GameObject go, object[] args)
         {
-            Value1 = Activator.CreateInstance(Type.GetType(commandArgsType[0]));
+            ReflectionHelper.ExecuteMethod(path, go, args);
         }
     }
 }
