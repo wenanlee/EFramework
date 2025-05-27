@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using CommandTerminal;
+using EFramework.Core;
 using EFramework.Unity.Utility;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -17,6 +18,14 @@ namespace EFramework.Unity.Command
         [TableList]
         public List<CommandEventArgs> commandEvents = new List<CommandEventArgs>();
 
+        
+        public void RegisterAllCommands()
+        {
+            foreach (var commandEvent in commandEvents)
+            {
+                commandEvent.AddEventListener();
+            }
+        }
         public override void ReLoadSO()
         {
             //GetAllMethods();
@@ -77,32 +86,76 @@ namespace EFramework.Unity.Command
         /// <summary>
         /// 获取声明方法的类型全限定名称
         /// </summary>
-        [ShowInInspector] public string CommandTypeName;
+        [ShowInInspector] public string CommandTypeStr;
         /// <summary>
         /// 获取要调用的方法名称
         /// </summary>
-        [ShowInInspector] public string CommandMethodName;
-        [ShowInInspector] public string[] path;
+        [ShowInInspector] public string CommandMethodStr;
         /// <summary>
         /// 获取方法参数类型的全限定名称数组
         /// </summary>
         [ShowInInspector] public string[] CommandArgsTypeStrs;
         private MethodInfo CommandMethod { get; set; }
-        private object[] CommandInstanceLst { get; set; } // 实例列表
+        private Dictionary<object, Component> CommandInstanceDict { get; set; } = new Dictionary<object, Component>(); // 实例列表
+        private Type CommandType { get; set; }
         [ShowInInspector]
         public object[] CommandArgs { get; set; }
         public CommandEventArgs(string commandName, MethodInfo method)
         {
             Uuid = Guid.NewGuid().ToString();
             CommandName = commandName;
-            //CommandTypeName = method.DeclaringType.AssemblyQualifiedName;
+            CommandMethodStr = method.Name;
+            CommandTypeStr = method.DeclaringType.AssemblyQualifiedName;
             CommandArgsTypeStrs = method.GetParameters()
                                         .Select(p => p.ParameterType.AssemblyQualifiedName)
                                         .ToArray();
-            //CommandMethodName = method.Name;
-            path = ReflectionHelper.GetMethodInfoDetailsToString(method);
         }
 
+        public void AddEventListener()
+        {
+            if (EventManager.CheckHaveListener(CommandName) == false)
+                EventManager.AddListener<GameObject, object[]>(CommandName, Invoke);
+        }
+        public void Invoke(object targetInstance, params object[] args)
+        {
+            try
+            {
+                if (CommandType == null)
+                    CommandType = Type.GetType(CommandTypeStr);
+                
+                //Component instance = null;
+                //if (targetInstance != null)
+                //{
+                //    if (CommandInstanceDict.ContainsKey(targetInstance) == false)
+                //    {
+                        
+                //        if (targetInstance is GameObject go && typeof(MonoBehaviour).IsAssignableFrom(CommandType))
+                //        {
+                //            // 尝试获取组件
+                //            instance = go.GetComponent(CommandType);
+                //        }
+                //    }
+                //}
+                if (CommandMethod == null)
+                {
+                    // 如果没有找到方法，尝试获取
+                    CommandMethod = CommandType.GetMethod(CommandMethodStr, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.Instance, null, CommandArgsTypeStrs.Select(t => Type.GetType(t)).ToArray(), null);
+                }
+
+
+                // 静态方法不能有实例
+                if (CommandMethod.IsStatic == false && targetInstance == null)
+                    targetInstance = Activator.CreateInstance(CommandType);
+
+                // 6. 调用方法并返回结果
+                CommandMethod.Invoke(targetInstance, args);
+            }
+            catch (Exception ex)
+            {
+                // 处理反射错误
+                Debug.LogError("反射错误: " + ex);
+            }
+        }
         public object[] CreateParameterInstances()
         {
             if (CommandArgsTypeStrs == null || CommandArgsTypeStrs.Length == 0)
@@ -115,9 +168,9 @@ namespace EFramework.Unity.Command
             return CommandArgs;
         }
 
-        public void Invoke(GameObject go, object[] args)
-        {
-            ReflectionHelper.ExecuteMethod(path, go, args);
-        }
+        //public void Invoke(GameObject go, object[] args)
+        //{
+        //    ReflectionHelper.InvokeMethod(path[0], path[1], path[2], go, args);
+        //}
     }
 }
