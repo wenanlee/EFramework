@@ -19,13 +19,13 @@ namespace EFramework.Unity.Command
         public List<CommandEventArgs> commandEvents = new List<CommandEventArgs>();
 
         
-        public void RegisterAllCommands()
-        {
-            foreach (var commandEvent in commandEvents)
-            {
-                commandEvent.AddEventListener();
-            }
-        }
+        //public void RegisterAllCommands()
+        //{
+        //    foreach (var commandEvent in commandEvents)
+        //    {
+        //        commandEvent.AddEventListener();
+        //    }
+        //}
         public override void ReLoadSO()
         {
             //GetAllMethods();
@@ -111,10 +111,14 @@ namespace EFramework.Unity.Command
                                         .ToArray();
         }
 
-        public void AddEventListener()
+        private void AddEventListener()
         {
             if (EventManager.CheckHaveListener(CommandName) == false)
                 EventManager.AddListener<GameObject, object[]>(CommandName, Invoke);
+        }
+        public void InvokeStatic(params object[] args)
+        {
+            Invoke(null, args);
         }
         public void Invoke(object targetInstance, params object[] args)
         {
@@ -136,12 +140,7 @@ namespace EFramework.Unity.Command
                 //        }
                 //    }
                 //}
-                if (CommandMethod == null)
-                {
-                    // 如果没有找到方法，尝试获取
-                    CommandMethod = CommandType.GetMethod(CommandMethodStr, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.Instance, null, CommandArgsTypeStrs.Select(t => Type.GetType(t)).ToArray(), null);
-                }
-
+                GetMethodInfo();
 
                 // 静态方法不能有实例
                 if (CommandMethod.IsStatic == false && targetInstance == null)
@@ -167,7 +166,26 @@ namespace EFramework.Unity.Command
             }
             return CommandArgs;
         }
-
+        public Type GetTypeFromStr(string typeStr)
+        {
+            if (string.IsNullOrEmpty(typeStr))
+                return null;
+            Type type = Type.GetType(typeStr);
+            if (type == null)
+            {
+                Debug.LogError($"无法找到类型: {typeStr}");
+            }
+            return type;
+        }
+        public MethodInfo GetMethodInfo()
+        {
+            if (CommandMethod == null)
+            {
+                // 如果没有找到方法，尝试获取
+                CommandMethod = CommandType.GetMethod(CommandMethodStr, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.Instance, null, CommandArgsTypeStrs.Select(t => Type.GetType(t)).ToArray(), null);
+            }
+            return CommandMethod;
+        }
         //public void Invoke(GameObject go, object[] args)
         //{
         //    ReflectionHelper.InvokeMethod(path[0], path[1], path[2], go, args);

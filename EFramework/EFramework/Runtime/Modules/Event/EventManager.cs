@@ -143,7 +143,10 @@ namespace EFramework.Core
         {
             EventAgent<string, T1, T2>.Instance.AddListener(eid, action);
         }
-
+        public static bool CheckHaveListener(string eid)
+        {
+            return EventAgent<string>.Instance.CheckHaveListener(eid);
+        }
         public static void SendEvent<T1, T2>(string eid, T1 param1, T2 param2)
         {
             EventAgent<string, T1, T2>.Instance.Invoke(eid, param1, param2);
@@ -344,6 +347,8 @@ namespace EFramework.Core
         {
             EventAgent<object, T1, T2, T3, T4>.Instance.RemoveListener(eid, action);
         }
+
+
         #endregion
     }
 }
