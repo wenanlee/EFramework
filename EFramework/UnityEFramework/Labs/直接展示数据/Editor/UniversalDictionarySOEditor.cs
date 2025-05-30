@@ -4,7 +4,6 @@ using UnityEditor;
 using UnityEngine;
 using System.Collections.Generic;
 using System.IO;
-using Unity.Plastic.Newtonsoft.Json;
 
 [CustomEditor(typeof(UniversalDictionarySO))]
 public class UniversalDictionarySOEditor : Editor
@@ -102,7 +101,8 @@ public class UniversalDictionarySOEditor : Editor
 
     private string GenerateJson(List<UniversalKeyValuePair> items)
     {
-        return JsonConvert.SerializeObject(items);
+        return EFramework.Utility.JSONWriter.ToJson(items);
+        //return JsonConvert.SerializeObject(items);
     }
 
     private void SaveJsonToFile(string json)
