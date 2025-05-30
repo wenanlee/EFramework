@@ -1,5 +1,5 @@
+using EditorAttributes;
 using EFramework.Unity.Utility;
-using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,17 +8,17 @@ namespace EFramework.Unity
 {
     public class SOBase : ScriptableObject
     {
-        [Button, ButtonGroup]
+        [Button]
         public virtual void ReLoadSO()
         {
 
         }
-        [Button,ButtonGroup]
+        [Button]
         public virtual void LoadFromJson()
         {
             
         }
-        [Button,ButtonGroup]
+        [Button]
         public virtual void SaveJson()
         {
 

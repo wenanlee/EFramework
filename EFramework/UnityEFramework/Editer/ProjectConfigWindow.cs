@@ -1,8 +1,7 @@
+using EditorAttributes;
 using EFramework.Unity.Command;
 using EFramework.Unity.UIFramework;
 using EFramework.Unity.Utility;
-using Sirenix.OdinInspector;
-using Sirenix.OdinInspector.Editor;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml;
@@ -13,7 +12,7 @@ using UnityEngine;
 namespace EFramework.Unity
 {
 
-    public class ProjectConfigWindow : OdinEditorWindow
+    public class ProjectConfigWindow : EditorWindow
     {
 
         [UnityEditor.MenuItem("Tools/项目配置")]
@@ -23,38 +22,38 @@ namespace EFramework.Unity
             window.titleContent = new GUIContent("项目配置");
             window.Show();
         }
-        [InlineEditor]
+        [PropertyDropdown]
         //[InlineButton("CreateNewConfigIfNull","+",ShowIf = "@this.projectConfig == null")]
         public ProjectConfig projectConfig;
 
-        protected override void Initialize()
-        {
-            projectConfig = Resources.Load<ProjectConfig>("ProjectConfig");
-            if (projectConfig == null)
-            {
+        //protected override void Initialize()
+        //{
+        //    projectConfig = Resources.Load<ProjectConfig>("ProjectConfig");
+        //    if (projectConfig == null)
+        //    {
                
-                //config = CreateInstance<ProjectConfig>();
-                //AssetDatabase.CreateAsset(config, $"{projectParentPath}/ProjectConfig.asset");
-                //AssetDatabase.SaveAssets();
-                //AssetDatabase.Refresh();
-            }
-            projectConfig.LoadAllSOFiles();
-        }
+        //        //config = CreateInstance<ProjectConfig>();
+        //        //AssetDatabase.CreateAsset(config, $"{projectParentPath}/ProjectConfig.asset");
+        //        //AssetDatabase.SaveAssets();
+        //        //AssetDatabase.Refresh();
+        //    }
+        //    projectConfig.LoadAllSOFiles();
+        //}
         
 
     }
     [CreateAssetMenu(fileName = "ProjectConfig",menuName = "EFramework/ProjectConfig")]
     public class ProjectConfig : ScriptableObject
     {
-        [LabelText("项目名称")]
+        [Rename("项目名称")]
         public string projectName;
 
-        [LabelText("项目路径")]
-        [FolderPath(ParentFolder = "Assets")]
+        [Rename("项目路径")]
+        //[FolderPath(ParentFolder = "Assets")]
         public string projectParentPath;
 
-        [InlineEditor]
-        [InlineButton("@CreateNewConfigIfNull(this.commandEvents)", "+", ShowIf = "@this.commandEvents == null")]
+        [PropertyDropdown]
+        [InlineButton("@CreateNewConfigIfNull(this.commandEvents)", "+")]
         public CommandEventSO commandEvents;
 
         public void LoadAllSOFiles()
@@ -88,7 +87,7 @@ namespace EFramework.Unity
             LoadAllSOFiles();
             EditorUtility.DisplayDialog("成功", "已创建新的项目配置文件", "确定");
         }
-        [Button(ButtonSizes.Large)]
+        [Button]
         private void SaveConfig()
         {
             //EditorUtility.SetDirty(projectConfig);

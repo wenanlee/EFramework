@@ -2,11 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using GraphProcessor;
-using Sirenix.OdinInspector;
 
 public class RuntimeGraph : MonoBehaviour
 {
-	[InlineEditor]
 	public BaseGraph	graph;
 	public ProcessGraphProcessor	processor;
 

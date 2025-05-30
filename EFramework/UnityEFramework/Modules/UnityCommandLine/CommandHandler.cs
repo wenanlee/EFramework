@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using CommandTerminal;
-using Sirenix.OdinInspector;
+using EditorAttributes;
 using UnityEngine;
 
 namespace EFramework.Unity.Command
@@ -10,12 +10,12 @@ namespace EFramework.Unity.Command
     [Serializable]
     public class CommandHandler
     {
-        [LabelText("命令执行主体，可为空")]
+        [Rename("命令执行主体，可为空")]
         public string commandHandlerId;
-        [LabelText("触发的事件")]
-        [ValueDropdown("GetInstructionType")]
+        [Rename("触发的事件")]
+        [Dropdown("GetInstructionType")]
         public string eventNameId;
-        [LabelText("命令行参数")]
+        [Rename("命令行参数")]
         
         public List<string> commandChainId;
     }

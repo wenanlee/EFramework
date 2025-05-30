@@ -1,4 +1,4 @@
-using Sirenix.OdinInspector;
+using EditorAttributes;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,16 +8,16 @@ namespace EFramework.Unity
     [CreateAssetMenu(fileName = "EventsConfig", menuName = "EFramework/UnityCommandLine/EventsConfig", order = 1)]
     public class EventsConfig : ScriptableObject
     {
-        [LabelText("系统事件")]
+        [Rename("系统事件")]
         public List<string> systemEvents = new List<string>();
-        [LabelText("游戏生命周期事件")]
+        [Rename("游戏生命周期事件")]
         public List<string> gameLifecycleEvents = new List<string>();
-        [LabelText("Unity生命周期事件")]
+        [Rename("Unity生命周期事件")]
         public List<string> unityLifecycleEvents = new List<string>();
-        [LabelText("自定义事件")]
+        [Rename("自定义事件")]
         public List<string> customEvents = new List<string>();
 
-        [ValueDropdown("GetAllEvents")]
+        [Dropdown("GetAllEvents")]
         public string eventName;
         [Button("Test")]
         public void Test()

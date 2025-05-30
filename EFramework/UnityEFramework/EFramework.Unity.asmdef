@@ -2,7 +2,8 @@
     "name": "EFramework.Unity",
     "rootNamespace": "EFramework.Unity",
     "references": [
-        "GUID:9097238730f49784495d0d4923148dad"
+        "GUID:9097238730f49784495d0d4923148dad",
+        "GUID:febaf25a60dafbd44941357b21678606"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

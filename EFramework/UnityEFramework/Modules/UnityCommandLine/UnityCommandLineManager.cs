@@ -1,9 +1,9 @@
+using EditorAttributes;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Sirenix.OdinInspector;
 using UnityEngine;
 namespace EFramework.UnityCommandLine
 {
