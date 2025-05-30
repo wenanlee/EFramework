@@ -1,4 +1,4 @@
-using EditorAttributes;
+using NaughtyAttributes;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -41,7 +41,7 @@ namespace EFramework.UnityCommandLine
         /// </summary>
         /// <param name="predicate"></param>
         /// <returns></returns>
-        [Button("获取所有命令")]
+        [NaButton("获取所有命令")]
         public void GetAllMethods()
         {
             commandLineLst.Clear();

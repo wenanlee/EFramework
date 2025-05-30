@@ -1,7 +1,7 @@
-using EditorAttributes;
 using EFramework.Unity.Command;
 using EFramework.Unity.UIFramework;
 using EFramework.Unity.Utility;
+using NaughtyAttributes;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml;
@@ -22,7 +22,7 @@ namespace EFramework.Unity
             window.titleContent = new GUIContent("项目配置");
             window.Show();
         }
-        [PropertyDropdown]
+        //[NaDropdown]
         //[InlineButton("CreateNewConfigIfNull","+",ShowIf = "@this.projectConfig == null")]
         public ProjectConfig projectConfig;
 
@@ -45,15 +45,15 @@ namespace EFramework.Unity
     [CreateAssetMenu(fileName = "ProjectConfig",menuName = "EFramework/ProjectConfig")]
     public class ProjectConfig : ScriptableObject
     {
-        [Rename("项目名称")]
+        [NaLabel("项目名称")]
         public string projectName;
 
-        [Rename("项目路径")]
+        [NaLabel("项目路径")]
         //[FolderPath(ParentFolder = "Assets")]
         public string projectParentPath;
 
-        [PropertyDropdown]
-        [InlineButton("@CreateNewConfigIfNull(this.commandEvents)", "+")]
+        //[PropertyDropdown]
+        //[InlineButton("@CreateNewConfigIfNull(this.commandEvents)", "+")]
         public CommandEventSO commandEvents;
 
         public void LoadAllSOFiles()
@@ -87,7 +87,7 @@ namespace EFramework.Unity
             LoadAllSOFiles();
             EditorUtility.DisplayDialog("成功", "已创建新的项目配置文件", "确定");
         }
-        [Button]
+        [NaButton]
         private void SaveConfig()
         {
             //EditorUtility.SetDirty(projectConfig);

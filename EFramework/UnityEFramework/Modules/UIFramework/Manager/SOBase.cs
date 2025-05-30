@@ -1,5 +1,5 @@
-using EditorAttributes;
 using EFramework.Unity.Utility;
+using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,17 +8,17 @@ namespace EFramework.Unity
 {
     public class SOBase : ScriptableObject
     {
-        [Button]
+        [NaButton]
         public virtual void ReLoadSO()
         {
 
         }
-        [Button]
+        [NaButton]
         public virtual void LoadFromJson()
         {
             
         }
-        [Button]
+        [NaButton]
         public virtual void SaveJson()
         {
 

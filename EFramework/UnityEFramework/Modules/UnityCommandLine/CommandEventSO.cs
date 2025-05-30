@@ -7,10 +7,10 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using CommandTerminal;
-using EditorAttributes;
 using EFramework.Core;
 using EFramework.Unity.Command;
 using EFramework.Unity.Utility;
+using NaughtyAttributes;
 using UnityEngine;
 
 namespace EFramework.Unity.Command
@@ -38,10 +38,10 @@ namespace EFramework.Unity.Command
         /// </summary>
         /// <param name="predicate"></param>
         /// <returns></returns>
-        [Button("获取所有命令")]
+        [NaButton("获取所有命令")]
         public void GetAllMethods()
         {
-            CommandHelp.CacheMethodsWithAttributes(new Type[] { typeof(RegisterCommandLine), typeof(ButtonAttribute) });
+            CommandHelp.CacheMethodsWithAttributes(new Type[] { typeof(RegisterCommandLine), typeof(NaButtonAttribute) });
             CommandHelp.MethodCacheByAttributeType[typeof(RegisterCommandLine)].ForEach(method =>
             {
                 CommandHelp.AttributeCacheByMethod[method].ForEach(attribute =>
@@ -51,7 +51,7 @@ namespace EFramework.Unity.Command
                 });
             });
         }
-        [Button("注册所有命令")]
+        [NaButton("注册所有命令")]
         public void test(int a, string b)
         {
 
@@ -67,27 +67,26 @@ namespace EFramework.Unity.Command
         /// <summary>
         /// 获取命令名称
         /// </summary>
-        [ShowInInspector, Rename("命令名称")] public string CommandName;
+        [NaLabel("命令名称")] public string CommandName;
         /// <summary>
         /// 获取命令的唯一标识符
         /// </summary>
-        [ShowInInspector] public string Uuid;
+        [NaLabel("UUID")] public string Uuid;
         /// <summary>
         /// 获取声明方法的类型全限定名称
         /// </summary>
-        [ShowInInspector] public string CommandTypeStr;
+        [NaLabel("命令类型")] public string CommandTypeStr;
         /// <summary>
         /// 获取要调用的方法名称
         /// </summary>
-        [ShowInInspector] public string CommandMethodStr;
+        [NaLabel("命令方法")] public string CommandMethodStr;
         /// <summary>
         /// 获取方法参数类型的全限定名称数组
         /// </summary>
-        [ShowInInspector] public string[] CommandArgsTypeStrs;
+        [NaLabel("命令参数类型")] public string[] CommandArgsTypeStrs;
         private MethodInfo CommandMethod { get; set; }
         private Dictionary<object, Component> CommandInstanceDict { get; set; } = new Dictionary<object, Component>(); // 实例列表
         private Type CommandType { get; set; }
-        [ShowInInspector]
         public object[] CommandArgs { get; set; }
         public CommandEventArgs(string commandName, MethodInfo method)
         {
