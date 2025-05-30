@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace NaughtyAttributes.Editor
 {
-    [CustomPropertyDrawer(typeof(InfoBoxAttribute))]
+    [CustomPropertyDrawer(typeof(NaInfoBoxAttribute))]
     public class InfoBoxDecoratorDrawer : DecoratorDrawer
     {
         public override float GetHeight()
@@ -13,7 +13,7 @@ namespace NaughtyAttributes.Editor
 
         public override void OnGUI(Rect rect)
         {
-            InfoBoxAttribute infoBoxAttribute = (InfoBoxAttribute)attribute;
+            NaInfoBoxAttribute infoBoxAttribute = (NaInfoBoxAttribute)attribute;
 
             float indentLength = NaughtyEditorGUI.GetIndentLength(rect);
             Rect infoBoxRect = new Rect(
@@ -27,7 +27,7 @@ namespace NaughtyAttributes.Editor
 
         private float GetHelpBoxHeight()
         {
-            InfoBoxAttribute infoBoxAttribute = (InfoBoxAttribute)attribute;
+            NaInfoBoxAttribute infoBoxAttribute = (NaInfoBoxAttribute)attribute;
             float minHeight = EditorGUIUtility.singleLineHeight * 2.0f;
             float desiredHeight = GUI.skin.box.CalcHeight(new GUIContent(infoBoxAttribute.Text), EditorGUIUtility.currentViewWidth);
             float height = Mathf.Max(minHeight, desiredHeight);
@@ -35,20 +35,20 @@ namespace NaughtyAttributes.Editor
             return height;
         }
 
-        private void DrawInfoBox(Rect rect, string infoText, EInfoBoxType infoBoxType)
+        private void DrawInfoBox(Rect rect, string infoText, ENaInfoBoxType infoBoxType)
         {
             MessageType messageType = MessageType.None;
             switch (infoBoxType)
             {
-                case EInfoBoxType.Normal:
+                case ENaInfoBoxType.Normal:
                     messageType = MessageType.Info;
                     break;
 
-                case EInfoBoxType.Warning:
+                case ENaInfoBoxType.Warning:
                     messageType = MessageType.Warning;
                     break;
 
-                case EInfoBoxType.Error:
+                case ENaInfoBoxType.Error:
                     messageType = MessageType.Error;
                     break;
             }

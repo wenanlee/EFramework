@@ -4,29 +4,29 @@ namespace NaughtyAttributes.Test
 {
     public class HorizontalLineTest : MonoBehaviour
     {
-        [HorizontalLine(color: EColor.Black)]
+        [NaHorizontalLine(color: EColor.Black)]
         [Header("Black")]
-        [HorizontalLine(color: EColor.Blue)]
+        [NaHorizontalLine(color: EColor.Blue)]
         [Header("Blue")]
-        [HorizontalLine(color: EColor.Gray)]
+        [NaHorizontalLine(color: EColor.Gray)]
         [Header("Gray")]
-        [HorizontalLine(color: EColor.Green)]
+        [NaHorizontalLine(color: EColor.Green)]
         [Header("Green")]
-        [HorizontalLine(color: EColor.Indigo)]
+        [NaHorizontalLine(color: EColor.Indigo)]
         [Header("Indigo")]
-        [HorizontalLine(color: EColor.Orange)]
+        [NaHorizontalLine(color: EColor.Orange)]
         [Header("Orange")]
-        [HorizontalLine(color: EColor.Pink)]
+        [NaHorizontalLine(color: EColor.Pink)]
         [Header("Pink")]
-        [HorizontalLine(color: EColor.Red)]
+        [NaHorizontalLine(color: EColor.Red)]
         [Header("Red")]
-        [HorizontalLine(color: EColor.Violet)]
+        [NaHorizontalLine(color: EColor.Violet)]
         [Header("Violet")]
-        [HorizontalLine(color: EColor.White)]
+        [NaHorizontalLine(color: EColor.White)]
         [Header("White")]
-        [HorizontalLine(color: EColor.Yellow)]
+        [NaHorizontalLine(color: EColor.Yellow)]
         [Header("Yellow")]
-        [HorizontalLine(10.0f)]
+        [NaHorizontalLine(10.0f)]
         [Header("Thick")]
         public int line0;
 
@@ -36,7 +36,7 @@ namespace NaughtyAttributes.Test
     [System.Serializable]
     public class HorizontalLineNest1
     {
-        [HorizontalLine]
+        [NaHorizontalLine]
         public int line1;
 
         public HorizontalLineNest2 nest2;
@@ -45,7 +45,7 @@ namespace NaughtyAttributes.Test
     [System.Serializable]
     public class HorizontalLineNest2
     {
-        [HorizontalLine]
+        [NaHorizontalLine]
         public int line2;
     }
 }

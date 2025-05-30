@@ -7,7 +7,7 @@ namespace NaughtyAttributes.Editor
     {
         public override void ValidateProperty(SerializedProperty property)
         {
-            MaxValueAttribute maxValueAttribute = PropertyUtility.GetAttribute<MaxValueAttribute>(property);
+            NaMaxValueAttribute maxValueAttribute = PropertyUtility.GetAttribute<NaMaxValueAttribute>(property);
 
             if (property.propertyType == SerializedPropertyType.Integer)
             {

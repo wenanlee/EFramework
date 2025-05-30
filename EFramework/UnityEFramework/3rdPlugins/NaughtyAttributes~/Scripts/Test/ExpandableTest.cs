@@ -7,7 +7,7 @@ namespace NaughtyAttributes.Test
         // See #294
         public int precedingField = 5;
 
-        [Expandable]
+        [NaExpandable]
         public ScriptableObject obj0;
 
         public ExpandableScriptableObjectNest1 nest1;
@@ -16,7 +16,7 @@ namespace NaughtyAttributes.Test
     [System.Serializable]
     public class ExpandableScriptableObjectNest1
     {
-        [Expandable]
+        [NaExpandable]
         public ScriptableObject obj1;
 
         public ExpandableScriptableObjectNest2 nest2;
@@ -25,7 +25,7 @@ namespace NaughtyAttributes.Test
     [System.Serializable]
     public class ExpandableScriptableObjectNest2
     {
-        [Expandable]
+        [NaExpandable]
         public ScriptableObject obj2;
     }
 }

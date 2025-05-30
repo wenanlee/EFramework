@@ -7,12 +7,12 @@ using System.Collections.Generic;
 
 namespace NaughtyAttributes.Editor
 {
-    [CustomPropertyDrawer(typeof(DropdownAttribute))]
+    [CustomPropertyDrawer(typeof(NaDropdownAttribute))]
     public class DropdownPropertyDrawer : PropertyDrawerBase
     {
         protected override float GetPropertyHeight_Internal(SerializedProperty property, GUIContent label)
         {
-            DropdownAttribute dropdownAttribute = (DropdownAttribute)attribute;
+            NaDropdownAttribute dropdownAttribute = (NaDropdownAttribute)attribute;
             object values = GetValues(property, dropdownAttribute.ValuesName);
             FieldInfo fieldInfo = ReflectionUtility.GetField(PropertyUtility.GetTargetObjectWithProperty(property), property.name);
 
@@ -27,7 +27,7 @@ namespace NaughtyAttributes.Editor
         {
             EditorGUI.BeginProperty(rect, label, property);
 
-            DropdownAttribute dropdownAttribute = (DropdownAttribute)attribute;
+            NaDropdownAttribute dropdownAttribute = (NaDropdownAttribute)attribute;
             object target = PropertyUtility.GetTargetObjectWithProperty(property);
 
             object valuesObject = GetValues(property, dropdownAttribute.ValuesName);

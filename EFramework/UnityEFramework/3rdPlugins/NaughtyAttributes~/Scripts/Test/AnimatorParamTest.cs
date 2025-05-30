@@ -6,15 +6,15 @@ namespace NaughtyAttributes.Test
     {
         public Animator animator0;
 
-        [AnimatorParam("animator0")]
+        [NaAnimatorParam("animator0")]
         public int hash0;
 
-        [AnimatorParam("animator0")]
+        [NaAnimatorParam("animator0")]
         public string name0;
 
         public AnimatorParamNest1 nest1;
 
-        [Button("Log 'hash0' and 'name0'")]
+        [NaButton("Log 'hash0' and 'name0'")]
         private void TestLog()
         {
             Debug.Log($"hash0 = {hash0}");
@@ -29,10 +29,10 @@ namespace NaughtyAttributes.Test
         public Animator animator1;
         private Animator Animator1 => animator1;
 
-        [AnimatorParam("Animator1", AnimatorControllerParameterType.Bool)]
+        [NaAnimatorParam("Animator1", AnimatorControllerParameterType.Bool)]
         public int hash1;
 
-        [AnimatorParam("Animator1", AnimatorControllerParameterType.Float)]
+        [NaAnimatorParam("Animator1", AnimatorControllerParameterType.Float)]
         public string name1;
 
         public AnimatorParamNest2 nest2;
@@ -44,10 +44,10 @@ namespace NaughtyAttributes.Test
         public Animator animator2;
         private Animator GetAnimator2() => animator2;
 
-        [AnimatorParam("GetAnimator2", AnimatorControllerParameterType.Int)]
+        [NaAnimatorParam("GetAnimator2", AnimatorControllerParameterType.Int)]
         public int hash1;
 
-        [AnimatorParam("GetAnimator2", AnimatorControllerParameterType.Trigger)]
+        [NaAnimatorParam("GetAnimator2", AnimatorControllerParameterType.Trigger)]
         public string name1;
     }
 }

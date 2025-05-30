@@ -4,7 +4,7 @@ namespace NaughtyAttributes.Test
 {
     public class ReadOnlyTest : MonoBehaviour
     {
-        [ReadOnly]
+        [NaReadOnly]
         public int readOnlyInt = 5;
 
         public ReadOnlyNest1 nest1;
@@ -13,8 +13,8 @@ namespace NaughtyAttributes.Test
     [System.Serializable]
     public class ReadOnlyNest1
     {
-        [ReadOnly]
-        [AllowNesting]
+        [NaReadOnly]
+        [NaAllowNesting]
         public float readOnlyFloat = 3.14f;
 
         public ReadOnlyNest2 nest2;
@@ -23,8 +23,8 @@ namespace NaughtyAttributes.Test
     [System.Serializable]
     public struct ReadOnlyNest2
     {
-        [ReadOnly]
-        [AllowNesting]
+        [NaReadOnly]
+        [NaAllowNesting]
         public string readOnlyString;
     }
 }

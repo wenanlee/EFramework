@@ -15,7 +15,7 @@ namespace NaughtyAttributes.Editor
             }
 
             // Validate
-            ValidatorAttribute[] validatorAttributes = PropertyUtility.GetAttributes<ValidatorAttribute>(property);
+            NaValidatorAttribute[] validatorAttributes = PropertyUtility.GetAttributes<NaValidatorAttribute>(property);
             foreach (var validatorAttribute in validatorAttributes)
             {
                 validatorAttribute.GetValidator().ValidateProperty(property);
@@ -57,7 +57,7 @@ namespace NaughtyAttributes.Editor
 
         protected float GetPropertyHeight(SerializedProperty property)
         {
-            SpecialCaseDrawerAttribute specialCaseAttribute = PropertyUtility.GetAttribute<SpecialCaseDrawerAttribute>(property);
+            NaSpecialCaseDrawerAttribute specialCaseAttribute = PropertyUtility.GetAttribute<NaSpecialCaseDrawerAttribute>(property);
             if (specialCaseAttribute != null)
             {
                 return specialCaseAttribute.GetDrawer().GetPropertyHeight(property);

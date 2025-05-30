@@ -4,7 +4,7 @@ namespace NaughtyAttributes.Test
 {
     public class SceneTest : MonoBehaviour
     {
-        [Scene]
+        [NaScene]
         public string scene0;
 
         public SceneNest1 nest1;
@@ -13,7 +13,7 @@ namespace NaughtyAttributes.Test
     [System.Serializable]
     public class SceneNest1
     {
-        [Scene]
+        [NaScene]
         public string scene1;
 
         public SceneNest2 nest2;
@@ -22,7 +22,7 @@ namespace NaughtyAttributes.Test
     [System.Serializable]
     public struct SceneNest2
     {
-        [Scene]
+        [NaScene]
         public int scene2;
     }
 }

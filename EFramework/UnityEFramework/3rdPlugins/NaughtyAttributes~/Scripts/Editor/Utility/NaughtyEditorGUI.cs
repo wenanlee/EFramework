@@ -41,7 +41,7 @@ namespace NaughtyAttributes.Editor
 
         private static void PropertyField_Implementation(Rect rect, SerializedProperty property, bool includeChildren, PropertyFieldFunction propertyFieldFunction)
         {
-            SpecialCaseDrawerAttribute specialCaseAttribute = PropertyUtility.GetAttribute<SpecialCaseDrawerAttribute>(property);
+            NaSpecialCaseDrawerAttribute specialCaseAttribute = PropertyUtility.GetAttribute<NaSpecialCaseDrawerAttribute>(property);
             if (specialCaseAttribute != null)
             {
                 specialCaseAttribute.GetDrawer().OnGUI(rect, property);
@@ -56,7 +56,7 @@ namespace NaughtyAttributes.Editor
                 }
 
                 // Validate
-                ValidatorAttribute[] validatorAttributes = PropertyUtility.GetAttributes<ValidatorAttribute>(property);
+                NaValidatorAttribute[] validatorAttributes = PropertyUtility.GetAttributes<NaValidatorAttribute>(property);
                 foreach (var validatorAttribute in validatorAttributes)
                 {
                     validatorAttribute.GetValidator().ValidateProperty(property);
@@ -142,16 +142,16 @@ namespace NaughtyAttributes.Editor
 
             if (methodInfo.GetParameters().All(p => p.IsOptional))
             {
-                ButtonAttribute buttonAttribute = (ButtonAttribute)methodInfo.GetCustomAttributes(typeof(ButtonAttribute), true)[0];
+                NaButtonAttribute buttonAttribute = (NaButtonAttribute)methodInfo.GetCustomAttributes(typeof(NaButtonAttribute), true)[0];
                 string buttonText = string.IsNullOrEmpty(buttonAttribute.Text) ? ObjectNames.NicifyVariableName(methodInfo.Name) : buttonAttribute.Text;
 
                 bool buttonEnabled = ButtonUtility.IsEnabled(target, methodInfo);
 
-                EButtonEnableMode mode = buttonAttribute.SelectedEnableMode;
+                ENaButtonEnableMode mode = buttonAttribute.SelectedEnableMode;
                 buttonEnabled &=
-                    mode == EButtonEnableMode.Always ||
-                    mode == EButtonEnableMode.Editor && !Application.isPlaying ||
-                    mode == EButtonEnableMode.Playmode && Application.isPlaying;
+                    mode == ENaButtonEnableMode.Always ||
+                    mode == ENaButtonEnableMode.Editor && !Application.isPlaying ||
+                    mode == ENaButtonEnableMode.Playmode && Application.isPlaying;
 
                 bool methodIsCoroutine = methodInfo.ReturnType == typeof(IEnumerator);
                 if (methodIsCoroutine)
@@ -193,7 +193,7 @@ namespace NaughtyAttributes.Editor
             }
             else
             {
-                string warning = typeof(ButtonAttribute).Name + " works only on methods with no parameters";
+                string warning = typeof(NaButtonAttribute).Name + " works only on methods with no parameters";
                 HelpBox_Layout(warning, MessageType.Warning, context: target, logToConsole: true);
             }
         }
@@ -204,12 +204,12 @@ namespace NaughtyAttributes.Editor
 
             if (value == null)
             {
-                string warning = string.Format("{0} is null. {1} doesn't support reference types with null value", ObjectNames.NicifyVariableName(property.Name), typeof(ShowNativePropertyAttribute).Name);
+                string warning = string.Format("{0} is null. {1} doesn't support reference types with null value", ObjectNames.NicifyVariableName(property.Name), typeof(NaShowNativePropertyAttribute).Name);
                 HelpBox_Layout(warning, MessageType.Warning, context: target);
             }
             else if (!Field_Layout(value, ObjectNames.NicifyVariableName(property.Name)))
             {
-                string warning = string.Format("{0} doesn't support {1} types", typeof(ShowNativePropertyAttribute).Name, property.PropertyType.Name);
+                string warning = string.Format("{0} doesn't support {1} types", typeof(NaShowNativePropertyAttribute).Name, property.PropertyType.Name);
                 HelpBox_Layout(warning, MessageType.Warning, context: target);
             }
         }
@@ -220,12 +220,12 @@ namespace NaughtyAttributes.Editor
 
             if (value == null)
             {
-                string warning = string.Format("{0} is null. {1} doesn't support reference types with null value", ObjectNames.NicifyVariableName(field.Name), typeof(ShowNonSerializedFieldAttribute).Name);
+                string warning = string.Format("{0} is null. {1} doesn't support reference types with null value", ObjectNames.NicifyVariableName(field.Name), typeof(NaShowNonSerializedFieldAttribute).Name);
                 HelpBox_Layout(warning, MessageType.Warning, context: target);
             }
             else if (!Field_Layout(value, ObjectNames.NicifyVariableName(field.Name)))
             {
-                string warning = string.Format("{0} doesn't support {1} types", typeof(ShowNonSerializedFieldAttribute).Name, field.FieldType.Name);
+                string warning = string.Format("{0} doesn't support {1} types", typeof(NaShowNonSerializedFieldAttribute).Name, field.FieldType.Name);
                 HelpBox_Layout(warning, MessageType.Warning, context: target);
             }
         }

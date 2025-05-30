@@ -95,7 +95,7 @@ namespace NaughtyAttributes.Editor
             }
             else
             {
-                string message = typeof(ReorderableListAttribute).Name + " can be used only on arrays or lists";
+                string message = typeof(NaReorderableListAttribute).Name + " can be used only on arrays or lists";
                 NaughtyEditorGUI.HelpBox_Layout(message, MessageType.Warning, context: property.serializedObject.targetObject);
                 EditorGUILayout.PropertyField(property, true);
             }

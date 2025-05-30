@@ -4,12 +4,12 @@ using System.Reflection;
 
 namespace NaughtyAttributes.Editor
 {
-    [CustomPropertyDrawer(typeof(ProgressBarAttribute))]
+    [CustomPropertyDrawer(typeof(NaProgressBarAttribute))]
     public class ProgressBarPropertyDrawer : PropertyDrawerBase
     {
         protected override float GetPropertyHeight_Internal(SerializedProperty property, GUIContent label)
         {
-            ProgressBarAttribute progressBarAttribute = PropertyUtility.GetAttribute<ProgressBarAttribute>(property);
+            NaProgressBarAttribute progressBarAttribute = PropertyUtility.GetAttribute<NaProgressBarAttribute>(property);
             var maxValue = GetMaxValue(property, progressBarAttribute);
 
             return IsNumber(property) && IsNumber(maxValue)
@@ -28,7 +28,7 @@ namespace NaughtyAttributes.Editor
                 return;
             }
 
-            ProgressBarAttribute progressBarAttribute = PropertyUtility.GetAttribute<ProgressBarAttribute>(property);
+            NaProgressBarAttribute progressBarAttribute = PropertyUtility.GetAttribute<NaProgressBarAttribute>(property);
             var value = property.propertyType == SerializedPropertyType.Integer ? property.intValue : property.floatValue;
             var valueFormatted = property.propertyType == SerializedPropertyType.Integer ? value.ToString() : string.Format("{0:0.00}", value);
             var maxValue = GetMaxValue(property, progressBarAttribute);
@@ -63,7 +63,7 @@ namespace NaughtyAttributes.Editor
             EditorGUI.EndProperty();
         }
 
-        private object GetMaxValue(SerializedProperty property, ProgressBarAttribute progressBarAttribute)
+        private object GetMaxValue(SerializedProperty property, NaProgressBarAttribute progressBarAttribute)
         {
             if (string.IsNullOrEmpty(progressBarAttribute.MaxValueName))
             {

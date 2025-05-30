@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace NaughtyAttributes.Editor
 {
-    [CustomPropertyDrawer(typeof(TagAttribute))]
+    [CustomPropertyDrawer(typeof(NaTagAttribute))]
     public class TagPropertyDrawer : PropertyDrawerBase
     {
         protected override float GetPropertyHeight_Internal(SerializedProperty property, GUIContent label)
@@ -52,7 +52,7 @@ namespace NaughtyAttributes.Editor
             }
             else
             {
-                string message = string.Format("{0} supports only string fields", typeof(TagAttribute).Name);
+                string message = string.Format("{0} supports only string fields", typeof(NaTagAttribute).Name);
                 DrawDefaultPropertyAndHelpBox(rect, property, message, MessageType.Warning);
             }
 

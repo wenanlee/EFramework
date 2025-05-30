@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace NaughtyAttributes.Editor
 {
-    [CustomPropertyDrawer(typeof(InputAxisAttribute))]
+    [CustomPropertyDrawer(typeof(NaInputAxisAttribute))]
     public class InputAxisPropertyDrawer : PropertyDrawerBase
     {
         private static readonly string AssetPath = Path.Combine("ProjectSettings", "InputManager.asset");
@@ -67,7 +67,7 @@ namespace NaughtyAttributes.Editor
             }
             else
             {
-                string message = string.Format("{0} supports only string fields", typeof(InputAxisAttribute).Name);
+                string message = string.Format("{0} supports only string fields", typeof(NaInputAxisAttribute).Name);
                 DrawDefaultPropertyAndHelpBox(rect, property, message, MessageType.Warning);
             }
 

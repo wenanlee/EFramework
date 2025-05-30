@@ -8,7 +8,7 @@ namespace NaughtyAttributes.Editor
     {
         public override void ValidateProperty(SerializedProperty property)
         {
-            ValidateInputAttribute validateInputAttribute = PropertyUtility.GetAttribute<ValidateInputAttribute>(property);
+            NaValidateInputAttribute validateInputAttribute = PropertyUtility.GetAttribute<NaValidateInputAttribute>(property);
             object target = PropertyUtility.GetTargetObjectWithProperty(property);
 
             MethodInfo validationCallback = ReflectionUtility.GetMethod(target, validateInputAttribute.CallbackName);

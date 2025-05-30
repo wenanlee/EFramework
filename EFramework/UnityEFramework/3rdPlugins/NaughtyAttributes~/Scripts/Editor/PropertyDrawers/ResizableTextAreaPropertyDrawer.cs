@@ -5,7 +5,7 @@ using System;
 
 namespace NaughtyAttributes.Editor
 {
-    [CustomPropertyDrawer(typeof(ResizableTextAreaAttribute))]
+    [CustomPropertyDrawer(typeof(NaResizableTextAreaAttribute))]
     public class ResizableTextAreaPropertyDrawer : PropertyDrawerBase
     {
         protected override float GetPropertyHeight_Internal(SerializedProperty property, GUIContent label)
@@ -57,7 +57,7 @@ namespace NaughtyAttributes.Editor
             }
             else
             {
-                string message = typeof(ResizableTextAreaAttribute).Name + " can only be used on string fields";
+                string message = typeof(NaResizableTextAreaAttribute).Name + " can only be used on string fields";
                 DrawDefaultPropertyAndHelpBox(rect, property, message, MessageType.Warning);
             }
 

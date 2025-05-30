@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace NaughtyAttributes.Editor
 {
-    [CustomPropertyDrawer(typeof(SortingLayerAttribute))]
+    [CustomPropertyDrawer(typeof(NaSortingLayerAttribute))]
     public class SortingLayerPropertyDrawer : PropertyDrawerBase
     {
         private const string TypeWarningMessage = "{0} must be an int or a string";

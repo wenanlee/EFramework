@@ -28,7 +28,7 @@ namespace NaughtyAttributes.Editor
 
         public static GUIContent GetLabel(SerializedProperty property)
         {
-            LabelAttribute labelAttribute = GetAttribute<LabelAttribute>(property);
+            NaLabelAttribute labelAttribute = GetAttribute<NaLabelAttribute>(property);
             string labelText = (labelAttribute == null)
                 ? property.displayName
                 : labelAttribute.Label;
@@ -39,7 +39,7 @@ namespace NaughtyAttributes.Editor
 
         public static void CallOnValueChangedCallbacks(SerializedProperty property)
         {
-            OnValueChangedAttribute[] onValueChangedAttributes = GetAttributes<OnValueChangedAttribute>(property);
+            NaOnValueChangedAttribute[] onValueChangedAttributes = GetAttributes<NaOnValueChangedAttribute>(property);
             if (onValueChangedAttributes.Length == 0)
             {
                 return;
@@ -70,13 +70,13 @@ namespace NaughtyAttributes.Editor
 
         public static bool IsEnabled(SerializedProperty property)
         {
-            ReadOnlyAttribute readOnlyAttribute = GetAttribute<ReadOnlyAttribute>(property);
+            NaReadOnlyAttribute readOnlyAttribute = GetAttribute<NaReadOnlyAttribute>(property);
             if (readOnlyAttribute != null)
             {
                 return false;
             }
 
-            EnableIfAttributeBase enableIfAttribute = GetAttribute<EnableIfAttributeBase>(property);
+            NaEnableIfAttributeBase enableIfAttribute = GetAttribute<NaEnableIfAttributeBase>(property);
             if (enableIfAttribute == null)
             {
                 return true;
@@ -121,7 +121,7 @@ namespace NaughtyAttributes.Editor
 
         public static bool IsVisible(SerializedProperty property)
         {
-            ShowIfAttributeBase showIfAttribute = GetAttribute<ShowIfAttributeBase>(property);
+            NaShowIfAttributeBase showIfAttribute = GetAttribute<NaShowIfAttributeBase>(property);
             if (showIfAttribute == null)
             {
                 return true;

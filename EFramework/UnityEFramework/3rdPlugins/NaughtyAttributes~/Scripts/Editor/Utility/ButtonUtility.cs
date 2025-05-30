@@ -8,7 +8,7 @@ namespace NaughtyAttributes.Editor
     {
         public static bool IsEnabled(Object target, MethodInfo method)
         {
-            EnableIfAttributeBase enableIfAttribute = method.GetCustomAttribute<EnableIfAttributeBase>();
+            NaEnableIfAttributeBase enableIfAttribute = method.GetCustomAttribute<NaEnableIfAttributeBase>();
             if (enableIfAttribute == null)
             {
                 return true;
@@ -31,7 +31,7 @@ namespace NaughtyAttributes.Editor
 
         public static bool IsVisible(Object target, MethodInfo method)
         {
-            ShowIfAttributeBase showIfAttribute = method.GetCustomAttribute<ShowIfAttributeBase>();
+            NaShowIfAttributeBase showIfAttribute = method.GetCustomAttribute<NaShowIfAttributeBase>();
             if (showIfAttribute == null)
             {
                 return true;

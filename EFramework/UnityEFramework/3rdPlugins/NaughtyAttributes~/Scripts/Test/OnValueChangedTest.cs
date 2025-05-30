@@ -4,8 +4,8 @@ namespace NaughtyAttributes.Test
 {
     public class OnValueChangedTest : MonoBehaviour
     {
-        [OnValueChanged("OnValueChangedMethod1")]
-        [OnValueChanged("OnValueChangedMethod2")]
+        [NaOnValueChanged("OnValueChangedMethod1")]
+        [NaOnValueChanged("OnValueChangedMethod2")]
         public int int0;
 
         private void OnValueChangedMethod1()
@@ -24,8 +24,8 @@ namespace NaughtyAttributes.Test
     [System.Serializable]
     public class OnValueChangedNest1
     {
-        [OnValueChanged("OnValueChangedMethod")]
-        [AllowNesting]
+        [NaOnValueChanged("OnValueChangedMethod")]
+        [NaAllowNesting]
         public int int1;
 
         private void OnValueChangedMethod()
@@ -39,8 +39,8 @@ namespace NaughtyAttributes.Test
     [System.Serializable]
     public class OnValueChangedNest2
     {
-        [OnValueChanged("OnValueChangedMethod")]
-        [AllowNesting]
+        [NaOnValueChanged("OnValueChangedMethod")]
+        [NaAllowNesting]
         public int int2;
 
         private void OnValueChangedMethod()

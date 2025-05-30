@@ -3,7 +3,7 @@ using UnityEditor;
 
 namespace NaughtyAttributes.Editor
 {
-    [CustomPropertyDrawer(typeof(AllowNestingAttribute))]
+    [CustomPropertyDrawer(typeof(NaAllowNestingAttribute))]
     public class AllowNestingPropertyDrawer : PropertyDrawerBase
     {
         protected override void OnGUI_Internal(Rect rect, SerializedProperty property, GUIContent label)

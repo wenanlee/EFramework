@@ -3,7 +3,7 @@ using UnityEditor;
 
 namespace NaughtyAttributes.Editor
 {
-    [CustomPropertyDrawer(typeof(ExpandableAttribute))]
+    [CustomPropertyDrawer(typeof(NaExpandableAttribute))]
     public class ExpandablePropertyDrawer : PropertyDrawerBase
     {
         protected override float GetPropertyHeight_Internal(SerializedProperty property, GUIContent label)
@@ -119,7 +119,7 @@ namespace NaughtyAttributes.Editor
                 }
                 else
                 {
-                    string message = $"{typeof(ExpandableAttribute).Name} can only be used on scriptable objects";
+                    string message = $"{typeof(NaExpandableAttribute).Name} can only be used on scriptable objects";
                     DrawDefaultPropertyAndHelpBox(rect, property, message, MessageType.Warning);
                 }
             }

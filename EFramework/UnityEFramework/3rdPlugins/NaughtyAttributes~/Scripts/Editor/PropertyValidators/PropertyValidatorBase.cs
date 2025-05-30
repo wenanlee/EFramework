@@ -16,13 +16,13 @@ namespace NaughtyAttributes.Editor
         static ValidatorAttributeExtensions()
         {
             _validatorsByAttributeType = new Dictionary<Type, PropertyValidatorBase>();
-            _validatorsByAttributeType[typeof(MinValueAttribute)] = new MinValuePropertyValidator();
-            _validatorsByAttributeType[typeof(MaxValueAttribute)] = new MaxValuePropertyValidator();
-            _validatorsByAttributeType[typeof(RequiredAttribute)] = new RequiredPropertyValidator();
-            _validatorsByAttributeType[typeof(ValidateInputAttribute)] = new ValidateInputPropertyValidator();
+            _validatorsByAttributeType[typeof(NaMinValueAttribute)] = new MinValuePropertyValidator();
+            _validatorsByAttributeType[typeof(NaMaxValueAttribute)] = new MaxValuePropertyValidator();
+            _validatorsByAttributeType[typeof(NaRequiredAttribute)] = new RequiredPropertyValidator();
+            _validatorsByAttributeType[typeof(NaValidateInputAttribute)] = new ValidateInputPropertyValidator();
         }
 
-        public static PropertyValidatorBase GetValidator(this ValidatorAttribute attr)
+        public static PropertyValidatorBase GetValidator(this NaValidatorAttribute attr)
         {
             PropertyValidatorBase validator;
             if (_validatorsByAttributeType.TryGetValue(attr.GetType(), out validator))

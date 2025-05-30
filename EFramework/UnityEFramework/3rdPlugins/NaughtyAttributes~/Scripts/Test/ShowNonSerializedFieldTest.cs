@@ -5,28 +5,28 @@ namespace NaughtyAttributes.Test
     public class ShowNonSerializedFieldTest : MonoBehaviour
     {
 #pragma warning disable 414
-        [ShowNonSerializedField]
+        [NaShowNonSerializedField]
         private ushort myUShort = ushort.MaxValue;
 
-        [ShowNonSerializedField]
+        [NaShowNonSerializedField]
         private short myShort = short.MaxValue;
 
-        [ShowNonSerializedField]
+        [NaShowNonSerializedField]
         private uint myUInt = uint.MaxValue;
 
-        [ShowNonSerializedField]
+        [NaShowNonSerializedField]
         private int myInt = 10;
 
-        [ShowNonSerializedField]
+        [NaShowNonSerializedField]
         private ulong myULong = ulong.MaxValue;
 
-        [ShowNonSerializedField]
+        [NaShowNonSerializedField]
         private long myLong = long.MaxValue;
 
-        [ShowNonSerializedField]
+        [NaShowNonSerializedField]
         private const float PI = 3.14159f;
 
-        [ShowNonSerializedField]
+        [NaShowNonSerializedField]
         private static readonly Vector3 CONST_VECTOR = Vector3.one;
 #pragma warning restore 414
     }

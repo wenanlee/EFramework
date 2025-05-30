@@ -3,7 +3,7 @@ using UnityEditor;
 
 namespace NaughtyAttributes.Editor
 {
-    [CustomPropertyDrawer(typeof(ShowAssetPreviewAttribute))]
+    [CustomPropertyDrawer(typeof(NaShowAssetPreviewAttribute))]
     public class ShowAssetPreviewPropertyDrawer : PropertyDrawerBase
     {
         protected override float GetPropertyHeight_Internal(SerializedProperty property, GUIContent label)
@@ -90,10 +90,10 @@ namespace NaughtyAttributes.Editor
             }
             else
             {
-                int targetWidth = ShowAssetPreviewAttribute.DefaultWidth;
-                int targetHeight = ShowAssetPreviewAttribute.DefaultHeight;
+                int targetWidth = NaShowAssetPreviewAttribute.DefaultWidth;
+                int targetHeight = NaShowAssetPreviewAttribute.DefaultHeight;
 
-                ShowAssetPreviewAttribute showAssetPreviewAttribute = PropertyUtility.GetAttribute<ShowAssetPreviewAttribute>(property);
+                NaShowAssetPreviewAttribute showAssetPreviewAttribute = PropertyUtility.GetAttribute<NaShowAssetPreviewAttribute>(property);
                 if (showAssetPreviewAttribute != null)
                 {
                     targetWidth = showAssetPreviewAttribute.Width;

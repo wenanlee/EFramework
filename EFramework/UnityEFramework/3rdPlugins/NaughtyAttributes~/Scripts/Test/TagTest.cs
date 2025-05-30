@@ -4,12 +4,12 @@ namespace NaughtyAttributes.Test
 {
     public class TagTest : MonoBehaviour
     {
-        [Tag]
+        [NaTag]
         public string tag0;
 
         public TagNest1 nest1;
 
-        [Button]
+        [NaButton]
         private void LogTag0()
         {
             Debug.Log(tag0);
@@ -19,7 +19,7 @@ namespace NaughtyAttributes.Test
     [System.Serializable]
     public class TagNest1
     {
-        [Tag]
+        [NaTag]
         public string tag1;
 
         public TagNest2 nest2;
@@ -28,7 +28,7 @@ namespace NaughtyAttributes.Test
     [System.Serializable]
     public struct TagNest2
     {
-        [Tag]
+        [NaTag]
         public string tag2;
     }
 }

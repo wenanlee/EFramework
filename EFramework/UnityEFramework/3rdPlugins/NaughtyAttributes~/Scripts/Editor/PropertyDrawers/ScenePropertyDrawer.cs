@@ -6,7 +6,7 @@ using System;
 
 namespace NaughtyAttributes.Editor
 {
-    [CustomPropertyDrawer(typeof(SceneAttribute))]
+    [CustomPropertyDrawer(typeof(NaSceneAttribute))]
     public class ScenePropertyDrawer : PropertyDrawerBase
     {
         private const string SceneListItem = "{0} ({1})";
