@@ -1,0 +1,329 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-7812047650333594023
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8989b11aea7e0f342ae6fea4477d40f5, type: 3}
+  m_Name: "\u4EFB\u52A1\u8282\u70B9"
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -328, y: -408}
+  ports:
+    keys:
+    - message
+    - input
+    - output
+    values:
+    - _fieldName: message
+      _node: {fileID: -7812047650333594023}
+      _typeQualifiedName: System.String, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: input
+      _node: {fileID: -7812047650333594023}
+      _typeQualifiedName: EFramework.Unity.XNode.Core.Empty, EFramework.Unity.XNode.Core,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: output
+      _node: {fileID: -7812047650333594023}
+      _typeQualifiedName: EFramework.Unity.XNode.Core.Empty, EFramework.Unity.XNode.Core,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  message: 
+--- !u!114 &-1583004356190550588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8989b11aea7e0f342ae6fea4477d40f5, type: 3}
+  m_Name: "\u4EFB\u52A1\u8282\u70B9"
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -405.3499, y: -787.82477}
+  ports:
+    keys:
+    - message
+    - input
+    - output
+    values:
+    - _fieldName: message
+      _node: {fileID: -1583004356190550588}
+      _typeQualifiedName: System.String, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: input
+      _node: {fileID: -1583004356190550588}
+      _typeQualifiedName: EFramework.Unity.XNode.Core.Empty, EFramework.Unity.XNode.Core,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: output
+      _node: {fileID: -1583004356190550588}
+      _typeQualifiedName: EFramework.Unity.XNode.Core.Empty, EFramework.Unity.XNode.Core,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  message: 
+--- !u!114 &-210660455678266684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8989b11aea7e0f342ae6fea4477d40f5, type: 3}
+  m_Name: "\u4EFB\u52A1\u8282\u70B9"
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -559.7499, y: -427.82452}
+  ports:
+    keys:
+    - message
+    - input
+    - output
+    values:
+    - _fieldName: message
+      _node: {fileID: -210660455678266684}
+      _typeQualifiedName: System.String, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: input
+      _node: {fileID: -210660455678266684}
+      _typeQualifiedName: EFramework.Unity.XNode.Core.Empty, EFramework.Unity.XNode.Core,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: output
+      _node: {fileID: -210660455678266684}
+      _typeQualifiedName: EFramework.Unity.XNode.Core.Empty, EFramework.Unity.XNode.Core,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  message: 
+--- !u!114 &-30897511900475599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 961e9a7a44359ad4285375d80e8f4426, type: 3}
+  m_Name: "\u52A0\u8F7D\u6587\u4EF6\u8282\u70B9"
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -962.14984, y: -623.8245}
+  ports:
+    keys:
+    - output
+    values:
+    - _fieldName: output
+      _node: {fileID: -30897511900475599}
+      _typeQualifiedName: System.String, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  output: 
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b00d7781a71e1c42b0f96afdf3fb514, type: 3}
+  m_Name: TaskGraph
+  m_EditorClassIdentifier: 
+  nodes:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 1135948011994755840}
+  - {fileID: -30897511900475599}
+  - {fileID: 8763439388114149095}
+  - {fileID: -210660455678266684}
+  - {fileID: -1583004356190550588}
+  - {fileID: 1781183151006258839}
+  - {fileID: -7812047650333594023}
+  - {fileID: 2373478266737382865}
+--- !u!114 &1135948011994755840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 961e9a7a44359ad4285375d80e8f4426, type: 3}
+  m_Name: "\u52A0\u8F7D\u6587\u4EF6\u8282\u70B9"
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -736.5498, y: -584.6245}
+  ports:
+    keys:
+    - output
+    values:
+    - _fieldName: output
+      _node: {fileID: 1135948011994755840}
+      _typeQualifiedName: System.String, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  output: 
+--- !u!114 &1781183151006258839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 961e9a7a44359ad4285375d80e8f4426, type: 3}
+  m_Name: "\u52A0\u8F7D\u6587\u4EF6\u8282\u70B9"
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -406.9499, y: -497.42474}
+  ports:
+    keys:
+    - output
+    values:
+    - _fieldName: output
+      _node: {fileID: 1781183151006258839}
+      _typeQualifiedName: System.String, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  output: 
+--- !u!114 &2373478266737382865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 961e9a7a44359ad4285375d80e8f4426, type: 3}
+  m_Name: "\u52A0\u8F7D\u6587\u4EF6\u8282\u70B9"
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -590.1499, y: -455.82474}
+  ports:
+    keys:
+    - output
+    values:
+    - _fieldName: output
+      _node: {fileID: 2373478266737382865}
+      _typeQualifiedName: System.String, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  output: 
+--- !u!114 &8763439388114149095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8989b11aea7e0f342ae6fea4477d40f5, type: 3}
+  m_Name: "\u4EFB\u52A1\u8282\u70B9"
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -920, y: -504}
+  ports:
+    keys:
+    - message
+    - input
+    - output
+    values:
+    - _fieldName: message
+      _node: {fileID: 8763439388114149095}
+      _typeQualifiedName: System.String, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: input
+      _node: {fileID: 8763439388114149095}
+      _typeQualifiedName: EFramework.Unity.XNode.Core.Empty, EFramework.Unity.XNode.Core,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: output
+      _node: {fileID: 8763439388114149095}
+      _typeQualifiedName: EFramework.Unity.XNode.Core.Empty, EFramework.Unity.XNode.Core,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  message: 

@@ -1,0 +1,17 @@
+{
+    "name": "EFramework.Unity.XNode.Core",
+    "rootNamespace": "EFramework.Unity.XNode.Core",
+    "references": [
+        "GUID:9097238730f49784495d0d4923148dad",
+        "GUID:4db2cf19edfca2e46b3fefad89b1dad4"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
