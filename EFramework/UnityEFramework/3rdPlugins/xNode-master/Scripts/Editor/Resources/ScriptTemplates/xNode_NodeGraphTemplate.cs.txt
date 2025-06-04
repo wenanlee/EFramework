@@ -1,0 +1,9 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using EFramework.Unity.XNode;
+
+[CreateAssetMenu]
+public class #SCRIPTNAME# : NodeGraph { 
+	#NOTRIM#
+}
