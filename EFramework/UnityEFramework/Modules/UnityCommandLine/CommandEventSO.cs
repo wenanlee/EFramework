@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using EFramework.Core;
 using NaughtyAttributes;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace EFramework.Unity.Command
@@ -14,24 +15,12 @@ namespace EFramework.Unity.Command
         //[DataTable(true,true)]
         public List<CommandEventArgs> commandEvents = new List<CommandEventArgs>();
 
-
-        //public void RegisterAllCommands()
-        //{
-        //    foreach (var commandEvent in commandEvents)
-        //    {
-        //        commandEvent.AddEventListener();
-        //    }
-        //}
-        public override void ReLoadSO()
-        {
-            //GetAllMethods();
-        }
         /// <summary>
         /// 获取所有带CommandInstance的方法
         /// </summary>
         /// <param name="predicate"></param>
         /// <returns></returns>
-        [NaButton("获取所有命令")]
+        [Button("获取所有命令")]
         public void GetAllMethods()
         {
             CommandHelper.CacheAttributeMethods(typeof(RegisterCommandLine), typeof(NaButtonAttribute));
@@ -44,10 +33,69 @@ namespace EFramework.Unity.Command
                 });
             });
         }
-        [NaButton("注册所有命令")]
-        public void test(int a, string b)
+        public IEnumerable<string> GetCommandEvents()
         {
-
+            if (commandEvents == null || commandEvents.Count == 0)
+                return Enumerable.Empty<string>();
+            IEnumerable<string> commandNames = commandEvents.Select(e => e.CommandName);
+            return commandNames;
+        }
+        public void OnChangeValue()
+        {
+            for (int i = 0; i < commandEvents.Count; i++)
+            {
+                if( commandEvents[i].CommandName== commandName)
+                {
+                    commandArgs = commandEvents[i].CommandArgs;
+                    switch (commandEvents[i].CommandArgs.Length)
+                    {
+                        case 0:
+                            commandArgs = null;
+                            break;
+                        case 1:
+                            commandArgs = System.Tuple.Create(commandEvents[i].CommandArgs[0]);
+                            break;
+                        case 2:
+                            commandArgs = System.Tuple.Create(commandEvents[i].CommandArgs[0], commandEvents[i].CommandArgs[1]);
+                            break;
+                        case 3:
+                            commandArgs = System.Tuple.Create(commandEvents[i].CommandArgs[0], commandEvents[i].CommandArgs[1], commandEvents[i].CommandArgs[2]);
+                            break;
+                        case 4:
+                            commandArgs = System.Tuple.Create(commandEvents[i].CommandArgs[0], commandEvents[i].CommandArgs[1], commandEvents[i].CommandArgs[2], commandEvents[i].CommandArgs[3]);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+        }
+        [LabelText("命令"),ValueDropdown(nameof(GetCommandEvents)),OnValueChanged(nameof(OnChangeValue))]
+        public string commandName;
+        [ShowInInspector]
+        public object commandArgs;
+        [Button("注册所有命令")]
+        public void Invoke()
+        {
+            if(Application.isPlaying)
+            EventManager.SendEvent(commandName, commandArgs);
+            else
+            {
+                // 在编辑器模式下，直接调用命令
+                var commandEvent = commandEvents.FirstOrDefault(e => e.CommandName == commandName);
+                if (commandEvent != null)
+                {
+                    commandEvent.InvokeStatic(commandArgs.GetType().GetProperties()
+                     .Where(p => p.Name.StartsWith("Item"))
+                    .OrderBy(p => p.Name)
+                     .Select(p => p.GetValue(commandArgs))
+                     .ToArray());
+                }
+                else
+                {
+                    Debug.LogError($"未找到命令: {commandName}");
+                }
+            }
         }
     }
     [Serializable]
@@ -113,25 +161,6 @@ namespace EFramework.Unity.Command
         {
             try
             {
-                if (CommandType == null)
-                    CommandType = Type.GetType(CommandTypeStr);
-
-                //Component instance = null;
-                //if (targetInstance != null)
-                //{
-                //    if (CommandInstanceDict.ContainsKey(targetInstance) == false)
-                //    {
-
-                //        if (targetInstance is GameObject go && typeof(MonoBehaviour).IsAssignableFrom(CommandType))
-                //        {
-                //            // 尝试获取组件
-                //            instance = go.GetComponent(CommandType);
-                //        }
-                //    }
-                //}
-                GetMethodInfo();
-
-                // 静态方法不能有实例
                 if (CommandMethod.IsStatic == false && targetInstance == null)
                     targetInstance = Activator.CreateInstance(CommandType);
 
