@@ -185,8 +185,6 @@ MonoBehaviour:
   m_Name: TaskGraph
   m_EditorClassIdentifier: 
   nodes:
-  - {fileID: 0}
-  - {fileID: 0}
   - {fileID: 1135948011994755840}
   - {fileID: -30897511900475599}
   - {fileID: 8763439388114149095}
