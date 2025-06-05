@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EFramework.Unity.XNodeEditor;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -257,6 +258,28 @@ namespace EFramework.Unity.XNode {
         /// <param name="port">Output or Input</param>
         public virtual void OnRemoveConnection(NodePort port) { }
 
+        // 在节点绘制相关代码里，获取节点标题
+        // 这是个例子，实际你需根据项目中节点标题的具体绘制位置来插入
+       public virtual string GetNodeTitle(Node node)
+        {
+            CreateNodeMenuAttribute attrib;
+            if (NodeEditorUtilities.GetAttrib(node.GetType(), out attrib))
+            {
+                // 如果节点实例的 name 没被改过，则显示 nodeName，否则显示用户重命名的 name
+                if (string.IsNullOrEmpty(node.name)
+                    || node.name == node.GetType().Name
+                    || node.name == attrib.menuName
+                    || node.name == attrib.nodeName)
+                {
+                    return !string.IsNullOrEmpty(attrib.nodeName) ? attrib.nodeName : attrib.menuName;
+                }
+                else
+                {
+                    return node.name;
+                }
+            }
+            return node.name;
+        }
         /// <summary> Disconnect everything from this node </summary>
         public void ClearConnections() {
             foreach (NodePort port in Ports) port.ClearConnections();

@@ -26,7 +26,7 @@ namespace EFramework.Unity.XNodeEditor {
 #endif
 
         public virtual void OnHeaderGUI() {
-            GUILayout.Label(target.name, NodeEditorResources.styles.nodeHeader, GUILayout.Height(30));
+            GUILayout.Label(target.GetNodeTitle(target), NodeEditorResources.styles.nodeHeader, GUILayout.Height(30));
         }
 
         /// <summary> Draws standard field editors for all public fields </summary>

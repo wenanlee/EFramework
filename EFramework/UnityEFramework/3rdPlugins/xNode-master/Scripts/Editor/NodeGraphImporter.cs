@@ -37,7 +37,6 @@ namespace EFramework.Unity.XNodeEditor {
                 XNode.Node node = graph.AddNode(type);
                 node.position = position;
                 position.x += 200;
-                Debug.Log(node.name == null || node.name.Trim() == "");
                 if (node.name == null || node.name.Trim() == "") node.name = NodeEditorUtilities.NodeDefaultName(type);
                 if (!string.IsNullOrEmpty(AssetDatabase.GetAssetPath(graph))) AssetDatabase.AddObjectToAsset(node, graph);
             }
