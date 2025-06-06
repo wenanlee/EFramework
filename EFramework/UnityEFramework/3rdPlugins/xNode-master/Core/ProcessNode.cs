@@ -5,11 +5,10 @@ using EFramework.Unity.XNode;
 using EFramework.Core;
 namespace EFramework.Unity.XNode.Core
 {
-    [CreateNodeMenu("系统/流程节点",nodeName ="流程节点")]
-    public class ProcessNode : TaskNodeBase
+    [CreateNodeMenu("流程节点/基础流程节点(占位用没有实际功能)", order = 1)]
+    public class ProcessNode : ProcessNodeBase
     {
-        public string ProcessName = "";
-        public void StartProcess()=> EventManager.SendEvent("ProcessStart", ProcessName);
-        public void EndProcess() => EventManager.SendEvent("ProcessEnd", ProcessName);
+        [TextArea]
+        public string text = "";
     }
 }

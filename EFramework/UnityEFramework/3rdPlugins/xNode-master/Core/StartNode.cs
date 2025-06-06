@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace EFramework.Unity.XNode.Core
 {
-    [CreateNodeMenu("BaseNode/StartNode")]
-    public class StartNode : NodeBase
+    public abstract class StartNode : NodeBase
     {
-        [Output] public Empty output;
+        [Output] public Empty exit;
+
     }
 }

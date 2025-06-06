@@ -4,12 +4,11 @@ using UnityEngine;
 
 namespace EFramework.Unity.XNode.Core
 {
-    [CreateNodeMenu("BaseNode/TaskNodeBase")]
-    public class TaskNodeBase : NodeBase
+    public abstract class ProcessNodeBase : NodeBase
     {
         [Input]
-        public Empty input;
+        public Empty enter;
         [Output]
-        public Empty output;
+        public Empty exit;
     }
 }

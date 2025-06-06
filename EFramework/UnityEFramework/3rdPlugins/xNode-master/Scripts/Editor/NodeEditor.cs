@@ -28,7 +28,7 @@ namespace EFramework.Unity.XNodeEditor {
         public virtual void OnHeaderGUI() {
             GUILayout.Label(target.GetNodeTitle(target), NodeEditorResources.styles.nodeHeader, GUILayout.Height(30));
         }
-
+    
         /// <summary> Draws standard field editors for all public fields </summary>
         public virtual void OnBodyGUI() {
 #if ODIN_INSPECTOR

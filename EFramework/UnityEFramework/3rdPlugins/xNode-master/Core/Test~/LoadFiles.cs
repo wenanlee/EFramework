@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using EFramework.Unity.XNode;
-[CreateNodeMenu("MovePlayerPosition", menuName = "移动玩家位置")]
-public class MovePlayerPosition : TaskNode {
-	[Input]
-	public Vector3 Player;
+[CreateNodeMenu("系统节点/加载文件节点")]
+public class LoadFiles : ValueNodeBase<string> {
+
 	// Use this for initialization
 	protected override void Init() {
 		base.Init();
-		name = "移动玩家位置";
+		name = "加载文件节点";
     }
 
 	// Return the correct value of an output port when requested
