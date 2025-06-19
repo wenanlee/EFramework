@@ -6,12 +6,14 @@ using EFramework.Unity.XNode;
 namespace EFramework.Unity.XNode.Core
 {
     [CreateNodeMenu("系统节点/打印节点", nodeName = "打印节点")]
-    public class Log : ProcessNodeBase
+    public class LogNode : ProcessNodeBase
     {
+        [Input(ShowBackingValue.Unconnected)]
         public string message = "";
         public override void Execute()
         {
-            Debug.Log($">>> {message}");
+            var inputValue = GetInputValue<string>(nameof(message), message);
+            Debug.Log($">>> {inputValue}");
             base.Execute();
         }
     }

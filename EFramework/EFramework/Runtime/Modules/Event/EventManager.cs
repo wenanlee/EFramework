@@ -348,6 +348,11 @@ namespace EFramework.Core
             EventAgent<object, T1, T2, T3, T4>.Instance.RemoveListener(eid, action);
         }
 
+        public static void AddListener(object onT)
+        {
+            throw new NotImplementedException();
+        }
+
 
         #endregion
     }

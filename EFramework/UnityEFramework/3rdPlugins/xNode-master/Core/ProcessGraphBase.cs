@@ -6,7 +6,7 @@ namespace EFramework.Unity.XNode.Core
     [CreateAssetMenu(fileName = "ProcessGraph", menuName = "EFramework/ProcessGraph")]
     public class ProcessGraphBase : NodeGraph
     {
-        public virtual void Trigger(string eventName)
+        public virtual void Trigger()
         {
             // 遍历所有节点
             foreach (var node in nodes)

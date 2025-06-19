@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
 
-public class ObjPool<T> where T : Component
+public class ObjPool<T> where T : UnityEngine.Object
 {
     [SerializeField] public T prefab;
     [SerializeField] public Transform parent;
@@ -35,10 +35,53 @@ public class ObjPool<T> where T : Component
 
 
     protected virtual T OnCreatePoolItem() => UnityEngine.GameObject.Instantiate(prefab, parent);
-    protected virtual void OnRealeasePoolItem(T obj) => obj.gameObject.SetActive(false); //将物体返回对象池
-    protected virtual void OnGetPoolItem(T obj) => obj.gameObject.SetActive(true);
+    protected virtual void OnRealeasePoolItem(T obj)
+    {
+        if ((obj is Component com))
+        {
+             com.gameObject.SetActive(false); //将物体返回对象池
+        }
+        else if (obj is GameObject go)
+        {
+            go.SetActive(false); //将物体返回对象池
+        }
+        else
+        {
+            Debug.LogWarning($"ObjPool: {typeof(T)} is not a Component or GameObject, cannot set active state.");
+        }
+    }
+    protected virtual void OnGetPoolItem(T obj)
+    {
+        if ((obj is Component com))
+        {
+            com.gameObject.SetActive(true); //将物体从对象池中取出
+        }
+        else if (obj is GameObject go)
+        {
+            go.SetActive(true); //将物体从对象池中取出
+        }
+        else
+        {
+            Debug.LogWarning($"ObjPool: {typeof(T)} is not a Component or GameObject, cannot set active state.");
+        }
+    }
 
-    protected virtual void OnDestroyPoolItem(T obj) => UnityEngine.Object.Destroy(obj.gameObject);
+    protected virtual void OnDestroyPoolItem(T obj)
+    {
+        if (obj == null) return;
+        if ((obj is Component com))
+        {
+            UnityEngine.GameObject.Destroy(com.gameObject); //销毁物体
+        }
+        else if (obj is GameObject go)
+        {
+            UnityEngine.GameObject.Destroy(go); //销毁物体
+        }
+        else
+        {
+            Debug.LogWarning($"ObjPool: {typeof(T)} is not a Component or GameObject, cannot destroy.");
+        }
+    }
 
     public T Get()
     {

@@ -5,11 +5,12 @@ using UnityEngine;
 namespace EFramework.Unity.UIFramework
 {
 
-   /// <summary>
+    /// <summary>
     /// UI管理系统（GUID + SO版）
     /// </summary>
-    public class UIManager : MonoSingleton<UIManager>
+    public class UIMgr : MonoSingleton<UIMgr>
     {
+
         //#region Serialized Fields
         //[Header("UI配置")]
         //[SerializeField] private UIConfig _uiConfig;
@@ -130,5 +131,9 @@ namespace EFramework.Unity.UIFramework
         //    }
         //}
         //#endregion
+        public void ShowUI(string uiName, string uuid)
+        {
+            
+        }
     }
 }

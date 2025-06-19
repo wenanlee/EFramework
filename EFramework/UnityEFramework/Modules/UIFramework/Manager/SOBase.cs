@@ -8,20 +8,8 @@ namespace EFramework.Unity
 {
     public class SOBase : ScriptableObject
     {
-        [NaButton]
-        public virtual void ReLoadSO()
-        {
-
-        }
-        [NaButton]
-        public virtual void LoadFromJson()
-        {
-            
-        }
-        [NaButton]
-        public virtual void SaveJson()
-        {
-
-        }
+        public string Uuid; // 唯一标识符
+        public string Name; // 名称
+        public string Desc; // 描述
     }
 }

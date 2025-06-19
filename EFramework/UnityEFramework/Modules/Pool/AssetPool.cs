@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class AssetPool<T> where T : UnityEngine.Object
@@ -24,7 +25,11 @@ public class AssetPool<T> where T : UnityEngine.Object
         }
 
         // 否则加载资源
+#if UNITY_EDITOR
+        T asset = AssetDatabase.LoadAssetAtPath<T>(path);
+#else
         T asset = Resources.Load<T>(path);
+#endif
         if (asset == null)
         {
             Debug.LogError($"AssetPool: Failed to load asset at path '{path}'");
@@ -70,9 +75,14 @@ public class AssetPool<T> where T : UnityEngine.Object
     /// </summary>
     private void ReleaseInternal(T asset, string path)
     {
-        Resources.UnloadAsset(asset);
-        _pathToAsset.Remove(path);
-        _assetToPath.Remove(asset);
+        if (asset != null && !string.IsNullOrEmpty(path))
+        {
+#if UNITY_EDITOR
+            Resources.UnloadAsset(asset);
+#endif
+            _pathToAsset.Remove(path);
+            _assetToPath.Remove(asset);
+        }
     }
 
     /// <summary>
@@ -80,10 +90,12 @@ public class AssetPool<T> where T : UnityEngine.Object
     /// </summary>
     public void Clear()
     {
+#if UNITY_EDITOR
         foreach (var asset in _pathToAsset.Values)
         {
             Resources.UnloadAsset(asset);
         }
+#endif
         _pathToAsset.Clear();
         _assetToPath.Clear();
     }
