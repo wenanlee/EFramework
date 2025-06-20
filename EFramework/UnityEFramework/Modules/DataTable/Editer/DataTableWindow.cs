@@ -44,7 +44,7 @@ namespace EFramework.Unity.DataTable
             SirenixEditorGUI.BeginHorizontalToolbar(toolbarHeight);
             {
                 // 1. 使用局部变量避免重复调用
-                bool projectConfigExists =  projectConfig!= null;
+                bool projectConfigExists = projectConfig != null;
 
                 // 2. 创建 Project 按钮（延迟执行文件操作）
                 if (!projectConfigExists)
@@ -94,37 +94,62 @@ namespace EFramework.Unity.DataTable
             var tree = new OdinMenuTree();
             tree.Config.DrawSearchToolbar = true; // 添加搜索栏
             projectConfig ??= ScriptableObjectUtility.FindScriptableObject<ProjectConfig>();
-            Debug.Log(projectConfig);
-            //if()
+
             // 添加菜单项（直接显示对象）
-            tree.Add("ProjectConfig", projectConfig);
-            if (projectConfig != null) {
-                foreach (var config in projectConfig.tableDict)
+            tree.Add("项目配置", projectConfig);
+            if (projectConfig == null) return tree;
+
+            foreach (var item in projectConfig.tables)
+            {
+                
+                if (item.tableType == null) continue;
+
+                var objs = AssetDataUnility.GetAllPrefabs(item.tableType,projectConfig.projectParentPath);
+                Debug.Log(objs.Count);
+                var tablse = new List<EntityItemInfo>();
+                
+                //tree.Add(item.tableName, item.objs);
+                foreach (UnityEngine.Object obj in objs)
                 {
-                    tree.Add(config.Key, config.Value);
+                    //tablse.Add(new EntityItemInfo(obj));
+                    tree.Add(item.tableName + "/" + obj.name, obj);
                 }
             }
-            // 添加ScriptableObject实例
-            var data = AssetDatabase.LoadAssetAtPath<MyConfigData>("Assets/MyConfigData.asset");
-            if (data == null)
-            {
-                data = CreateInstance<MyConfigData>();
-                AssetDatabase.CreateAsset(data, "Assets/MyConfigData.asset");
-                AssetDatabase.SaveAssets();
-            }
-            tree.Add("Data/Configuration Data", data);
 
-            // 添加自定义方法绘制
-            //tree.Add("Actions/Generate Objects", new GenerateObjectAction());
-            //tree.Add("Actions/Delete All", new DeleteObjectsAction());
 
-            // 添加Unity对象
-            tree.Add("Scene Objects", FindObjectOfType<Light>());
+            //// 添加ScriptableObject实例
+            //var data = AssetDatabase.LoadAssetAtPath<MyConfigData>("Assets/MyConfigData.asset");
+            //if (data == null)
+            //{
+            //    data = CreateInstance<MyConfigData>();
+            //    AssetDatabase.CreateAsset(data, "Assets/MyConfigData.asset");
+            //    AssetDatabase.SaveAssets();
+            //}
+            //tree.Add("Data/Configuration Data", data);
 
-            // 添加图标
-            tree.Add("配置表", this, EditorIcons.House);
+            //// 添加自定义方法绘制
+            ////tree.Add("Actions/Generate Objects", new GenerateObjectAction());
+            ////tree.Add("Actions/Delete All", new DeleteObjectsAction());
+
+            //// 添加Unity对象
+            //tree.Add("Scene Objects", FindObjectOfType<Light>());
+
+            //// 添加图标
+            //tree.Add("配置表", this, EditorIcons.House);
 
             return tree;
+        }
+    }
+    [Serializable]
+    public class TableInfo
+    {
+        public string tableName;
+        [ShowInInspector]
+        public Type tableType;
+        public TableInfo(string tableName, Type tableType)
+        {
+            this.tableName = tableName;
+            this.tableType = tableType;
         }
     }
 }

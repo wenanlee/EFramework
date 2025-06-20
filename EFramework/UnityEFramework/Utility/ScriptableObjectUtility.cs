@@ -1,9 +1,11 @@
-using UnityEngine;
-using UnityEditor;
-using System.IO;
+using Sirenix.OdinInspector;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using UnityEditor;
+using UnityEngine;
 namespace EFramework.Unity.Utility
 {
     public static class ScriptableObjectUtility
@@ -62,6 +64,35 @@ namespace EFramework.Unity.Utility
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
+
+        private static IEnumerable<ValueDropdownItem<Type>> GetAllScriptableObjectTypes()
+        {
+            var items = new List<ValueDropdownItem<Type>>();
+            // 获取所有程序集
+            var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+            foreach (var assembly in assemblies)
+            {
+                Type[] types;
+                try
+                {
+                    types = assembly.GetTypes();
+                }
+                catch
+                {
+                    continue;
+                }
+                foreach (var type in types)
+                {
+                    if (type == null) continue;
+                    if (type.IsAbstract || type.IsGenericType) continue;
+                    if (typeof(ScriptableObject).IsAssignableFrom(type))
+                    {
+                        items.Add(new ValueDropdownItem<Type>(type.FullName, type));
+                    }
+                }
+            }
+            return items.Distinct();
+        }
         public static List<T> FindAllScriptableObjects<T>() where T : ScriptableObject
         {
             return AssetDatabase.FindAssets($"t:{typeof(T).Name}")
@@ -70,6 +101,16 @@ namespace EFramework.Unity.Utility
                 .Where(asset => asset != null)
                 .ToList();
         }
+        public static List<UnityEngine.Object> FindScriptableObjects(Type type)
+        {
+            var assets = AssetDatabase.FindAssets($"t:{type.Name}")
+                .Select(guid => AssetDatabase.GUIDToAssetPath(guid))
+                .Select(path => AssetDatabase.LoadAssetAtPath(path, type))
+                .Where(asset => asset != null)
+                .ToList();
+            return assets;
+        }
+
         public static T FindScriptableObject<T>(string name) where T : ScriptableObject
         {
             var assets = AssetDatabase.FindAssets($"t:{typeof(T).Name}")
@@ -91,6 +132,22 @@ namespace EFramework.Unity.Utility
     }
     public static class AssetDataUnility
     {
+        public static List<T> GetAllPrefabs<T>(params string[] folders) where T : Component
+        {
+            var assets = folders.Length == 0 ? AssetDatabase.FindAssets($"t:{typeof(T).Name}") : AssetDatabase.FindAssets($"t:{typeof(T).Name}", folders);
+            return assets.Select(guid => AssetDatabase.GUIDToAssetPath(guid))
+             .Select(path => AssetDatabase.LoadAssetAtPath<T>(path))
+             .Where(asset => asset != null)
+             .ToList();
+        }
+        public static List<UnityEngine.Object> GetAllPrefabs(Type type, params string[] folders)
+        {
+            var assets = folders.Length == 0 ? AssetDatabase.FindAssets($"t:Prefab") : AssetDatabase.FindAssets($"t:Prefab", folders);
+            return assets.Select(guid => AssetDatabase.GUIDToAssetPath(guid))
+             .Select(path => AssetDatabase.LoadAssetAtPath(path, type))
+             .Where(asset => asset != null)
+             .ToList();
+        }
         public static T[] FindAllAssets<T>(string folderPath) where T : UnityEngine.Object
         {
             string[] guids = AssetDatabase.FindAssets("", new string[] { folderPath });
