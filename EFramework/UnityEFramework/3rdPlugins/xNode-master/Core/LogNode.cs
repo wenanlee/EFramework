@@ -10,11 +10,11 @@ namespace EFramework.Unity.XNode.Core
     {
         [Input(ShowBackingValue.Unconnected)]
         public string message = "";
-        public override void Execute()
+        protected override IEnumerator OnExecute()
         {
             var inputValue = GetInputValue<string>(nameof(message), message);
             Debug.Log($">>> {inputValue}");
-            base.Execute();
+            yield return null;
         }
     }
 }

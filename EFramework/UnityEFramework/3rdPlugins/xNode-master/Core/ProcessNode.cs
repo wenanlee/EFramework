@@ -10,5 +10,10 @@ namespace EFramework.Unity.XNode.Core
     {
         [TextArea]
         public string text = "";
+
+        protected override IEnumerator OnExecute()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
