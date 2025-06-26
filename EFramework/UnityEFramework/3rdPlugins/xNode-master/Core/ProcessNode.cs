@@ -13,7 +13,7 @@ namespace EFramework.Unity.XNode.Core
 
         protected override IEnumerator OnExecute()
         {
-            throw new System.NotImplementedException();
+            yield return null;
         }
     }
 }

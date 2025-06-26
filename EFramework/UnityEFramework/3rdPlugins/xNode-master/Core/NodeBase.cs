@@ -61,10 +61,8 @@ namespace EFramework.Unity.XNode.Core
         public virtual IEnumerator Execute()
         {
             // 检查前置节点是否全部完成
-            if (!CheckPredecessorsCompleted())
-            {
-                yield break;
-            }
+            yield return new WaitUntil(() => CheckPredecessorsCompleted());
+
             try
             {
                 // 执行节点逻辑
@@ -132,11 +130,10 @@ namespace EFramework.Unity.XNode.Core
             // 如果没有前置节点，直接返回true
             if (predecessorStatus.Count == 0)
                 return true;
-
             // 检查所有前置节点是否完成
             foreach (var status in predecessorStatus.Values)
             {
-                if (!status)
+                if (status == false)
                     return false;
             }
 
@@ -148,7 +145,6 @@ namespace EFramework.Unity.XNode.Core
         /// </summary>
         public virtual void NotifyPredecessorCompleted(NodeBase predecessor)
         {
-            Initialize(); // 确保节点已初始化
             if (predecessorStatus.ContainsKey(predecessor))
             {
                 predecessorStatus[predecessor] = true;
