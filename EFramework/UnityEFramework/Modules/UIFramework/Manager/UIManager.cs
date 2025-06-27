@@ -131,7 +131,7 @@ namespace EFramework.Unity.UIFramework
         //    }
         //}
         //#endregion
-        public void ShowUI(string uiName, string uuid)
+        public virtual void ShowUI(string uiName, string uuid)
         {
             
         }
