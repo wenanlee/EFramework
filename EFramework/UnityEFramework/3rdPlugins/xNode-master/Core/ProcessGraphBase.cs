@@ -15,7 +15,8 @@ namespace EFramework.Unity.XNode.Core
                 // 检查节点类型是否为任务节点
                 if (node is StartNode startNode)
                 {
-                    startNode.Execute();
+                    startNode.Initialize();
+                    NodeTempMonoBehaviour.Instance.StartCoroutine(startNode.Execute());
                     //// 检查事件名称是否匹配
                     //if (startNode. == eventName)
                     //{

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sirenix.OdinInspector;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -131,7 +132,23 @@ namespace EFramework.Unity.UIFramework
         //    }
         //}
         //#endregion
-        public virtual void ShowUI(string uiName, string uuid)
+        [ShowInInspector, ReadOnly]
+        public Dictionary<string, UIBase> uiDict { get; private set; } = new Dictionary<string, UIBase>();
+        private void Awake()
+        {
+            // 初始化UI管理器
+            Init();
+        }
+
+        private void Init()
+        {
+            foreach (var item in GetComponentsInChildren<UIBase>(true))
+            {
+                uiDict.Add(item.Uuid, item);
+            }
+        }
+
+        public virtual void ShowUI(string uuid, object arg = null)
         {
             
         }

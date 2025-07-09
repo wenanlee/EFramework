@@ -70,6 +70,7 @@ namespace EFramework.Unity.XNode.Core
             }
             finally
             {
+                Initialize(); // 确保每次执行后都重新初始化
                 // 无论成功与否，触发后续节点
                 TriggerSuccessors();
             }
