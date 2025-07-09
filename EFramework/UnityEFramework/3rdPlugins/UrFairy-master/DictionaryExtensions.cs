@@ -1,8 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 public static class DictionaryExtensions
 {
+    public static V TryGet<K, V>(this Dictionary<K, V> self, K key)
+    {
+        var v = default(V);
+        if (self.TryGetValue(key, out v) == false)
+        {
+            Debug.LogError($"key: {key} 不存在!!!!!!!!!!!");
+        }
+        return v;
+    }
     public static void Query<K, V>(this Dictionary<K, V> self, K key, Action<V> f) where V : UnityEngine.Object
     {
         var v = default(V);
