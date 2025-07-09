@@ -21,8 +21,6 @@ namespace EFramework.Unity.DataTable
         public EntityItemInfo(UnityEngine.Object prefab)
         {
             this.prefab = prefab;
-            this.info = info;
-            this.graph = graph;
         }
     }
 }
