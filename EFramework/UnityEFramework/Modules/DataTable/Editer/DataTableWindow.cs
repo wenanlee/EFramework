@@ -104,16 +104,11 @@ namespace EFramework.Unity.DataTable
                 
                 if (item.tableType == null) continue;
 
-                var objs = AssetDataUnility.GetAllPrefabs(item.tableType,projectConfig.projectParentPath);
-                Debug.Log(objs.Count);
-                var tablse = new List<EntityItemInfo>();
-                
-                //tree.Add(item.tableName, item.objs);
-                foreach (UnityEngine.Object obj in objs)
-                {
-                    //tablse.Add(new EntityItemInfo(obj));
-                    tree.Add(item.tableName + "/" + obj.name, obj);
-                }
+                //var objs = Activator.CreateInstance(item.tableType,ScriptableObjectUtility.FindScriptableObjects(item.tableType));
+                //foreach (UnityEngine.Object obj in objs)
+                //{
+                //    tree.Add(item.tableName + "/" + obj.name, obj);
+                //}
             }
 
 
