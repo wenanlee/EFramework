@@ -1,17 +1,19 @@
 using Sirenix.OdinInspector;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace EFramework.Unity.Core
+namespace EFramework.Unity.Entity
 {
     public class EntityObject : MonoBehaviour
     {
+        [ReadOnly]
         public string Uuid;
         public string Name => name.Replace("(Clone)", "").TrimEnd().Substring(0, name.Length - 11);
         public string FullName => name.Replace("(Clone)", "").TrimEnd();
         public string Desc;
-        [Button("初始化实体")]
+        [Button("初始化实体"),ShowIf("@string.IsNullOrEmpty(Uuid)&&name.Contains(\"UUID\")==false")]
         public virtual void Init()
         {
             if (name.Contains("UUID") == false)
@@ -26,5 +28,7 @@ namespace EFramework.Unity.Core
                 Uuid  = name.GetUUID();
             }
         }
+
+        
     }
 }
