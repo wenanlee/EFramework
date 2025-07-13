@@ -1,25 +1,32 @@
-using Sirenix.OdinInspector;
-using Sirenix.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-[HideMonoScript]
-public class ToggleGroupExamplesComponent : SerializedMonoBehaviour
+
+[Serializable]
+public class ToggleGroupExamplesComponent : MonoBehaviour
 {
-    [TypeFilter(nameof(GetFilteredTypeList))]
-    [LabelText("模块数组")]
-    [ListDrawerSettings(
-        DraggableItems = true,
-        NumberOfItemsPerPage = 5,
-        ShowFoldout = true,
-        ShowPaging = true
-    )]
-    public ModuleBase[] ToggleList = new ModuleBase[3];
+    [SerializeField, Tooltip("模块数组")]
+    private ModuleBase[] toggleList = new ModuleBase[3];
+
+    public ModuleBase[] ToggleList
+    {
+        get => toggleList;
+        set => toggleList = value;
+    }
 
     // 使用缓存的类型列表
-    private static readonly IEnumerable<Type> cachedModuleTypes = CreateModuleTypeList();
-    private IEnumerable<Type> GetFilteredTypeList() => cachedModuleTypes;
+    public static readonly IEnumerable<Type> cachedModuleTypes = CreateModuleTypeList();
+
+    [Serializable]
+    public class PagedListSettings
+    {
+        public int ItemsPerPage = 5;
+        public int CurrentPage = 0;
+    }
+
+    [SerializeField]
+    private PagedListSettings listSettings = new PagedListSettings();
 
     // 静态方法创建类型列表（首次访问时执行一次）
     private static IEnumerable<Type> CreateModuleTypeList()
@@ -60,7 +67,6 @@ public class ToggleGroupExamplesComponent : SerializedMonoBehaviour
         yield return typeof(GameObject);
         yield return typeof(AnimationCurve);
         yield return typeof(List<float>);
-
         // 可在此处扩展更多类型...
         // yield return typeof(Transform);
     }
@@ -69,45 +75,45 @@ public class ToggleGroupExamplesComponent : SerializedMonoBehaviour
 // ============ 以下是模块基类及其派生类/泛型子类 ============
 
 [Serializable]
-public abstract class ModuleBase
+public abstract class ModuleBase : ScriptableObject
 {
-    [LabelText("启用")] public bool Enabled;
-    [LabelText("名称")] public string Name;
-    [LabelText("测试数值")] public float Test;
+    [Tooltip("启用")] public bool Enabled;
+    [Tooltip("名称")] public string Name;
+    [Tooltip("测试数值")] public float Test;
 }
 
 [Serializable]
-[LabelText("日志模块")]
+[Tooltip("日志模块")]
 public class LogModule : ModuleBase
 {
-    [LabelText("唯一标识")] public string logStr;
+    [Tooltip("唯一标识")] public string logStr;
 }
 
 [Serializable]
-[LabelText("子模块1模块")]
+[Tooltip("子模块1模块")]
 public class SubModule1 : ModuleBase
 {
-    [LabelText("子模块1参数")] public int value1;
+    [Tooltip("子模块1参数")] public int value1;
 }
 
 [Serializable]
-[LabelText("子模块2模块")]
+[Tooltip("子模块2模块")]
 public class SubModule2 : ModuleBase
 {
-    [LabelText("子模块2参数")] public float value2;
+    [Tooltip("子模块2参数")] public float value2;
 }
 
 [Serializable]
-[LabelText("子模块3模块")]
+[Tooltip("子模块3模块")]
 public class SubModule3 : SubModule2
 {
-    [LabelText("子模块3参数")] public string value3;
+    [Tooltip("子模块3参数")] public string value3;
 }
 
 // 泛型模块示例
 [Serializable]
-[LabelText("泛型字段模块")]
-public class GenericModule<T> : ModuleBase
+[Tooltip("泛型字段模块")]
+public class GenericModule<T> : ModuleBase where T : class, new()
 {
-    [LabelText("泛型字段")] public T genericField;
+    [Tooltip("泛型字段")] public T genericField;
 }
