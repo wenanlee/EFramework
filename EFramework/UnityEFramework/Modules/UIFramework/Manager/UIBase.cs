@@ -17,7 +17,7 @@ namespace EFramework.Unity.UIFramework
             canvasGroup.interactable = true;
             canvasGroup.blocksRaycasts = true;
         }
-        public virtual void OnHide() 
+        public virtual void OnHide(object obj = null) 
         {
             
             if(canvasGroup == null)

@@ -14,8 +14,9 @@ namespace EFramework.Unity.Entity
         public string FullName => name.Replace("(Clone)", "").TrimEnd();
         public string Desc;
 
-        public List<EntityComponent> components;
-        public EntityComponentVolume volume;
+        //public List<EntityComponent> components;
+        //[InlineEditor]
+        //public EntityComponentVolume volume;
 
         [Button("初始化实体"),ShowIf("@string.IsNullOrEmpty(Uuid)&&name.Contains(\"UUID\")==false")]
         public virtual void Init()
@@ -31,10 +32,10 @@ namespace EFramework.Unity.Entity
             {
                 Uuid  = name.GetUUID();
             }
-            if(volume !=null)
-            {
-                components = volume.Components;
-            }
+            //if(volume !=null)
+            //{
+            //    components = volume.Components;
+            //}
         }
 
         
