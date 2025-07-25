@@ -4,7 +4,9 @@ using System.Linq;
 using System.Reflection;
 using EFramework.Core;
 using NaughtyAttributes;
+#if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
+#endif
 using UnityEngine;
 
 namespace EFramework.Unity.Command
@@ -20,7 +22,9 @@ namespace EFramework.Unity.Command
         /// </summary>
         /// <param name="predicate"></param>
         /// <returns></returns>
+#if ODIN_INSPECTOR
         [Button("获取所有命令")]
+#endif
         public void GetAllMethods()
         {
             CommandHelper.CacheAttributeMethods(typeof(RegisterCommandLine), typeof(NaButtonAttribute));
@@ -44,7 +48,7 @@ namespace EFramework.Unity.Command
         {
             for (int i = 0; i < commandEvents.Count; i++)
             {
-                if( commandEvents[i].CommandName== commandName)
+                if (commandEvents[i].CommandName == commandName)
                 {
                     commandArgs = commandEvents[i].CommandArgs;
                     switch (commandEvents[i].CommandArgs.Length)
@@ -70,15 +74,21 @@ namespace EFramework.Unity.Command
                 }
             }
         }
+#if ODIN_INSPECTOR
         [LabelText("命令"),ValueDropdown(nameof(GetCommandEvents)),OnValueChanged(nameof(OnChangeValue))]
+#endif
         public string commandName;
+#if ODIN_INSPECTOR
         [ShowInInspector]
+#endif
         public object commandArgs;
+#if ODIN_INSPECTOR
         [Button("注册所有命令")]
+#endif
         public void Invoke()
         {
-            if(Application.isPlaying)
-            EventManager.SendEvent(commandName, commandArgs);
+            if (Application.isPlaying)
+                EventManager.SendEvent(commandName, commandArgs);
             else
             {
                 // 在编辑器模式下，直接调用命令

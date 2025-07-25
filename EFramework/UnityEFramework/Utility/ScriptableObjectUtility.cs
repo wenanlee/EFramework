@@ -1,4 +1,6 @@
+#if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
+#endif
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -64,7 +66,7 @@ namespace EFramework.Unity.Utility
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-
+#if ODIN_INSPECTOR
         private static IEnumerable<ValueDropdownItem<Type>> GetAllScriptableObjectTypes()
         {
             var items = new List<ValueDropdownItem<Type>>();
@@ -93,6 +95,7 @@ namespace EFramework.Unity.Utility
             }
             return items.Distinct();
         }
+#endif
         public static List<T> FindAllScriptableObjects<T>() where T : ScriptableObject
         {
             return AssetDatabase.FindAssets($"t:{typeof(T).Name}")

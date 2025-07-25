@@ -2,9 +2,11 @@ using EFramework.Unity.Command;
 using EFramework.Unity.UIFramework;
 using EFramework.Unity.Utility;
 using NaughtyAttributes;
+#if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
 using Sirenix.OdinInspector.Editor;
 using Sirenix.Utilities.Editor;
+#endif
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -19,11 +21,20 @@ namespace EFramework.Unity.DataTable
     // 示例数据类
     public class MyConfigData : ScriptableObject
     {
-        [BoxGroup("Settings")] public string Name;
-        [BoxGroup("Settings"), Range(0, 100)] public int Health;
-        [BoxGroup("Settings"), ColorUsage(true)] public Color Color;
+#if ODIN_INSPECTOR
+        [BoxGroup("Settings")] 
+#endif
+        public string Name;
+#if ODIN_INSPECTOR
+        [BoxGroup("Settings"), Range(0, 100)] 
+#endif
+        public int Health;
+#if ODIN_INSPECTOR
+        [BoxGroup("Settings"), ColorUsage(true)] 
+#endif
+        public Color Color;
     }
-
+#if ODIN_INSPECTOR
     public class DataTableWindow : OdinMenuEditorWindow
     {
         ProjectConfig projectConfig;
@@ -147,4 +158,5 @@ namespace EFramework.Unity.DataTable
             this.tableType = tableType;
         }
     }
+    #endif
 }
