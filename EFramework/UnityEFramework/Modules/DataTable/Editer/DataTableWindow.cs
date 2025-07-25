@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 #if ODIN_INSPECTOR
 using EFramework.Unity.Utility;
 using Sirenix.OdinInspector;
@@ -154,3 +155,4 @@ namespace EFramework.Unity.DataTable
     }
     #endif
 }
+#endif
