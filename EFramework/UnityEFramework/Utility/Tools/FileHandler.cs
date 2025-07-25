@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using EFramework.Unity.UIFramework;
 using System;
 using System.IO;
@@ -150,3 +151,4 @@ namespace EFramework.Unity.Utility
         }
     }
 }
+#endif

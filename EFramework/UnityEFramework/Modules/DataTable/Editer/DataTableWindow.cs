@@ -1,19 +1,8 @@
-using EFramework.Unity.Command;
-using EFramework.Unity.UIFramework;
-using EFramework.Unity.Utility;
-using NaughtyAttributes;
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
 using Sirenix.OdinInspector.Editor;
 using Sirenix.Utilities.Editor;
 #endif
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Xml;
-using UnityEditor;
-using UnityEditor.PackageManager.UI;
 using UnityEngine;
 
 namespace EFramework.Unity.DataTable

@@ -1,5 +1,3 @@
-using EFramework.Unity.Command;
-using NaughtyAttributes;
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
 #endif

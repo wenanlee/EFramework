@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
 #endif
@@ -169,3 +170,4 @@ namespace EFramework.Unity.Utility
     }
 }
 
+#endif
