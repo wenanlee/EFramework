@@ -140,12 +140,6 @@ namespace EFramework.Unity.UIFramework
         public Dictionary<string, UIBase> uiDict { get; private set; } = new Dictionary<string, UIBase>();
         private void Awake()
         {
-            // 初始化UI管理器
-            Init();
-        }
-
-        private void Init()
-        {
             foreach (var item in GetComponentsInChildren<UIBase>(true))
             {
                 uiDict.Add(item.Uuid, item);

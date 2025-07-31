@@ -70,5 +70,6 @@ public class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
         applicationIsQuitting = true;
         Destroy();
     }
+    public virtual void Init() { }
     public virtual void Destroy() { }
 }

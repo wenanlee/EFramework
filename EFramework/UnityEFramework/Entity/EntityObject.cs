@@ -35,7 +35,7 @@ namespace EFramework.Unity.Entity
             }
             else
             {
-                Uuid  = name.GetUUID();
+                Uuid  = GetUUID(name);
             }
             //if(volume !=null)
             //{
@@ -43,6 +43,24 @@ namespace EFramework.Unity.Entity
             //}
         }
 
-        
+        private string GetUUID(string str)
+        {
+            if (string.IsNullOrEmpty(str))
+            {
+                Debug.LogError("获取UUID失败，字符串为空");
+                return string.Empty;
+            }
+            if (str.Length < 10)
+            {
+                Debug.LogError("获取UUID失败，字符串长度小于10");
+                return string.Empty;
+            }
+            if (str.Contains("UUID") == false)
+            {
+                Debug.LogError($"{str} 中找不到UUID");
+                return string.Empty;
+            }
+            return str.Substring(str.IndexOf("UUID") + 4, 6);
+        }
     }
 }

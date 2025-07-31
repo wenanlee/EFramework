@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 /// <summary>
@@ -141,5 +142,47 @@ public static class TransformExtensions
             // 在XZ平面创建朝向，保持Y轴向上
             transform.rotation = Quaternion.LookRotation(direction.normalized, Vector3.up);
         }
+    }
+    /// <summary>
+    /// 获取从指定父物体到当前物体的相对路径
+    /// </summary>
+    /// <param name="target">目标物体</param>
+    /// <param name="rootParent">路径起始的父物体</param>
+    /// <returns>从父物体开始的相对路径</returns>
+    public static string GetHierarchyPath(this Transform target, Transform rootParent)
+    {
+        // 验证输入有效性
+        if (target == null || rootParent == null)
+        {
+            //Debug.LogError("GetHierarchyPath: 输入物体不能为空");
+            return "";
+        }
+
+        // 检查目标是否在指定父物体层级下
+        if (!target.IsChildOf(rootParent))
+        {
+            Debug.LogWarning($"{target.name} 不是 {rootParent.name} 的子物体");
+            return "";
+        }
+
+        StringBuilder path = new StringBuilder(target.name);
+        Transform current = target.parent;
+
+        // 向上遍历直到到达指定的父物体
+        while (current != null && current != rootParent)
+        {
+            path.Insert(0, current.name + "/");
+            current = current.parent;
+        }
+
+        return path.ToString();
+    }
+
+    /// <summary>
+    /// GameObject版本的扩展方法
+    /// </summary>
+    public static string GetHierarchyPath(this GameObject target, GameObject rootParent)
+    {
+        return GetHierarchyPath(target.transform, rootParent.transform);
     }
 }
