@@ -1,0 +1,37 @@
+using Sirenix.OdinInspector;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
+using UnityEngine;
+
+namespace EFramework.Unity.Entity
+{
+    [Serializable]
+    public abstract class EntityComponent
+    {
+        [ToggleLeft,GUIColor("@Enabled ? Color.white : Color.Color.yellow")]
+        public bool Enabled = true;
+        private EntityObject entityObject;
+        /// <summary>
+        /// 编辑器中用来初始化组件
+        /// </summary>
+        /// <param name="entity">实体</param>
+        public virtual void EditorInit(EntityObject entity)
+        {
+            entityObject = entity;
+        }
+        /// <summary>
+        /// 运行时用来初始化组件
+        /// </summary>
+        /// <param name="entity">实体</param>
+        public virtual void Init(EntityObject entity) { }
+
+        public T Clone<T>() where T : EntityComponent
+        {
+            var originalJson = JsonUtility.ToJson(this);
+            T copy = JsonUtility.FromJson<T>(originalJson);
+            return copy;
+        }
+    }
+}

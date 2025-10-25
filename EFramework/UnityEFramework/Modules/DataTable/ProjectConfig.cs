@@ -16,16 +16,16 @@ namespace EFramework.Unity.DataTable
     public class ProjectConfig : ScriptableObject
     {
 #if ODIN_INSPECTOR
-        [LabelText("项目名称")]
+        [LabelText("椤圭洰鍚嶇О")]
 #endif
         public string projectName;
 #if ODIN_INSPECTOR
-        [LabelText("项目路径")]
+        [LabelText("椤圭洰璺緞")]
         [FolderPath(ParentFolder = "")]
 #endif
         public string projectParentPath;
 #if ODIN_INSPECTOR
-        [ShowInInspector, TableList,LabelText("表单")]
+        [ShowInInspector, TableList,LabelText("琛ㄥ崟")]
         public List<TableInfo> tables =new List<TableInfo>();
 #endif
     }

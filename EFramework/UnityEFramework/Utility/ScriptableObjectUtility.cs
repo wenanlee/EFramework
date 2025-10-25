@@ -1,4 +1,4 @@
-#if UNITY_EDITOR
+
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
 #endif
@@ -14,24 +14,24 @@ namespace EFramework.Unity.Utility
     public static class ScriptableObjectUtility
     {
         /// <summary>
-        /// ´´½¨²¢±£´æÒ»¸ö ScriptableObject ÊµÀıµ½Ö¸¶¨Â·¾¶
+        /// åˆ›å»ºå¹¶ä¿å­˜ä¸€ä¸ª ScriptableObject å®ä¾‹åˆ°æŒ‡å®šè·¯å¾„
         /// </summary>
-        /// <typeparam name="T">ScriptableObject ÀàĞÍ</typeparam>
-        /// <param name="targetPath">Ä¿±êÂ·¾¶£¨Ïà¶ÔÓÚ Assets ÎÄ¼ş¼Ğ£©</param>
-        /// <param name="fileName">ÎÄ¼şÃû£¨²»´øÀ©Õ¹Ãû£©</param>
-        /// <returns>´´½¨µÄ ScriptableObject ÊµÀı</returns>
+        /// <typeparam name="T">ScriptableObject ç±»å‹</typeparam>
+        /// <param name="targetPath">ç›®æ ‡è·¯å¾„ï¼ˆç›¸å¯¹äº Assets æ–‡ä»¶å¤¹ï¼‰</param>
+        /// <param name="fileName">æ–‡ä»¶åï¼ˆä¸å¸¦æ‰©å±•åï¼‰</param>
+        /// <returns>åˆ›å»ºçš„ ScriptableObject å®ä¾‹</returns>
         public static T CreateScriptableObject<T>(string targetPath, string fileName) where T : ScriptableObject
         {
-            // È·±£ÔÚ±à¼­Æ÷»·¾³ÏÂÖ´ĞĞ
+            // ç¡®ä¿åœ¨ç¼–è¾‘å™¨ç¯å¢ƒä¸‹æ‰§è¡Œ
 #if UNITY_EDITOR
-            // ¼ì²éÄ¿±êÀàĞÍÊÇ·ñÓĞĞ§
+            // æ£€æŸ¥ç›®æ ‡ç±»å‹æ˜¯å¦æœ‰æ•ˆ
             if (typeof(T).IsAbstract || typeof(T).IsInterface)
             {
                 Debug.LogError($"Cannot create instance of abstract or interface type: {typeof(T)}");
                 return null;
             }
 
-            // È·±£Ä¿±êÂ·¾¶´æÔÚ
+            // ç¡®ä¿ç›®æ ‡è·¯å¾„å­˜åœ¨
             string fullDirectoryPath = Path.Combine(Application.dataPath, targetPath);
             if (!Directory.Exists(fullDirectoryPath))
             {
@@ -39,19 +39,19 @@ namespace EFramework.Unity.Utility
                 Debug.Log($"Created directory: {fullDirectoryPath}");
             }
 
-            // ´´½¨ ScriptableObject ÊµÀı
+            // åˆ›å»º ScriptableObject å®ä¾‹
             T asset = ScriptableObject.CreateInstance<T>();
 
-            // ¹¹½¨ÍêÕûÂ·¾¶
+            // æ„å»ºå®Œæ•´è·¯å¾„
             string fullPath = Path.Combine(targetPath, fileName + ".asset");
             fullPath = AssetDatabase.GenerateUniqueAssetPath(fullPath);
 
-            // ±£´æ×ÊÔ´
+            // ä¿å­˜èµ„æº
             AssetDatabase.CreateAsset(asset, fullPath);
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
 
-            // ÖØÒª£ºÇ¿ÖÆÖØĞÂµ¼Èë×ÊÔ´ÒÔÕıÈ·Á´½Ó½Å±¾
+            // é‡è¦ï¼šå¼ºåˆ¶é‡æ–°å¯¼å…¥èµ„æºä»¥æ­£ç¡®é“¾æ¥è„šæœ¬
             AssetDatabase.ImportAsset(fullPath, ImportAssetOptions.ForceUpdate);
 
             Debug.Log($"Successfully created {typeof(T)} at: {fullPath}");
@@ -62,7 +62,7 @@ namespace EFramework.Unity.Utility
 #endif
         }
         /// <summary>
-        /// °´ÀàĞÍ²éÕÒËùÓĞScriptableObject×ÊÔ´
+        /// æŒ‰ç±»å‹æŸ¥æ‰¾æ‰€æœ‰ScriptableObjectèµ„æº
         /// List<MyScriptableObject> allSOs = FindAllScriptableObjects<MyScriptableObject>();
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -71,7 +71,7 @@ namespace EFramework.Unity.Utility
         private static IEnumerable<ValueDropdownItem<Type>> GetAllScriptableObjectTypes()
         {
             var items = new List<ValueDropdownItem<Type>>();
-            // »ñÈ¡ËùÓĞ³ÌĞò¼¯
+            // è·å–æ‰€æœ‰ç¨‹åºé›†
             var assemblies = AppDomain.CurrentDomain.GetAssemblies();
             foreach (var assembly in assemblies)
             {
@@ -96,15 +96,7 @@ namespace EFramework.Unity.Utility
             }
             return items.Distinct();
         }
-#endif
-        public static List<T> FindAllScriptableObjects<T>() where T : ScriptableObject
-        {
-            return AssetDatabase.FindAssets($"t:{typeof(T).Name}")
-                .Select(guid => AssetDatabase.GUIDToAssetPath(guid))
-                .Select(path => AssetDatabase.LoadAssetAtPath<T>(path))
-                .Where(asset => asset != null)
-                .ToList();
-        }
+#if UNITY_EDITOR
         public static List<UnityEngine.Object> FindScriptableObjects(Type type)
         {
             var assets = AssetDatabase.FindAssets($"t:{type.Name}")
@@ -114,26 +106,46 @@ namespace EFramework.Unity.Utility
                 .ToList();
             return assets;
         }
+#endif
+
+#endif
+
+#if UNITY_EDITOR
+public static List<T> FindAllScriptableObjects<T>() where T : ScriptableObject
+        {
+            return AssetDatabase.FindAssets($"t:{typeof(T).Name}")
+               .Select(guid => AssetDatabase.GUIDToAssetPath(guid))
+               .Select(path => AssetDatabase.LoadAssetAtPath<T>(path))
+               .Where(asset => asset != null)
+               .ToList();
+        }
+#else
+public static List<T> FindAllScriptableObjects<T>() where T : ScriptableObject
+        {
+            //return AssetDatabase.FindAssets($"t:{typeof(T).Name}")
+            //    .Select(guid => AssetDatabase.GUIDToAssetPath(guid))
+            //    .Select(path => AssetDatabase.LoadAssetAtPath<T>(path))
+            //    .Where(asset => asset != null)
+            //    .ToList();
+            return Resources.LoadAll<T>("").ToList();
+        }
+#endif
+        
 
         public static T FindScriptableObject<T>(string name) where T : ScriptableObject
         {
-            var assets = AssetDatabase.FindAssets($"t:{typeof(T).Name}")
-                .Select(guid => AssetDatabase.GUIDToAssetPath(guid))
-                .Select(path => AssetDatabase.LoadAssetAtPath<T>(path))
-                .Where(asset => asset != null && asset.name == name)
-                .ToList();
-            return assets.FirstOrDefault();
+            return Resources.LoadAll<T>("")
+            .Where(asset => asset != null && asset.name == name)
+            .FirstOrDefault();
         }
         public static T FindScriptableObject<T>() where T : ScriptableObject
         {
-            var assets = AssetDatabase.FindAssets($"t:{typeof(T).Name}")
-                .Select(guid => AssetDatabase.GUIDToAssetPath(guid))
-                .Select(path => AssetDatabase.LoadAssetAtPath<T>(path))
-                .Where(asset => asset != null)
-                .ToList();
-            return assets.FirstOrDefault();
+            return Resources.LoadAll<T>("")
+             .Where(asset => asset != null)
+             .FirstOrDefault();
         }
     }
+#if UNITY_EDITOR
     public static class AssetDataUnility
     {
         public static List<T> GetAllPrefabs<T>(params string[] folders) where T : Component
@@ -168,6 +180,6 @@ namespace EFramework.Unity.Utility
             return AssetDatabase.LoadAssetAtPath<T>(folderPath);
         }
     }
+#endif
 }
 
-#endif
