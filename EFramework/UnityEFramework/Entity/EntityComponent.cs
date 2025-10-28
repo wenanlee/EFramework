@@ -12,7 +12,7 @@ namespace EFramework.Unity.Entity
     {
         [ToggleLeft,GUIColor("@Enabled ? Color.white : Color.Color.yellow")]
         public bool Enabled = true;
-        private EntityObject entityObject;
+        protected EntityObject entityObject;
         /// <summary>
         /// 编辑器中用来初始化组件
         /// </summary>
@@ -25,7 +25,10 @@ namespace EFramework.Unity.Entity
         /// 运行时用来初始化组件
         /// </summary>
         /// <param name="entity">实体</param>
-        public virtual void Init(EntityObject entity) { }
+        public virtual void Init(EntityObject entity) 
+        {
+            entityObject = entity;
+        }
 
         public T Clone<T>() where T : EntityComponent
         {
