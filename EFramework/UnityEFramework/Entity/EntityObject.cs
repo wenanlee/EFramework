@@ -8,7 +8,7 @@ namespace EFramework.Unity.Entity
 {
     public class EntityObject : MonoBehaviour
     {
-        [InlineEditor(Expanded = true, ObjectFieldMode = InlineEditorObjectFieldModes.Hidden)]
+        [InlineEditor(Expanded = true/*, ObjectFieldMode = InlineEditorObjectFieldModes.Hidden*/)]
         public EntityVolume ComponentsVolume;
         private void Awake() => Init();
         private void OnDestroy() => Destroy();
@@ -23,7 +23,8 @@ namespace EFramework.Unity.Entity
         [Button("编辑器初始化")]
         public virtual void EditorInit()
         {
-            if (ComponentsVolume == null)
+
+            if (ComponentsVolume == null || ComponentsVolume.name!=name)
             {
                 ComponentsVolume = ScriptableObjectUtility.FindScriptableObject<EntityVolume>(name);
                 if (ComponentsVolume == null)
@@ -56,10 +57,16 @@ namespace EFramework.Unity.Entity
             var volume = ScriptableObjectUtility.FindScriptableObject<EntityVolume>(name);
             if (ComponentsVolume == null)
             {
-                Debug.LogError($"EntityObject<{name}>的ComponentsVolume为空,请先编辑器初始化");
+                if(name.Contains("DO")||name.Contains("SS"))
+                    Debug.LogError($"EntityObject<{name}>的ComponentsVolume为空,请先编辑器初始化");
                 return;
             }
-
+            if(volume == null)
+            {
+                if (name.Contains("DO") || name.Contains("SS"))
+                    Debug.LogError($"EntityObject<{name}>的ComponentsVolume找不到,请先编辑器初始化");
+                return;
+            }
             ComponentsVolume = Instantiate(volume);
             ComponentsVolume.InitAllComponent(this);
         }
