@@ -5,7 +5,7 @@ using Sirenix.OdinInspector;
 using Sirenix.OdinInspector.Editor;
 using Sirenix.Utilities.Editor;
 using System;
-using Unity.VisualScripting.Antlr3.Runtime.Tree;
+using System.Collections.Generic;
 using UnityEditor;
 
 
@@ -18,15 +18,15 @@ namespace EFramework.Unity.DataTable
     public class MyConfigData : ScriptableObject
     {
 #if ODIN_INSPECTOR
-        [BoxGroup("Settings")] 
+        [BoxGroup("Settings")]
 #endif
         public string Name;
 #if ODIN_INSPECTOR
-        [BoxGroup("Settings"), Range(0, 100)] 
+        [BoxGroup("Settings"), Range(0, 100)]
 #endif
         public int Health;
 #if ODIN_INSPECTOR
-        [BoxGroup("Settings"), ColorUsage(true)] 
+        [BoxGroup("Settings"), ColorUsage(true)]
 #endif
         public Color Color;
     }
@@ -41,42 +41,25 @@ namespace EFramework.Unity.DataTable
             window.titleContent = new GUIContent("项目配置");
             window.Show();
         }
-        protected override void OnBeginDrawEditors()
+        protected override void OnEnable()
         {
-            if (MenuTree == null)
-                return;
-
-            var toolbarHeight = MenuTree.Config.SearchToolbarHeight;
-            projectConfig ??= ScriptableObjectUtility.FindScriptableObject<ProjectConfig>();
-            SirenixEditorGUI.BeginHorizontalToolbar(toolbarHeight);
-            {
-                // 1. 使用局部变量避免重复调用
-                bool projectConfigExists = projectConfig != null;
-
-                // 2. 创建 Project 按钮（延迟执行文件操作）
-                if (!projectConfigExists)
-                {
-                    if (SirenixEditorGUI.ToolbarButton(new GUIContent("创建Project")))
-                    {
-                        // 延迟执行文件操作避免中断 GUI 布局
-                        EditorApplication.delayCall += CreateProjectConfig;
-                    }
-                }
-
-                // 3. 其他按钮保持不变
-                if (SirenixEditorGUI.ToolbarButton(new GUIContent("刷新所有列表")))
-                {
-                    Refresh();
-                }
-
-                //if (SirenixEditorGUI.ToolbarButton(new GUIContent("刷新编辑器缓存")))
-                //{
-                //    //GameSupportEditorUtility.Refresh();
-                //}
-            }
-            SirenixEditorGUI.EndHorizontalToolbar();
+            base.OnEnable();
+            InitializeWindow();
         }
 
+        private void InitializeWindow()
+        {
+            projectConfig ??= ScriptableObjectUtility.FindScriptableObject<ProjectConfig>();
+            if (projectConfig == null)
+                CreateProjectConfig();
+
+            var tables = ScriptableObjectUtility.FindAllScriptableObjects<TableSOBase>();
+            projectConfig.tables = new List<TableInfo>();
+            foreach (TableSOBase table in tables) 
+            {
+                projectConfig.tables.Add(new TableInfo(table.name,table));
+            }
+        }
         private void Refresh()
         {
             foreach (var item in projectConfig.tables)
@@ -85,6 +68,24 @@ namespace EFramework.Unity.DataTable
                 Debug.Log("刷新！");
             }
         }
+        protected override void OnBeginDrawEditors()
+        {
+            if (MenuTree == null)
+                return;
+
+            var toolbarHeight = MenuTree.Config.SearchToolbarHeight;
+
+            SirenixEditorGUI.BeginHorizontalToolbar(toolbarHeight);
+            {
+                if (SirenixEditorGUI.ToolbarButton(new GUIContent("刷新所有列表")))
+                {
+                    Refresh();
+                }
+            }
+            SirenixEditorGUI.EndHorizontalToolbar();
+        }
+
+
 
         private void CreateProjectConfig()
         {
@@ -110,50 +111,13 @@ namespace EFramework.Unity.DataTable
         {
             var tree = new OdinMenuTree();
             tree.Config.DrawSearchToolbar = true; // 添加搜索栏
-            projectConfig ??= ScriptableObjectUtility.FindScriptableObject<ProjectConfig>();
 
-            // 添加菜单项（直接显示对象）
             tree.Add("项目配置", projectConfig);
             foreach (var item in projectConfig.tables)
             {
                 Debug.Log($"Table: {item.tableName}, Object: {item.tableObj}");
                 tree.Add(item.tableName, item.tableObj);
             }
-            //if (projectConfig == null) return tree;
-
-
-            // foreach (var item in projectConfig.tables)
-            // {
-
-            //     if (item.tableType == null) continue;
-
-            //     var objs = ScriptableObjectUtility.FindScriptableObject<>(item.tableType);
-            //     foreach (UnityEngine.Object obj in objs)
-            //     {
-            //        tree.Add(item.tableName + "/" + obj.name, obj);
-            //     }
-            // }
-
-
-            //// 添加ScriptableObject实例
-            //var data = AssetDatabase.LoadAssetAtPath<MyConfigData>("Assets/MyConfigData.asset");
-            //if (data == null)
-            //{
-            //    data = CreateInstance<MyConfigData>();
-            //    AssetDatabase.CreateAsset(data, "Assets/MyConfigData.asset");
-            //    AssetDatabase.SaveAssets();
-            //}
-            //tree.Add("Data/Configuration Data", data);
-
-            //// 添加自定义方法绘制
-            ////tree.Add("Actions/Generate Objects", new GenerateObjectAction());
-            ////tree.Add("Actions/Delete All", new DeleteObjectsAction());
-
-            //// 添加Unity对象
-            //tree.Add("Scene Objects", FindObjectOfType<Light>());
-
-            //// 添加图标
-            //tree.Add("配置表", this, EditorIcons.House);
 
             return tree;
         }
@@ -170,6 +134,6 @@ namespace EFramework.Unity.DataTable
             this.tableObj = tableObj;
         }
     }
-    #endif
+#endif
 }
 #endif

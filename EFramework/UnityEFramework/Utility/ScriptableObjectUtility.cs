@@ -22,57 +22,73 @@ namespace EFramework.Unity.Utility
         /// <returns>创建的 ScriptableObject 实例</returns>
         public static T CreateScriptableObject<T>(string targetPath, string fileName) where T : ScriptableObject
         {
-            // 确保在编辑器环境下执行
 #if UNITY_EDITOR
-            // 检查目标类型是否有效
-            if (typeof(T).IsAbstract || typeof(T).IsInterface)
+            // 参数有效性检查
+            if (string.IsNullOrEmpty(targetPath))
             {
-                Debug.LogError($"Cannot create instance of abstract or interface type: {typeof(T)}");
+                Debug.LogError("目标路径不能为空");
                 return null;
             }
 
-            // 确保目标路径存在
-            string fullDirectoryPath = Path.Combine(Application.dataPath, targetPath);
-            if (!Directory.Exists(fullDirectoryPath))
+            if (string.IsNullOrEmpty(fileName))
             {
-                Directory.CreateDirectory(fullDirectoryPath);
-                Debug.Log($"Created directory: {fullDirectoryPath}");
+                Debug.LogError("文件名不能为空");
+                return null;
             }
 
-            // 创建 ScriptableObject 实例
-            T asset = ScriptableObject.CreateInstance<T>();
+            // 检查目标类型是否有效
+            if (typeof(T).IsAbstract || typeof(T).IsInterface)
+            {
+                Debug.LogError($"无法创建抽象类或接口类型的实例: {typeof(T)}");
+                return null;
+            }
 
-            // 构建完整路径
-            string fullPath = Path.Combine(targetPath, fileName + ".asset");
-            fullPath = AssetDatabase.GenerateUniqueAssetPath(fullPath);
+            try
+            {
+                // 确保目标路径存在
+                string fullDirectoryPath = Path.Combine(Application.dataPath, targetPath);
+                if (!Directory.Exists(fullDirectoryPath))
+                {
+                    Directory.CreateDirectory(fullDirectoryPath);
+                    Debug.Log($"已创建目录: {fullDirectoryPath}");
+                }
 
-            // 保存资源
-            AssetDatabase.CreateAsset(asset, fullPath);
-            AssetDatabase.SaveAssets();
-            AssetDatabase.Refresh();
+                // 创建 ScriptableObject 实例
+                T asset = ScriptableObject.CreateInstance<T>();
 
-            // 重要：强制重新导入资源以正确链接脚本
-            AssetDatabase.ImportAsset(fullPath, ImportAssetOptions.ForceUpdate);
+                // 构建完整路径并确保唯一性
+                string assetPath = Path.Combine("Assets", targetPath, fileName + ".asset");
+                string uniquePath = AssetDatabase.GenerateUniqueAssetPath(assetPath);
 
-            Debug.Log($"Successfully created {typeof(T)} at: {fullPath}");
-            return asset;
+                // 保存资源
+                AssetDatabase.CreateAsset(asset, uniquePath);
+                AssetDatabase.SaveAssets();
+                AssetDatabase.Refresh();
+
+                Debug.Log($"成功创建 {typeof(T)} 位于: {uniquePath}");
+                return asset;
+            }
+            catch (System.Exception ex)
+            {
+                Debug.LogError($"创建 ScriptableObject 失败: {ex.Message}");
+                return null;
+            }
 #else
-        Debug.LogError("CreateScriptableObject is only available in the Unity Editor");
+        Debug.LogError("CreateScriptableObject 仅在 Unity 编辑器中可用");
         return null;
 #endif
         }
-        /// <summary>
-        /// 按类型查找所有ScriptableObject资源
-        /// List<MyScriptableObject> allSOs = FindAllScriptableObjects<MyScriptableObject>();
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
+
 #if ODIN_INSPECTOR
-        private static IEnumerable<ValueDropdownItem<Type>> GetAllScriptableObjectTypes()
+        /// <summary>
+        /// 获取所有可用的 ScriptableObject 类型（用于 Odin Inspector 下拉菜单）
+        /// </summary>
+        /// <returns>ScriptableObject 类型列表</returns>
+        public static IEnumerable<ValueDropdownItem<Type>> GetAllScriptableObjectTypes()
         {
             var items = new List<ValueDropdownItem<Type>>();
-            // 获取所有程序集
             var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+
             foreach (var assembly in assemblies)
             {
                 Type[] types;
@@ -80,10 +96,12 @@ namespace EFramework.Unity.Utility
                 {
                     types = assembly.GetTypes();
                 }
-                catch
+                catch (System.Reflection.ReflectionTypeLoadException)
                 {
+                    // 忽略无法加载类型的程序集
                     continue;
                 }
+
                 foreach (var type in types)
                 {
                     if (type == null) continue;
@@ -94,92 +112,112 @@ namespace EFramework.Unity.Utility
                     }
                 }
             }
-            return items.Distinct();
+            return items;
         }
-#if UNITY_EDITOR
+#endif
+
+        /// <summary>
+        /// 查找指定类型的所有 ScriptableObject 资源
+        /// </summary>
+        /// <param name="type">要查找的 ScriptableObject 类型</param>
+        /// <returns>找到的资源列表</returns>
         public static List<UnityEngine.Object> FindScriptableObjects(Type type)
         {
-            var assets = AssetDatabase.FindAssets($"t:{type.Name}")
-                .Select(guid => AssetDatabase.GUIDToAssetPath(guid))
-                .Select(path => AssetDatabase.LoadAssetAtPath(path, type))
-                .Where(asset => asset != null)
-                .ToList();
-            return assets;
-        }
-#endif
-
-#endif
+            if (type == null || !typeof(ScriptableObject).IsAssignableFrom(type))
+            {
+                Debug.LogError("提供的类型无效。类型必须是 ScriptableObject 的派生类。");
+                return new List<UnityEngine.Object>();
+            }
 
 #if UNITY_EDITOR
-public static List<T> FindAllScriptableObjects<T>() where T : ScriptableObject
-        {
-            return AssetDatabase.FindAssets($"t:{typeof(T).Name}")
-               .Select(guid => AssetDatabase.GUIDToAssetPath(guid))
-               .Select(path => AssetDatabase.LoadAssetAtPath<T>(path))
-               .Where(asset => asset != null)
-               .ToList();
-        }
+            try
+            {
+                return AssetDatabase.FindAssets($"t:{type.Name}")
+                    .Select(guid => AssetDatabase.GUIDToAssetPath(guid))
+                    .Select(path => AssetDatabase.LoadAssetAtPath(path, type))
+                    .Where(asset => asset != null)
+                    .ToList();
+            }
+            catch (System.Exception ex)
+            {
+                Debug.LogError($"查找类型 {type.Name} 的 ScriptableObjects 时出错: {ex.Message}");
+                return new List<UnityEngine.Object>();
+            }
 #else
-public static List<T> FindAllScriptableObjects<T>() where T : ScriptableObject
+        try
         {
-            //return AssetDatabase.FindAssets($"t:{typeof(T).Name}")
-            //    .Select(guid => AssetDatabase.GUIDToAssetPath(guid))
-            //    .Select(path => AssetDatabase.LoadAssetAtPath<T>(path))
-            //    .Where(asset => asset != null)
-            //    .ToList();
+            return Resources.LoadAll("", type).ToList();
+        }
+        catch (System.Exception ex)
+        {
+            Debug.LogError($"加载类型 {type.Name} 的 ScriptableObjects 时出错: {ex.Message}");
+            return new List<UnityEngine.Object>();
+        }
+#endif
+        }
+
+        /// <summary>
+        /// 查找指定类型的所有 ScriptableObject 资源
+        /// 示例：List<MyScriptableObject> allSOs = FindAllScriptableObjects<MyScriptableObject>();
+        /// </summary>
+        /// <typeparam name="T">ScriptableObject 类型</typeparam>
+        /// <returns>找到的资源列表</returns>
+        public static List<T> FindAllScriptableObjects<T>() where T : ScriptableObject
+        {
+#if UNITY_EDITOR
+            try
+            {
+                return AssetDatabase.FindAssets($"t:{typeof(T).Name}")
+                    .Select(guid => AssetDatabase.GUIDToAssetPath(guid))
+                    .Select(path => AssetDatabase.LoadAssetAtPath<T>(path))
+                    .Where(asset => asset != null)
+                    .ToList();
+            }
+            catch (System.Exception ex)
+            {
+                Debug.LogError($"查找类型 {typeof(T).Name} 的 ScriptableObjects 时出错: {ex.Message}");
+                return new List<T>();
+            }
+#else
+        try
+        {
             return Resources.LoadAll<T>("").ToList();
         }
+        catch (System.Exception ex)
+        {
+            Debug.LogError($"加载类型 {typeof(T).Name} 的 ScriptableObjects 时出错: {ex.Message}");
+            return new List<T>();
+        }
 #endif
-        
+        }
 
+        /// <summary>
+        /// 根据名称查找指定的 ScriptableObject 资源
+        /// </summary>
+        /// <typeparam name="T">ScriptableObject 类型</typeparam>
+        /// <param name="name">资源名称</param>
+        /// <returns>找到的资源，如果未找到则返回 null</returns>
         public static T FindScriptableObject<T>(string name) where T : ScriptableObject
         {
-            return Resources.LoadAll<T>("")
-            .Where(asset => asset != null && asset.name == name)
-            .FirstOrDefault();
+            if (string.IsNullOrEmpty(name))
+            {
+                Debug.LogWarning("资源名称不能为空");
+                return null;
+            }
+
+            return FindAllScriptableObjects<T>()
+                .Where(asset => asset != null && asset.name == name)
+                .FirstOrDefault();
         }
+
+        /// <summary>
+        /// 查找指定类型的第一个 ScriptableObject 资源
+        /// </summary>
+        /// <typeparam name="T">ScriptableObject 类型</typeparam>
+        /// <returns>找到的资源，如果未找到则返回 null</returns>
         public static T FindScriptableObject<T>() where T : ScriptableObject
         {
-            return Resources.LoadAll<T>("")
-             .Where(asset => asset != null)
-             .FirstOrDefault();
+            return FindAllScriptableObjects<T>().FirstOrDefault();
         }
     }
-#if UNITY_EDITOR
-    public static class AssetDataUnility
-    {
-        public static List<T> GetAllPrefabs<T>(params string[] folders) where T : Component
-        {
-            var assets = folders.Length == 0 ? AssetDatabase.FindAssets($"t:{typeof(T).Name}") : AssetDatabase.FindAssets($"t:{typeof(T).Name}", folders);
-            return assets.Select(guid => AssetDatabase.GUIDToAssetPath(guid))
-             .Select(path => AssetDatabase.LoadAssetAtPath<T>(path))
-             .Where(asset => asset != null)
-             .ToList();
-        }
-        public static List<UnityEngine.Object> GetAllPrefabs(Type type, params string[] folders)
-        {
-            var assets = folders.Length == 0 ? AssetDatabase.FindAssets($"t:Prefab") : AssetDatabase.FindAssets($"t:Prefab", folders);
-            return assets.Select(guid => AssetDatabase.GUIDToAssetPath(guid))
-             .Select(path => AssetDatabase.LoadAssetAtPath(path, type))
-             .Where(asset => asset != null)
-             .ToList();
-        }
-        public static T[] FindAllAssets<T>(string folderPath) where T : UnityEngine.Object
-        {
-            string[] guids = AssetDatabase.FindAssets("", new string[] { folderPath });
-            T[] assets = new T[guids.Length];
-            for (int i = 0; i < guids.Length; i++)
-            {
-                string path = AssetDatabase.GUIDToAssetPath(guids[i]);
-                assets[i] = AssetDatabase.LoadAssetAtPath<T>(path);
-            }
-            return assets;
-        }
-        public static T FindAsset<T>(string folderPath) where T : UnityEngine.Object
-        {
-            return AssetDatabase.LoadAssetAtPath<T>(folderPath);
-        }
-    }
-#endif
 }
-
