@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace EFramework.Unity.Event
 {
-    public class EventSOList : TableSOBase
+    public class EventTableSO : TableSOBase
     {
         [TableList]
         public List<EventSO> SOList;

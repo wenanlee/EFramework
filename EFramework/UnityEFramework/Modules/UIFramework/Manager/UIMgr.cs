@@ -49,5 +49,10 @@ namespace EFramework.Unity.UIFramework
             }
             uiDictByType[typeof(T)].OnHide();
         }
+
+        public virtual void CloseAllPanel(string uuid)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

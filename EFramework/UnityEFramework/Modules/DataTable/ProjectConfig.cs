@@ -25,16 +25,36 @@ namespace EFramework.Unity.DataTable
         [FolderPath(ParentFolder = "")]
 #endif
         public string projectParentPath;
+        public string prefabPath => projectParentPath + "/Prefab/";
+        public string resourcesPath => projectParentPath + "/Resources/";
+        public string soDataPath => projectParentPath + "/Resources/Data/";
 #if ODIN_INSPECTOR
-        
-        [ShowInInspector, TableList,LabelText("表单")]
-        public List<TableInfo> tables =new List<TableInfo>();
-        [Button("项目初始化"),ShowIf("@tables.Count == 0"),EnableIf("@string.IsNullOrEmpty(projectParentPath) == false")]
+        [TableList(IsReadOnly = true)]
+        public List<TableInfo> tableSOLst;
+
+        public EntityTableSO entityTableSO;
+        public EventTableSO eventTableSO;
+
+        [Button("项目初始化"), EnableIf("@string.IsNullOrEmpty(projectParentPath) == false")]
         public void ProjectInit()
         {
-            ScriptableObjectUtility.CreateScriptableObject<EventSOList>(projectParentPath + "/Resources/Data/Event", "事件列表");
+            tableSOLst = new();
+            FindSOAsset<EntityTableSO>(out entityTableSO, "Entity", "实体表");
+            FindSOAsset<EventTableSO>(out eventTableSO, "Event", "事件列表");
+
+        }
+        public void FindSOAsset<T>(out T t, string tablePath, string tableName) where T : TableSOBase
+        {
+            t = ScriptableObjectUtility.FindScriptableObject<T>();
+            if (t == null)
+                t = ScriptableObjectUtility.CreateScriptableObject<T>(soDataPath + tablePath, tableName);
+            tableSOLst.Add(new TableInfo(tableName, t));
         }
 #endif
+        public void LoadSO()
+        {
+
+        }
     }
 }
 #endif

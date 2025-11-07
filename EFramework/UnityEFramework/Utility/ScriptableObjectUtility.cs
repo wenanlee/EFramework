@@ -42,7 +42,10 @@ namespace EFramework.Unity.Utility
                 Debug.LogError($"无法创建抽象类或接口类型的实例: {typeof(T)}");
                 return null;
             }
-
+            if (targetPath.StartsWith("Assets/"))
+            {
+                targetPath = targetPath.Substring("Assets/".Length);
+            }
             try
             {
                 // 确保目标路径存在
@@ -55,6 +58,7 @@ namespace EFramework.Unity.Utility
 
                 // 创建 ScriptableObject 实例
                 T asset = ScriptableObject.CreateInstance<T>();
+
 
                 // 构建完整路径并确保唯一性
                 string assetPath = Path.Combine("Assets", targetPath, fileName + ".asset");

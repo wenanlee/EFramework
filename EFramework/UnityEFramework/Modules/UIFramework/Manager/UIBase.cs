@@ -9,6 +9,8 @@ namespace EFramework.Unity.UIFramework
     public abstract class UIBase : EntityObject
     {
         protected CanvasGroup canvasGroup;
+        protected bool isShow=false;
+        public bool IsShow => isShow;
         public virtual void OnShow(object obj = null) 
         {
             if (canvasGroup == null)
@@ -16,6 +18,8 @@ namespace EFramework.Unity.UIFramework
             canvasGroup.alpha = 1f;
             canvasGroup.interactable = true;
             canvasGroup.blocksRaycasts = true;
+            isShow = true;
+
         }
         public virtual void OnHide(object obj = null) 
         {
@@ -26,6 +30,7 @@ namespace EFramework.Unity.UIFramework
             canvasGroup.interactable = false;
             canvasGroup.blocksRaycasts = false;
             Debug.Log($"关闭UI {name} {canvasGroup.alpha} {canvasGroup.interactable} {canvasGroup.blocksRaycasts}");
+            isShow = false;
         }
         public virtual void OnPause() { /* 暂停逻辑 */ }
         public virtual void OnResume() { /* 恢复逻辑 */ }

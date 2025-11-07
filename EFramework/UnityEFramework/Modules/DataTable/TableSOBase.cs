@@ -7,7 +7,6 @@ namespace EFramework.Unity.DataTable
 {
     public class TableSOBase : ScriptableObject
     {
-        public string Desc;
         public virtual void Refresh()
         {
 

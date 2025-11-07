@@ -52,17 +52,10 @@ namespace EFramework.Unity.DataTable
             projectConfig ??= ScriptableObjectUtility.FindScriptableObject<ProjectConfig>();
             if (projectConfig == null)
                 CreateProjectConfig();
-
-            var tables = ScriptableObjectUtility.FindAllScriptableObjects<TableSOBase>();
-            projectConfig.tables = new List<TableInfo>();
-            foreach (TableSOBase table in tables) 
-            {
-                projectConfig.tables.Add(new TableInfo(table.name,table));
-            }
         }
         private void Refresh()
         {
-            foreach (var item in projectConfig.tables)
+            foreach (var item in projectConfig.tableSOLst)
             {
                 item.tableObj.Refresh();
                 Debug.Log("刷新！");
@@ -113,7 +106,11 @@ namespace EFramework.Unity.DataTable
             tree.Config.DrawSearchToolbar = true; // 添加搜索栏
 
             tree.Add("项目配置", projectConfig);
-            foreach (var item in projectConfig.tables)
+            if(projectConfig == null)
+                return tree;
+            if(projectConfig.tableSOLst == null)
+                return tree;
+            foreach (var item in projectConfig.tableSOLst)
             {
                 Debug.Log($"Table: {item.tableName}, Object: {item.tableObj}");
                 tree.Add(item.tableName, item.tableObj);

@@ -41,7 +41,10 @@ namespace EFramework.Unity.Utility
                 return new List<T>();
             }
         }
-
+        public static T GetPrefabByUuid<T>(string uuid, params string[] folders) where T : Component
+        {
+            return GetAllPrefabs<T>(folders).Where(x=>x.name.GetUUID()==uuid).FirstOrDefault();
+        }
         /// <summary>
         /// 获取所有包含指定组件类型的预制体
         /// </summary>
