@@ -83,6 +83,80 @@ namespace EFramework.Unity.Utility
 #endif
         }
 
+        /// <summary>
+        /// 创建并保存一个已存在的 ScriptableObject 实例到指定路径
+        /// </summary>
+        /// <param name="newSO">要保存的 ScriptableObject 实例</param>
+        /// <param name="folderPath">目标文件夹路径（相对于 Assets 文件夹）</param>
+        /// <param name="fileName">文件名（不带扩展名）</param>
+        /// <returns>是否创建成功</returns>
+        public static bool CreateScriptableObject(ScriptableObject newSO, string folderPath, string fileName)
+        {
+#if UNITY_EDITOR
+            // 参数有效性检查
+            if (newSO == null)
+            {
+                Debug.LogError("ScriptableObject 实例不能为空");
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(folderPath))
+            {
+                Debug.LogError("文件夹路径不能为空");
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(fileName))
+            {
+                Debug.LogError("文件名不能为空");
+                return false;
+            }
+
+            // 检查对象是否已经被保存过
+            if (AssetDatabase.Contains(newSO))
+            {
+                Debug.LogError("该 ScriptableObject 实例已经被保存到资源文件中");
+                return false;
+            }
+
+            try
+            {
+                // 处理路径格式
+                if (folderPath.StartsWith("Assets/"))
+                {
+                    folderPath = folderPath.Substring("Assets/".Length);
+                }
+
+                // 确保目标文件夹存在
+                string fullDirectoryPath = Path.Combine(Application.dataPath, folderPath);
+                if (!Directory.Exists(fullDirectoryPath))
+                {
+                    Directory.CreateDirectory(fullDirectoryPath);
+                    Debug.Log($"已创建目录: {fullDirectoryPath}");
+                }
+
+                // 构建完整路径并确保唯一性
+                string assetPath = Path.Combine("Assets", folderPath, fileName + ".asset");
+                string uniquePath = AssetDatabase.GenerateUniqueAssetPath(assetPath);
+
+                // 保存资源
+                AssetDatabase.CreateAsset(newSO, uniquePath);
+                AssetDatabase.SaveAssets();
+                AssetDatabase.Refresh();
+
+                Debug.Log($"成功保存 {newSO.GetType()} 位于: {uniquePath}");
+                return true;
+            }
+            catch (System.Exception ex)
+            {
+                Debug.LogError($"保存 ScriptableObject 失败: {ex.Message}");
+                return false;
+            }
+#else
+    Debug.LogError("CreateScriptableObject 仅在 Unity 编辑器中可用");
+    return false;
+#endif
+        }
 #if ODIN_INSPECTOR
         /// <summary>
         /// 获取所有可用的 ScriptableObject 类型（用于 Odin Inspector 下拉菜单）
@@ -223,5 +297,7 @@ namespace EFramework.Unity.Utility
         {
             return FindAllScriptableObjects<T>().FirstOrDefault();
         }
+
+ 
     }
 }

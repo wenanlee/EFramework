@@ -55,11 +55,7 @@ namespace EFramework.Unity.DataTable
         }
         private void Refresh()
         {
-            foreach (var item in projectConfig.tableSOLst)
-            {
-                item.tableObj.Refresh();
-                Debug.Log("刷新！");
-            }
+            
         }
         protected override void OnBeginDrawEditors()
         {
@@ -108,12 +104,11 @@ namespace EFramework.Unity.DataTable
             tree.Add("项目配置", projectConfig);
             if(projectConfig == null)
                 return tree;
-            if(projectConfig.tableSOLst == null)
+            if(ProjectConfig.Instance.volume == null)
                 return tree;
-            foreach (var item in projectConfig.tableSOLst)
+            foreach (var item in ProjectConfig.Instance.volume.components)
             {
-                Debug.Log($"Table: {item.tableName}, Object: {item.tableObj}");
-                tree.Add(item.tableName, item.tableObj);
+                tree.Add(item.tableName, item);
             }
 
             return tree;

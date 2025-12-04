@@ -6,7 +6,7 @@ using UnityEngine;
 namespace EFramework.Unity.UIFramework
 {
     [RequireComponent(typeof(CanvasGroup))]
-    public abstract class UIBase : EntityObject
+    public abstract class UIBase : GameEntity
     {
         protected CanvasGroup canvasGroup;
         protected bool isShow=false;

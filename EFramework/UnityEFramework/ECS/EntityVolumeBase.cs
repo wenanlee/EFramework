@@ -1,25 +1,24 @@
 using Sirenix.OdinInspector;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.EventSystems.EventTrigger;
 
 namespace EFramework.Unity.Entity
 {
     [Serializable]
-    public class EntityVolume : ScriptableObject
+    public class EntityVolumeBase<TComponent> : ScriptableObject where TComponent : class
     {
         [ReadOnly]
         public string Uuid;
         public string Desc;
         [SerializeReference]
-        public List<EntityComponent> components = new();
-        private readonly Dictionary<Type, EntityComponent> _componentCache = new();
+        public List<TComponent> components = new();
+        private readonly Dictionary<Type, TComponent> _componentCache = new();
         private bool _isCacheDirty = true;
 
-        public bool ContainsComponent<T>() where T : EntityComponent
+        public bool ContainsComponent<T>() where T : TComponent
         {
-            // 使用类型直接比较而不是 is 操作符
             var targetType = typeof(T);
 
             // 尝试从缓存中查找
@@ -40,7 +39,7 @@ namespace EFramework.Unity.Entity
             return false;
         }
 
-        public T GetComponentVolume<T>() where T : EntityComponent
+        public T GetComponentVolume<T>() where T : TComponent
         {
             var targetType = typeof(T);
 
@@ -60,18 +59,23 @@ namespace EFramework.Unity.Entity
                     return result;
                 }
             }
-            return null;
+            return default(T);
         }
 
-        public void InitAllComponent(EntityObject entityObject)
+        public void InitAllComponent<TObject>(TObject entityObject) where TObject : class
         {
             // 使用 for 循环避免 foreach 的枚举器分配
             for (int i = 0; i < components.Count; i++)
             {
-                components[i]?.Init(entityObject);
+                var component = components[i];
+                if (component is EntityComponentBase<TObject> entityComponent)
+                {
+                    entityComponent.Init(entityObject);
+                }
             }
             RebuildCache();
         }
+
         public void RebuildCache()
         {
             _componentCache.Clear();
@@ -87,23 +91,24 @@ namespace EFramework.Unity.Entity
             }
             _isCacheDirty = false;
         }
-        public EntityVolume Clone()
+
+        public EntityVolumeBase<TComponent> Clone()
         {
             // 创建新的 EntityVolume 实例
-            EntityVolume clone = CreateInstance<EntityVolume>();
+            EntityVolumeBase<TComponent> clone = CreateInstance<EntityVolumeBase<TComponent>>();
 
             // 复制基础字段
             clone.Uuid = this.Uuid;
             clone.Desc = this.Desc;
 
-            // 深度复制组件列表 - 使用 EntityComponent 的 Clone<T> 方法
-            clone.components = new List<EntityComponent>();
+            // 深度复制组件列表
+            clone.components = new List<TComponent>();
             foreach (var component in this.components)
             {
                 if (component != null)
                 {
                     var json = JsonUtility.ToJson(component);
-                    var clonedComponent = JsonUtility.FromJson(json, component.GetType()) as EntityComponent;
+                    var clonedComponent = JsonUtility.FromJson(json, component.GetType()) as TComponent;
                     clone.components.Add(clonedComponent);
                 }
                 else
@@ -113,6 +118,51 @@ namespace EFramework.Unity.Entity
             }
 
             return clone;
+        }
+
+        // 添加组件的方法
+        public void AddComponent(TComponent component)
+        {
+            if (component != null)
+            {
+                components.Add(component);
+                _isCacheDirty = true;
+            }
+        }
+
+        // 移除组件的方法
+        public bool RemoveComponent<T>() where T : TComponent
+        {
+            for (int i = components.Count - 1; i >= 0; i--)
+            {
+                if (components[i] is T)
+                {
+                    components.RemoveAt(i);
+                    _isCacheDirty = true;
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        // 获取所有组件的方法
+        public List<T> GetAllComponents<T>() where T : TComponent
+        {
+            List<T> result = new List<T>();
+            for (int i = 0; i < components.Count; i++)
+            {
+                if (components[i] is T component)
+                {
+                    result.Add(component);
+                }
+            }
+            return result;
+        }
+
+        // 标记缓存为脏
+        public void MarkCacheDirty()
+        {
+            _isCacheDirty = true;
         }
     }
 }

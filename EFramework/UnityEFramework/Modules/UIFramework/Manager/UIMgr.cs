@@ -21,7 +21,18 @@ namespace EFramework.Unity.UIFramework
 #endif
         public Dictionary<string, UIBase> uiDict { get; private set; } = new Dictionary<string, UIBase>();
         public Dictionary<Type, UIBase> uiDictByType = new();
+        private bool showCursored = false;
 
+        public void SetCursor(bool showCursor,bool isLocked = true)
+        {
+            showCursored = showCursor;           // 使用简单赋值
+            Cursor.visible = showCursor;         // 使用简单赋值
+            Cursor.lockState = showCursor ? CursorLockMode.None : CursorLockMode.Locked;
+            if (isLocked == false)
+            {
+                Cursor.lockState = CursorLockMode.None;
+            }
+        }
         public virtual void ShowUI(string uuid, object arg = null)
         {
             

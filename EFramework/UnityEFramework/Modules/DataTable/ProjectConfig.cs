@@ -1,5 +1,6 @@
 #if UNITY_EDITOR
 #if ODIN_INSPECTOR
+using EFramework.Unity.Entity;
 using EFramework.Unity.Event;
 using EFramework.Unity.Utility;
 using Sirenix.OdinInspector;
@@ -14,7 +15,7 @@ using UnityEngine;
 
 namespace EFramework.Unity.DataTable
 {
-    public class ProjectConfig : ScriptableObject
+    public class ProjectConfig : ScriptableObjectSingleton<ProjectConfig>
     {
 #if ODIN_INSPECTOR
         [LabelText("项目名称")]
@@ -22,38 +23,23 @@ namespace EFramework.Unity.DataTable
         public string projectName;
 #if ODIN_INSPECTOR
         [LabelText("项目路径")]
-        [FolderPath(ParentFolder = "")]
+        [FolderPath(ParentFolder = ""), BoxGroup("路径")]
 #endif
         public string projectParentPath;
+
+        [ShowInInspector, FolderPath, BoxGroup("路径")]
         public string prefabPath => projectParentPath + "/Prefab/";
+        [ShowInInspector, FolderPath, BoxGroup("路径")]
         public string resourcesPath => projectParentPath + "/Resources/";
+        [ShowInInspector, FolderPath, BoxGroup("路径")]
         public string soDataPath => projectParentPath + "/Resources/Data/";
-#if ODIN_INSPECTOR
-        [TableList(IsReadOnly = true)]
-        public List<TableInfo> tableSOLst;
 
-        public EntityTableSO entityTableSO;
-        public EventTableSO eventTableSO;
+        [InlineEditor(Expanded = true, ObjectFieldMode = InlineEditorObjectFieldModes.Hidden), BoxGroup("数据表")] 
+        public DataTableVolume volume;
 
-        [Button("项目初始化"), EnableIf("@string.IsNullOrEmpty(projectParentPath) == false")]
-        public void ProjectInit()
+        public EntityTableItemInfo GetEntityTableItemInfoByUUID(string uuid)
         {
-            tableSOLst = new();
-            FindSOAsset<EntityTableSO>(out entityTableSO, "Entity", "实体表");
-            FindSOAsset<EventTableSO>(out eventTableSO, "Event", "事件列表");
-
-        }
-        public void FindSOAsset<T>(out T t, string tablePath, string tableName) where T : TableSOBase
-        {
-            t = ScriptableObjectUtility.FindScriptableObject<T>();
-            if (t == null)
-                t = ScriptableObjectUtility.CreateScriptableObject<T>(soDataPath + tablePath, tableName);
-            tableSOLst.Add(new TableInfo(tableName, t));
-        }
-#endif
-        public void LoadSO()
-        {
-
+            return volume?.GetComponentVolume<EntityTableComponent>()?.GetEntityTableItemInfoByUUID(uuid);
         }
     }
 }

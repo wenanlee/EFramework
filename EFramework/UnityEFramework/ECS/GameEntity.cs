@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace EFramework.Unity.Entity
 {
-    public class EntityObject : MonoBehaviour
+    public class GameEntity : MonoBehaviour
     {
         [InlineEditor(Expanded = true/*, ObjectFieldMode = InlineEditorObjectFieldModes.Hidden*/)]
         public EntityVolume ComponentsVolume;

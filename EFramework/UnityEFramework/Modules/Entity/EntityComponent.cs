@@ -8,16 +8,16 @@ using UnityEngine;
 namespace EFramework.Unity.Entity
 {
     [Serializable]
-    public abstract class EntityComponent
+    public abstract class EntityComponent:EntityComponentBase<GameEntity>
     {
         [ToggleLeft,GUIColor("@Enabled ? Color.white : Color.Color.yellow")]
         public bool Enabled = true;
-        protected EntityObject entityObject;
+        protected GameEntity entityObject;
         /// <summary>
         /// 编辑器中用来初始化组件
         /// </summary>
         /// <param name="entity">实体</param>
-        public virtual void EditorInit(EntityObject entity)
+        public override void EditorInit(GameEntity entity)
         {
             entityObject = entity;
         }
@@ -25,7 +25,7 @@ namespace EFramework.Unity.Entity
         /// 运行时用来初始化组件
         /// </summary>
         /// <param name="entity">实体</param>
-        public virtual void Init(EntityObject entity) 
+        public override void Init(GameEntity entity) 
         {
             entityObject = entity;
         }
@@ -36,5 +36,6 @@ namespace EFramework.Unity.Entity
             T copy = JsonUtility.FromJson<T>(originalJson);
             return copy;
         }
+
     }
 }
