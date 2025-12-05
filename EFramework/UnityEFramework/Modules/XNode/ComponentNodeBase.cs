@@ -13,17 +13,17 @@ namespace EFramework.Unity.XNode
     public class ComponentNodeBase<T> : ProcessNodeBase where T : Component
     {
         [ValueDropdown("@OdinDataBinding.GetEntityIDs(graph.name)", DropdownWidth = 600)]
-        [LabelText("绑定实体ID"), OnValueChanged(nameof(OnObjUUIDValueChanged))]
+        [LabelText("绑定实体ID")]
         public string objUuid; // 目标实体UUID
         [ValueDropdown("@GetAllComponents()", DropdownWidth = 600)]
         [LabelText("实例名称")]
         public string componentObjName;
-        [ReadOnly]
+        [HideInInspector]
         public T component;
         private GameEntity entityObj;
 #if UNITY_EDITOR
         [ShowInInspector, ReadOnly, LabelText("绑定实体"), HideIf("@string.IsNullOrEmpty(objUuid)||objUuid==\"None\"")]
-        public GameEntity entityObject
+        public GameEntity EntityObject
         {
             get
             {
@@ -34,15 +34,17 @@ namespace EFramework.Unity.XNode
                 return ProjectConfig.Instance.GetEntityTableItemInfoByUUID(objUuid)?.entityObject;
             }
         }
+        [ShowInInspector,ReadOnly]
+        public T Component
+        {
+            get
+            {
+                return EntityObject?.gameObject.GetComponentInChildrenByName<T>(componentObjName);
+            }
+        }
         private List<string> GetAllComponents()
         {
-            return entityObject?.GetComponentsInChildren<T>(true).Select(x => x.name).ToList();
-        }
-        public void OnObjUUIDValueChanged()
-        {
-            entityObj = ProjectConfig.Instance.GetEntityTableItemInfoByUUID(objUuid)?.entityObject;
-            //componentObjName = string.Empty;
-            component = entityObj?.gameObject.GetComponentInChildrenByName<T>(componentObjName);
+            return EntityObject?.GetComponentsInChildren<T>(true).Select(x => x.name).ToList();
         }
 #endif
         protected override IEnumerator OnExecute()
