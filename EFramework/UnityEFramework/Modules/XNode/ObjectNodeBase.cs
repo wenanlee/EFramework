@@ -20,8 +20,18 @@ namespace EFramework.Unity.XNode
         [ValueDropdown("@GetAllComponents()", DropdownWidth = 600)]
         [LabelText("实例名称")]
         public string objName;
-        public T obj => entityObject?.gameObject.GetComponentInChildrenByName<T>(objName);
-#if UNITY_EDITOR
+   #if UNITY_EDITOR     
+        //public T obj => entityObject?.gameObject.GetComponentInChildrenByName<T>(objName);
+        public T obj
+        {
+            get
+            {
+                if(entityObject==null)
+                    return null;
+                return entityObject.gameObject.GetComponentInChildrenByName<T>(objName);
+            }
+        }
+
         [ShowInInspector, ReadOnly, LabelText("绑定实体"), HideIf("@string.IsNullOrEmpty(objUuid)||objUuid==\"None\"")]
         public GameEntity entityObject
         {

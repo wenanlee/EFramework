@@ -1,4 +1,3 @@
-#if UNITY_EDITOR
 #if ODIN_INSPECTOR
 using EFramework.Unity.Entity;
 using EFramework.Unity.Event;
@@ -43,4 +42,3 @@ namespace EFramework.Unity.DataTable
         }
     }
 }
-#endif

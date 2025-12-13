@@ -2,14 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+#if UNITY_EDITOR
 using Sirenix.OdinInspector;
 using Sirenix.OdinInspector.Editor;
 using Sirenix.Utilities;
 using Sirenix.Utilities.Editor;
 using UnityEditor;
+#endif
 using UnityEngine;
 using EFramework.Core;
-
+#if UNITY_EDITOR
 public class EventMonitorWindow : OdinEditorWindow
 {
     [MenuItem("Tools/ÊÂ¼þ¼à¿Ø´°¿Ú")]
@@ -345,3 +347,4 @@ public class EventMonitorWindow : OdinEditorWindow
         public string eventFilter = "";
     }
 }
+#endif

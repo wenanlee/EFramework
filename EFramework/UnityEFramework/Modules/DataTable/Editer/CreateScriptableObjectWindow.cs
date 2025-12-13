@@ -1,12 +1,16 @@
 using UnityEngine;
-using UnityEditor;
+
 using System;
+#if UNITY_EDITOR
+using UnityEditor;
 using Sirenix.OdinInspector;
 using Sirenix.OdinInspector.Editor;
+#endif
 using EFramework.Unity.Utility;
 
 namespace EFramework.Unity.DataTable
 {
+#if UNITY_EDITOR
     public class CreateScriptableObjectWindow : OdinEditorWindow
     {
         [ReadOnly,LabelText("ÎÄ¼þ´æ´¢Â·¾¶")]
@@ -94,4 +98,5 @@ namespace EFramework.Unity.DataTable
             base.OnDestroy();
         }
     }
+#endif
 }

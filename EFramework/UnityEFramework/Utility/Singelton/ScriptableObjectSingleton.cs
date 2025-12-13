@@ -1,8 +1,10 @@
 using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 namespace EFramework.Unity.Utility
 {
-#if UNITY_EDITOR
+
     /// <summary>
     /// 编辑器专用单例模式基类
     /// 简洁实现，只保留核心功能
@@ -15,8 +17,10 @@ namespace EFramework.Unity.Utility
         {
             get
             {
+#if UNITY_EDITOR
                 if (_instance == null)
                 {
+
                     // 查找现有实例
                     string[] guids = AssetDatabase.FindAssets($"t:{typeof(T).Name}");
 
@@ -37,8 +41,12 @@ namespace EFramework.Unity.Utility
                     }
                 }
                 return _instance;
+#else
+                return null;
+#endif
             }
         }
+#if UNITY_EDITOR
 
         /// <summary>
         /// 保存数据
@@ -48,6 +56,6 @@ namespace EFramework.Unity.Utility
             EditorUtility.SetDirty(this);
             AssetDatabase.SaveAssets();
         }
-    }
 #endif
+    }
 }
