@@ -50,16 +50,13 @@ public class EventMonitorWindow : OdinEditorWindow
         RefreshEventData();
         lastRefreshTime = DateTime.Now;
     }
-
     protected override void OnImGUI()
     {
-        // ×Ô¶¯Ë¢ÐÂÂß¼­
         if (isAutoRefresh && (DateTime.Now - lastRefreshTime).TotalSeconds >= settings.refreshInterval)
         {
             RefreshEventData();
             lastRefreshTime = DateTime.Now;
         }
-
         base.OnImGUI();
     }
 

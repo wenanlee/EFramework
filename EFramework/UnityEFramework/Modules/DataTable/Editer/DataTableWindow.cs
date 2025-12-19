@@ -55,6 +55,10 @@ namespace EFramework.Unity.DataTable
         }
         private void Refresh()
         {
+            foreach (var item in projectConfig.volume.components)
+            {
+                item.Refresh();
+            }
             
         }
         protected override void OnBeginDrawEditors()

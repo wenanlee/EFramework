@@ -7,15 +7,14 @@ namespace EFramework.Unity.Entity
 {
     public class EntityComponentBase<T> where T : class
     {
-        [ButtonGroup("基础功能")]
         public virtual void EditorInit(T t) { }
-        [ButtonGroup("基础功能")]
         public virtual void Init(T t) { }
-        [ButtonGroup("基础功能")]
+        [ButtonGroup("Tools")]
+        [Button("添加")]
         public virtual void Add() { }
-        [ButtonGroup("基础功能")]
         public virtual void Remove() { }
-        [ButtonGroup("基础功能")]
+        [ButtonGroup("Tools")]
+        [Button("刷新")]
         public virtual void Refresh() { }
     }
 }

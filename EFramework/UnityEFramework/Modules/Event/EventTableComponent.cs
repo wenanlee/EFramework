@@ -44,5 +44,17 @@ namespace EFramework.Unity.Event
                 SOLst.Add(eventTableItem);
             }
         }
+
+        public override void ExportToJson()
+        {
+            var json = JsonUtility.ToJson(SOLst);
+            Debug.Log(json);
+            
+        }
+
+        public override void GenerateToEnumFile()
+        {
+            EFramework.Unity.Utility.FileUtility.GenerateConstantsFile(ProjectConfig.Instance.projectParentPath,"EventItems",SOLst.ToDictionary(x=>$"{x.eventName}_{x.desc}_{x.uuid}",x=> x.uuid));
+        }
     }
 }

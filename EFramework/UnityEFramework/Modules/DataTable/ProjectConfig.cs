@@ -27,7 +27,7 @@ namespace EFramework.Unity.DataTable
         public string projectParentPath;
 
         [ShowInInspector, FolderPath, BoxGroup("路径")]
-        public string prefabPath => projectParentPath + "/Prefab/";
+        public string prefabPath => projectParentPath + "/Prefabs/";
         [ShowInInspector, FolderPath, BoxGroup("路径")]
         public string resourcesPath => projectParentPath + "/Resources/";
         [ShowInInspector, FolderPath, BoxGroup("路径")]

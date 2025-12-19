@@ -56,7 +56,7 @@ namespace EFramework.Unity.DataTable
 
 #if UNITY_EDITOR
 
-        [Button("Refresh")]
+        [Button("刷新")]
         public override void Refresh()
         {
             SOLst.Clear();
@@ -75,6 +75,12 @@ namespace EFramework.Unity.DataTable
                 SOLst.Add(entityInfo);
             }
         }
+        [Button("添加")]
+        public override void Add()
+        {
+            base.Add();
+
+        }
 
         /// <summary>
         /// 收集所有实体对象
@@ -82,7 +88,7 @@ namespace EFramework.Unity.DataTable
         private Dictionary<string, GameEntity> CollectEntityObjects()
         {
             var entityObjDict = new Dictionary<string, GameEntity>();
-            string prefabPath = ProjectConfig.Instance.prefabPath;
+            string prefabPath = ProjectConfig.Instance.projectParentPath;
 
             Debug.Log(prefabPath);
 
@@ -109,7 +115,6 @@ namespace EFramework.Unity.DataTable
         private Dictionary<string, ProcessGraphBase> CollectProcessGraphs()
         {
             var processGraphDict = new Dictionary<string, ProcessGraphBase>();
-
             foreach (var entity in ScriptableObjectUtility.FindAllScriptableObjects<ProcessGraphBase>())
             {
                 if (processGraphDict.ContainsKey(entity.name))
@@ -124,6 +129,16 @@ namespace EFramework.Unity.DataTable
             }
 
             return processGraphDict;
+        }
+
+        public override void ExportToJson()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void GenerateToEnumFile()
+        {
+            EFramework.Unity.Utility.FileUtility.GenerateConstantsFile(ProjectConfig.Instance.projectParentPath, "EntityItems", SOLst.ToDictionary(x =>$"{x.entityObject.name.Substring(0,2)}_{x.desc}_{x.uuid}" ,v  => v.uuid));
         }
 
 #endif
