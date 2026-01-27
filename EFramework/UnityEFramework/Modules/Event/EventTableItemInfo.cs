@@ -15,7 +15,7 @@ namespace EFramework.Unity.Event
         public string eventName;
         public string desc;
         [ReadOnly]
-        public EventValueType valueType;
+        public List<EventValueTypeInfo> argTypes;
         [ReadOnly]
         public EventSO asset;
         public EventTableItemInfo(EventSO eventSO)
@@ -24,7 +24,7 @@ namespace EFramework.Unity.Event
             desc = eventSO.desc;
             eventName = eventSO.name;
             asset = eventSO;
-            valueType = eventSO.valueType;
+            argTypes = eventSO.argTypes;
         }
     }
 }

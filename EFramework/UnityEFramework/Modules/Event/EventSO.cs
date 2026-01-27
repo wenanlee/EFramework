@@ -1,21 +1,28 @@
-using EFramework.Unity.DataTable;
 using Sirenix.OdinInspector;
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 namespace EFramework.Unity.Event
 {
-    [CreateAssetMenu(fileName ="Event",menuName = "EFramework/Unity/Event")]
+    [CreateAssetMenu(fileName = "Event", menuName = "EFramework/Unity/Event")]
     public class EventSO : ScriptableObject
     {
         [ReadOnly]
         public string uuid;
         public string desc;
-        public EventValueType valueType;
-        public EventSO() 
+        [TableList(ShowIndexLabels=true)]
+        public List<EventValueTypeInfo> argTypes;
+        public EventSO()
         {
             uuid = UUID.New();
+            argTypes = new List<EventValueTypeInfo>();
         }
+    }
+    [Serializable]
+    public class EventValueTypeInfo
+    {
+        public EventValueType argType;
+        public string argDesc;
     }
     public enum EventValueType
     {

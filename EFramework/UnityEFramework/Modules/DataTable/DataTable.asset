@@ -17,6 +17,7 @@ MonoBehaviour:
   components:
   - rid: 8095241590043312128
   - rid: 8095241590043312129
+  - rid: 8095241722423148544
   references:
     version: 2
     RefIds:
@@ -100,15 +101,49 @@ MonoBehaviour:
           entityObject: {fileID: 7309718641754815125, guid: 793021a2854c5d249b32cf2615e6b354,
             type: 3}
           processGraph: {fileID: 0}
+        - uuid: fvQ9Wa
+          desc: "\u80CC\u5305\u754C\u9762"
+          entityVolume: {fileID: 11400000, guid: bcf2ecdc551de9946ae918a4f16c4d98,
+            type: 2}
+          entityObject: {fileID: 8987359747239505517, guid: 27e4c6ac4d452e449ad2962430583cda,
+            type: 3}
+          processGraph: {fileID: 0}
+        - uuid: fEy2ys
+          desc: "\u5B57\u5E55\u754C\u9762"
+          entityVolume: {fileID: 11400000, guid: 400c14636d1748d40aa2e0296f725aa6,
+            type: 2}
+          entityObject: {fileID: 8023651736394328138, guid: b7f448b169d51d34089144a78391d51a,
+            type: 3}
+          processGraph: {fileID: 0}
     - rid: 8095241590043312129
       type: {class: EventTableComponent, ns: EFramework.Unity.Event, asm: EFramework.Unity}
       data:
         SOLst:
+        - uuid: V5JBA2
+          eventName: "\u4F7F\u7528\u5F55\u97F3\u673A"
+          desc: "\u4F7F\u7528\u5F55\u97F3\u673A"
+          valueType: 1
+          asset: {fileID: 11400000, guid: 129bdd297b2e13f4895ed8daf2ba4b90, type: 2}
+        - uuid: WLNUmS
+          eventName: "\u663E\u793A\u5B57\u5E55"
+          desc: "\u663E\u793A\u5B57\u5E55"
+          valueType: 2
+          asset: {fileID: 11400000, guid: 889921cf7591edb49ada69753b159446, type: 2}
         - uuid: abxi22
           eventName: "\u6D4B\u8BD5"
           desc: "\u6D4B\u8BD5"
           valueType: 5
           asset: {fileID: 11400000, guid: 85753797793cd5b4a8da97d093974fc4, type: 2}
+        - uuid: PbV3na
+          eventName: "\u80CC\u5305\u4F7F\u7528\u7269\u4F53"
+          desc: "\u80CC\u5305\u4F7F\u7528\u7269\u4F53"
+          valueType: 1
+          asset: {fileID: 11400000, guid: ec9ce9c4fc4358c4abb25ff0e71be254, type: 2}
+        - uuid: 7X3P5S
+          eventName: "\u9690\u85CF\u5B57\u5E55"
+          desc: "\u9690\u85CF\u5B57\u5E55"
+          valueType: 2
+          asset: {fileID: 11400000, guid: b84f04435235a954c83c6b9e45263654, type: 2}
         - uuid: JpvwjA
           eventName: ApllicationLifecycle_OnApplicationFocus
           desc: "\u5E94\u7528\u7A0B\u5E8F\u83B7\u5F97\u7126\u70B9\u65F6\u8C03\u7528"
@@ -279,3 +314,6 @@ MonoBehaviour:
           desc: "\u5F00\u59CB\u5378\u8F7D\u573A\u666F"
           valueType: 1
           asset: {fileID: 11400000, guid: 7ec13833c56ce63479aac9e4078c8f3c, type: 2}
+    - rid: 8095241722423148544
+      type: {class: RecorderDataTables, ns: , asm: Assembly-CSharp}
+      data: 

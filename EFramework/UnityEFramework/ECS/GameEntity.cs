@@ -23,26 +23,25 @@ namespace EFramework.Unity.Entity
         [Button("编辑器初始化")]
         public virtual void EditorInit()
         {
+            if (name.Contains("UUID") == false)
+            {
+                name += "_UUID" + UUID.New();
+            }
 
-            if (ComponentsVolume == null || ComponentsVolume.name!=name)
+            if (ComponentsVolume == null || ComponentsVolume.name != name)
             {
                 ComponentsVolume = ScriptableObjectUtility.FindScriptableObject<EntityVolume>(name);
                 if (ComponentsVolume == null)
+                {
                     ComponentsVolume = ScriptableObjectUtility.CreateScriptableObject<EntityVolume>("Assets/GameMain/Resources/Data/CompetentsVolume", name);
+                    ComponentsVolume.Uuid = name.GetUUID();
+                }
                 foreach (var item in ComponentsVolume.components)
                 {
                     item.EditorInit(this);
                 }
             }
-            if (name.Contains("UUID") == false)
-            {
-                ComponentsVolume.Uuid = UUID.New();
-                name += "_UUID" + ComponentsVolume.Uuid;
-            }
-            else
-            {
-                ComponentsVolume.Uuid = name.GetUUID();
-            }
+
 #if UNITY_EDITOR
             UnityEditor.EditorUtility.SetDirty(ComponentsVolume);
 #endif
@@ -57,11 +56,11 @@ namespace EFramework.Unity.Entity
             var volume = ScriptableObjectUtility.FindScriptableObject<EntityVolume>(name);
             if (ComponentsVolume == null)
             {
-                if(name.Contains("DO")||name.Contains("SS"))
+                if (name.Contains("DO") || name.Contains("SS"))
                     Debug.LogError($"EntityObject<{name}>的ComponentsVolume为空,请先编辑器初始化");
                 return;
             }
-            if(volume == null)
+            if (volume == null)
             {
                 if (name.Contains("DO") || name.Contains("SS"))
                     Debug.LogError($"EntityObject<{name}>的ComponentsVolume找不到,请先编辑器初始化");

@@ -54,7 +54,7 @@ namespace EFramework.Unity.Event
 
         public override void GenerateToEnumFile()
         {
-            EFramework.Unity.Utility.FileUtility.GenerateConstantsFile(ProjectConfig.Instance.projectParentPath,"EventItems",SOLst.ToDictionary(x=>$"{x.eventName}_{x.desc}_{x.uuid}",x=> x.uuid));
+            FileUtility.GenerateConstantsFile(ProjectConfig.Instance.projectParentPath,"EventItems",SOLst.ToDictionary(x=>$"{x.eventName}_{x.desc}_{x.uuid}",x=> x.uuid));
         }
     }
 }
