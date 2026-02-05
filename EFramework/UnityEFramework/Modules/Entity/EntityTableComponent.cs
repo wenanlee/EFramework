@@ -1,10 +1,7 @@
-using EFramework.Unity.DataTable;
 using EFramework.Unity.Entity;
-using EFramework.Unity.Event;
 using EFramework.Unity.Utility;
 using Sirenix.OdinInspector;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -131,18 +128,17 @@ namespace EFramework.Unity.DataTable
             return processGraphDict;
         }
 
+
+
+#endif
         public override void ExportToJson()
         {
-            throw new NotImplementedException();
         }
 
         public override void GenerateToEnumFile()
         {
-            EFramework.Unity.Utility.FileUtility.GenerateConstantsFile(ProjectConfig.Instance.projectParentPath, "EntityItems", SOLst.ToDictionary(x =>$"{x.entityObject.name.Substring(0,2)}_{x.desc}_{x.uuid}" ,v  => v.uuid));
+            FileUtility.GenerateConstantsFile(ProjectConfig.Instance.projectParentPath, "EntityItems", SOLst.ToDictionary(x => $"{x.entityObject.name.Substring(0, 2)}_{x.desc}_{x.uuid}", v => v.uuid));
         }
-
-#endif
-
         #endregion
     }
 
@@ -150,7 +146,7 @@ namespace EFramework.Unity.DataTable
     /// 实体表项信息
     /// </summary>
     [Serializable]
-    public class EntityTableItemInfo: DataTableItemInfoBase
+    public class EntityTableItemInfo : DataTableItemInfoBase
     {
         #region Serialized Fields
 

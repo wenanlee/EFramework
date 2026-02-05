@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace EFramework.Unity
 {
-    public class GlobalMgr : MonoSingleton<GlobalMgr>
+    public class GlobalMgr : MonoBehaviour
     {
         [Title("运行时生成物品字典")]
         [ShowInInspector, Searchable]

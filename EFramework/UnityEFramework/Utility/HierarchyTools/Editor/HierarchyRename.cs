@@ -1,9 +1,10 @@
+#if UNITY_EDITOR
 using EFramework.Unity.Entity;
 using UnityEditor;
 using UnityEngine;
 
 [InitializeOnLoad]
-public class HierarchyRename : MonoBehaviour
+public class HierarchyRename
 {
     static HierarchyRename()
     {
@@ -40,3 +41,4 @@ public class HierarchyRename : MonoBehaviour
         }
     }
 }
+#endif

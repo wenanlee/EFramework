@@ -40,5 +40,9 @@ namespace EFramework.Unity.DataTable
         {
             return volume?.GetComponentVolume<EntityTableComponent>()?.GetEntityTableItemInfoByUUID(uuid);
         }
+        private void CreateDataTable()
+        {
+            // 创建数据表组件
+        }
     }
 }

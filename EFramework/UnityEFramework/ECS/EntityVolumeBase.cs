@@ -11,7 +11,7 @@ namespace EFramework.Unity.Entity
     /// </summary>
     /// <typeparam name="TComponent">组件基类型约束</typeparam>
     [Serializable]
-    public class EntityVolumeBase<TComponent> : ScriptableObject where TComponent : class
+    public class EntityVolumeBase<TComponent> where TComponent : class
     {
         [ReadOnly]  // Odin特性：在编辑器中只读显示
         public string Uuid;  // 唯一标识符
@@ -128,7 +128,7 @@ namespace EFramework.Unity.Entity
         public EntityVolumeBase<TComponent> Clone()
         {
             // 创建新的EntityVolume实例
-            EntityVolumeBase<TComponent> clone = CreateInstance<EntityVolumeBase<TComponent>>();
+            EntityVolumeBase<TComponent> clone = new();
 
             // 复制基础字段
             clone.Uuid = this.Uuid;
@@ -158,13 +158,14 @@ namespace EFramework.Unity.Entity
         /// 添加组件
         /// </summary>
         /// <param name="component">要添加的组件</param>
-        public void AddComponent(TComponent component)
+        public TComponent AddComponent(TComponent component)
         {
             if (component != null)
             {
                 components.Add(component);
                 _isCacheDirty = true;  // 标记缓存需要更新
             }
+            return component;
         }
 
         /// <summary>

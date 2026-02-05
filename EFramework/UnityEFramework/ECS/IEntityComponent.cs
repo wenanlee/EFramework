@@ -16,5 +16,6 @@ namespace EFramework.Unity.Entity
         [ButtonGroup("Tools")]
         [Button("Ë¢ÐÂ")]
         public virtual void Refresh() { }
+        public virtual void OnDestroy() { }
     }
 }
