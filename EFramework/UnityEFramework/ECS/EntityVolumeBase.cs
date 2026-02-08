@@ -120,40 +120,20 @@ namespace EFramework.Unity.Entity
             }
             _isCacheDirty = false;  // 标记缓存已更新
         }
-
-        /// <summary>
-        /// 深拷贝当前EntityVolume
-        /// </summary>
-        /// <returns>拷贝后的新实例</returns>
-        public EntityVolumeBase<TComponent> Clone()
+        public virtual TVolume Clone<TVolume>() where TVolume : EntityVolumeBase<TComponent>
         {
-            // 创建新的EntityVolume实例
-            EntityVolumeBase<TComponent> clone = new();
+            // 使用JsonUtility进行深拷贝（Unity内置序列化）
+            string json = JsonUtility.ToJson(this);
+            TVolume clonedVolume = JsonUtility.FromJson<TVolume>(json);
 
-            // 复制基础字段
-            clone.Uuid = this.Uuid;
-            clone.Desc = this.Desc;
+            // 生成新的UUID（确保唯一性）
+            clonedVolume.Uuid = UUID.New();
+            // 重置缓存状态
+            clonedVolume._componentCache.Clear();
+            clonedVolume._isCacheDirty = true;
 
-            // 深度复制组件列表（使用JSON序列化实现深拷贝）
-            clone.components = new List<TComponent>();
-            foreach (var component in this.components)
-            {
-                if (component != null)
-                {
-                    // 通过JSON序列化实现深拷贝
-                    var json = JsonUtility.ToJson(component);
-                    var clonedComponent = JsonUtility.FromJson(json, component.GetType()) as TComponent;
-                    clone.components.Add(clonedComponent);
-                }
-                else
-                {
-                    clone.components.Add(null);  // 处理空组件
-                }
-            }
-
-            return clone;
+            return clonedVolume;
         }
-
         /// <summary>
         /// 添加组件
         /// </summary>

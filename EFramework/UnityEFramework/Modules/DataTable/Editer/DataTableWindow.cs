@@ -33,7 +33,7 @@ namespace EFramework.Unity.DataTable
 #if ODIN_INSPECTOR
     public class DataTableWindow : OdinMenuEditorWindow
     {
-        ProjectConfig projectConfig;
+        
         [UnityEditor.MenuItem("Tools/项目配置")]
         private static void OpenWindow()
         {
@@ -49,17 +49,20 @@ namespace EFramework.Unity.DataTable
 
         private void InitializeWindow()
         {
-            projectConfig ??= ScriptableObjectUtility.FindScriptableObject<ProjectConfig>();
+            var projectConfig = ScriptableObjectUtility.FindScriptableObject<ProjectConfig>();
             if (projectConfig == null)
                 CreateProjectConfig();
         }
         private void Refresh()
         {
-            foreach (var item in projectConfig.volume.components)
+            if (ProjectConfig.Instance.volume == null)
+                return;
+            if (ProjectConfig.Instance.volume.components == null)
+                return;
+            foreach (var item in ProjectConfig.Instance.volume.components)
             {
                 item.Refresh();
             }
-            
         }
         protected override void OnBeginDrawEditors()
         {
@@ -83,6 +86,7 @@ namespace EFramework.Unity.DataTable
         private void CreateProjectConfig()
         {
             var config = ScriptableObject.CreateInstance<ProjectConfig>();
+            config.volume = new();
             string assetPath = EditorUtility.SaveFilePanelInProject(
                 "保存 ProjectConfig",
                 "ProjectConfig.asset",
@@ -105,8 +109,8 @@ namespace EFramework.Unity.DataTable
             var tree = new OdinMenuTree();
             tree.Config.DrawSearchToolbar = true; // 添加搜索栏
 
-            tree.Add("项目配置", projectConfig);
-            if(projectConfig == null)
+            tree.Add("项目配置", ProjectConfig.Instance);
+            if(ProjectConfig.Instance == null)
                 return tree;
             if(ProjectConfig.Instance.volume == null)
                 return tree;

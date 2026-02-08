@@ -12,9 +12,9 @@ namespace EFramework.Unity.Entity
         [HideIf("@UnityEngine.Application.isPlaying"), LabelText("Components(编辑器)")]
         [InlineEditor(Expanded = true), SerializeField]
         [InlineButton("CreateNewScriptableObject", "新建",ShowIf = "@ComponentsVolumeSO == null")]
-        public EntityVolumeSO ComponentsVolumeSO;
+        public GameEntityVolumeSO ComponentsVolumeSO;
         [ShowIf("@UnityEngine.Application.isPlaying"), LabelText("Components(运行时)")]
-        public EntityVolume ComponentsVolume;
+        public GameEntityVolume ComponentsVolume;
         private void Awake() => Init();
         private void OnDestroy() => Destroy();
         /// <summary>
@@ -28,10 +28,6 @@ namespace EFramework.Unity.Entity
             {
                 name += "_UUID" + UUID.New();
             }
-
-
-
-
         }
         /// <summary>
         /// 运行时用来初始化组件
@@ -39,33 +35,17 @@ namespace EFramework.Unity.Entity
         /// <param name="entity">实体</param>
         public virtual void Init()
         {
-
-            //var volume = ScriptableObjectUtility.FindScriptableObject<EntityVolume>(name);
-            //if (ComponentsVolume == null)
-            //{
-            //    if (name.Contains("DO") || name.Contains("SS"))
-            //        Debug.LogError($"EntityObject<{name}>的ComponentsVolume为空,请先编辑器初始化");
-            //    return;
-            //}
-            //if (volume == null)
-            //{
-            //    if (name.Contains("DO") || name.Contains("SS"))
-            //        Debug.LogError($"EntityObject<{name}>的ComponentsVolume找不到,请先编辑器初始化");
-            //    return;
-            //}
-            //ComponentsVolume = Instantiate(volume);
-            //ComponentsVolume.InitAllComponent(this);
-
+            ComponentsVolume = ComponentsVolumeSO.volume.Clone<GameEntityVolume>();
         }
 
         private void CreateNewScriptableObject()
         {
             if (ComponentsVolumeSO == null || ComponentsVolumeSO.name != name)
             {
-                ComponentsVolumeSO = ScriptableObjectUtility.FindScriptableObject<EntityVolumeSO>(name);
+                ComponentsVolumeSO = ScriptableObjectUtility.FindScriptableObject<GameEntityVolumeSO>(name);
                 if (ComponentsVolumeSO == null)
                 {
-                    ComponentsVolumeSO = ScriptableObjectUtility.CreateScriptableObject<EntityVolumeSO>(ProjectConfig.Instance.soDataPath + "CompetentsVolume/", name);
+                    ComponentsVolumeSO = ScriptableObjectUtility.CreateScriptableObject<GameEntityVolumeSO>(ProjectConfig.Instance.soDataPath + "CompetentsVolume/", name);
                     ComponentsVolumeSO.volume.Uuid = name.GetUUID();
                 }
                 foreach (var item in ComponentsVolumeSO.volume.components)

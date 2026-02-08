@@ -14,16 +14,16 @@ namespace EFramework.Unity.DataTable
     /// </summary>
     [LabelText("实体表组件")]
     [Serializable]
-    public class EntityTableComponent : DataTableBaseComponent
+    public class GameEntityTableComponent : DataTableBaseComponent
     {
 
         #region Properties
         [ShowInInspector, TableList(NumberOfItemsPerPage = 20, IsReadOnly = true, ShowPaging = true), Searchable]
-        public List<EntityTableItemInfo> SOLst = new();
+        public List<GameEntityTableItemInfo> SOLst = new();
         /// <summary>
         /// 实体表字典，通过UUID索引
         /// </summary>
-        public Dictionary<string, EntityTableItemInfo> SODict => SOLst.ToDictionary(i => i.uuid);
+        public Dictionary<string, GameEntityTableItemInfo> SODict => SOLst.ToDictionary(i => i.uuid);
 
         /// <summary>
         /// 表名称
@@ -39,7 +39,7 @@ namespace EFramework.Unity.DataTable
         /// </summary>
         /// <param name="uuid">实体UUID</param>
         /// <returns>实体表项信息，如果不存在则返回null</returns>
-        public EntityTableItemInfo GetEntityTableItemInfoByUUID(string uuid)
+        public GameEntityTableItemInfo GetEntityTableItemInfoByUUID(string uuid)
         {
             if (!SODict.ContainsKey(uuid))
                 Refresh();
@@ -59,16 +59,16 @@ namespace EFramework.Unity.DataTable
             SOLst.Clear();
 
             var entityObjDict = CollectEntityObjects();
-            var processGraphDict = CollectProcessGraphs();
+            var entityVolumeSODict = CollectEntityVolumeSO();
 
             Debug.Log($"找到预制体: {entityObjDict.Count}");
 
             foreach (var item in entityObjDict)
             {
-                ProcessGraphBase processGraph = processGraphDict.ContainsKey(item.Key) ?
-                    processGraphDict[item.Key] : null;
+                var entityVolumeSO = entityVolumeSODict.ContainsKey(item.Key) ?
+                    entityVolumeSODict[item.Key] : null;
 
-                EntityTableItemInfo entityInfo = new EntityTableItemInfo(item.Value, processGraph);
+                GameEntityTableItemInfo entityInfo = new GameEntityTableItemInfo(item.Value, entityVolumeSO);
                 SOLst.Add(entityInfo);
             }
         }
@@ -109,23 +109,21 @@ namespace EFramework.Unity.DataTable
         /// <summary>
         /// 收集所有流程图对象
         /// </summary>
-        private Dictionary<string, ProcessGraphBase> CollectProcessGraphs()
+        private Dictionary<string, GameEntityVolumeSO> CollectEntityVolumeSO()
         {
-            var processGraphDict = new Dictionary<string, ProcessGraphBase>();
-            foreach (var entity in ScriptableObjectUtility.FindAllScriptableObjects<ProcessGraphBase>())
+            var gameEntityVolumeSODict = new Dictionary<string, GameEntityVolumeSO>();
+            foreach (var entity in ScriptableObjectUtility.FindAllScriptableObjects<GameEntityVolumeSO>())
             {
-                if (processGraphDict.ContainsKey(entity.name))
+                if (gameEntityVolumeSODict.ContainsKey(entity.name))
                 {
-                    Debug.LogWarning($"存在重复的流程图名称: {entity.name}");
+                    Debug.LogWarning($"存在重复的名称: {entity.name}");
                     continue;
                 }
 
-                string uuid = entity.name.GetUUID();
-                string key = string.IsNullOrEmpty(uuid) ? entity.name : uuid;
-                processGraphDict.Add(key, entity);
+                gameEntityVolumeSODict.Add(entity.name, entity);
             }
 
-            return processGraphDict;
+            return gameEntityVolumeSODict;
         }
 
 
@@ -146,33 +144,32 @@ namespace EFramework.Unity.DataTable
     /// 实体表项信息
     /// </summary>
     [Serializable]
-    public class EntityTableItemInfo : DataTableItemInfoBase
+    public class GameEntityTableItemInfo : DataTableItemInfoBase
     {
         #region Serialized Fields
 
         [ReadOnly, TableColumnWidth(120)]
         public string desc;
 
+        [HideInInspector]
+        public GameEntityVolume entityVolume;
         [ReadOnly, TableColumnWidth(20)]
-        public EntityVolume entityVolume;
+        public GameEntityVolumeSO entityVolumeSO;
 
         [ReadOnly, TableColumnWidth(20)]
         public GameEntity entityObject;
-
-        [ReadOnly, TableColumnWidth(20)]
-        public ProcessGraphBase processGraph;
 
         #endregion
 
         #region Constructor
 
-        public EntityTableItemInfo(GameEntity entityObject, ProcessGraphBase processGraph)
+        public GameEntityTableItemInfo(GameEntity entityObject, GameEntityVolumeSO entityVolumeSO)
         {
             this.uuid = entityObject.ComponentsVolume.Uuid;
             this.desc = entityObject.ComponentsVolume.Desc;
             this.entityVolume = entityObject.ComponentsVolume;
             this.entityObject = entityObject;
-            this.processGraph = processGraph;
+            this.entityVolumeSO = entityVolumeSO;
         }
 
         #endregion

@@ -7,7 +7,7 @@ namespace EFramework.Unity.DataTable
 {
     public class DataTableItemInfoBase 
     {
-        [ReadOnly]
+        [ReadOnly, TableColumnWidth(8)]
         public string uuid;
     }
 }

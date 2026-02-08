@@ -9,8 +9,8 @@ namespace EFramework.Unity.Entity
 
     // 为了向后兼容，保留原有的非泛型版本
     [Serializable]
-    public class EntityVolume : EntityVolumeBase<EntityComponent>
+    public class GameEntityVolume : EntityVolumeBase<GameEntityComponent>
     {
-
+        
     }
 }

@@ -31,7 +31,7 @@ namespace EFramework.Unity.XNode
                     return null;
                 if(ProjectConfig.Instance == null)
                     Debug.LogError("ProjectMgr Ê¾ÀýÎª¿Õ!");
-                return ProjectConfig.Instance.GetEntityTableItemInfoByUUID(objUuid)?.entityObject;
+                return ProjectConfig.Instance.volume.GetComponentVolume<GameEntityTableComponent>().GetEntityTableItemInfoByUUID(objUuid)?.entityObject;
             }
         }
         [ShowInInspector,ReadOnly]

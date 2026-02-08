@@ -8,7 +8,7 @@ using UnityEngine;
 namespace EFramework.Unity.Entity
 {
     [Serializable]
-    public abstract class EntityComponent:EntityComponentBase<GameEntity>
+    public abstract class GameEntityComponent:EntityComponentBase<GameEntity>
     {
         [ToggleLeft,GUIColor("@Enabled ? Color.white : Color.Color.yellow")]
         public bool Enabled = true;
@@ -30,7 +30,7 @@ namespace EFramework.Unity.Entity
             entityObject = entity;
         }
 
-        public T Clone<T>() where T : EntityComponent
+        public T Clone<T>() where T : GameEntityComponent
         {
             var originalJson = JsonUtility.ToJson(this);
             T copy = JsonUtility.FromJson<T>(originalJson);

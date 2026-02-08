@@ -6,6 +6,7 @@ using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml;
 using UnityEngine;
 using XNode.Core;
 namespace EFramework.Unity.XNode
@@ -40,7 +41,7 @@ namespace EFramework.Unity.XNode
                 if (string.IsNullOrEmpty(entityUuid))
                     return null;
                 var itemInfo = ProjectConfig
-                    .Instance.GetEntityTableItemInfoByUUID(entityUuid);
+                    .Instance.volume.GetComponentVolume<GameEntityTableComponent>().GetEntityTableItemInfoByUUID(entityUuid);
 
                 return itemInfo?.entityObject;
             }

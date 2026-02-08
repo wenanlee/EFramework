@@ -4,8 +4,8 @@ using UnityEngine;
 
 namespace EFramework.Unity.Entity
 {
-    public class EntityVolumeSO : EntityScriptableObjectBase<EntityComponent>
+    public class GameEntityVolumeSO : ScriptableObject
     {
-      
+        public GameEntityVolume volume;
     }
 }

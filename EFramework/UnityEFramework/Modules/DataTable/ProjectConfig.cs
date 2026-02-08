@@ -36,10 +36,6 @@ namespace EFramework.Unity.DataTable
         [InlineEditor(Expanded = true, ObjectFieldMode = InlineEditorObjectFieldModes.Hidden), BoxGroup("数据表")] 
         public DataTableVolume volume;
 
-        public EntityTableItemInfo GetEntityTableItemInfoByUUID(string uuid)
-        {
-            return volume?.GetComponentVolume<EntityTableComponent>()?.GetEntityTableItemInfoByUUID(uuid);
-        }
         private void CreateDataTable()
         {
             // 创建数据表组件
