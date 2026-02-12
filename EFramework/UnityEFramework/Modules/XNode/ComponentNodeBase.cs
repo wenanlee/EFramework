@@ -1,6 +1,6 @@
 using EFramework;
 using EFramework.Unity.DataTable;
-using EFramework.Unity.Entity;
+using EFramework.Unity.ECS;
 using EFramework.Unity.Utility;
 using Sirenix.OdinInspector;
 using System.Collections;
@@ -31,7 +31,7 @@ namespace EFramework.Unity.XNode
                     return null;
                 if(ProjectConfig.Instance == null)
                     Debug.LogError("ProjectMgr Ê¾ÀýÎª¿Õ!");
-                return ProjectConfig.Instance.volume.GetComponentVolume<GameEntityTableComponent>().GetEntityTableItemInfoByUUID(objUuid)?.entityObject;
+                return null;//ProjectConfig.Instance.volume.GetComponentVolume<GameEntityTableComponent>().GetEntityTableItemInfoByUUID(objUuid)?.entityObject;
             }
         }
         [ShowInInspector,ReadOnly]

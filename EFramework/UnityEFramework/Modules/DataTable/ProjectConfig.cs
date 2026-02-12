@@ -1,5 +1,4 @@
 #if ODIN_INSPECTOR
-using EFramework.Unity.Entity;
 using EFramework.Unity.Event;
 using EFramework.Unity.Utility;
 using Sirenix.OdinInspector;
@@ -33,7 +32,6 @@ namespace EFramework.Unity.DataTable
         [ShowInInspector, FolderPath, BoxGroup("路径")]
         public string soDataPath => projectParentPath + "/Resources/Data/";
 
-        [InlineEditor(Expanded = true, ObjectFieldMode = InlineEditorObjectFieldModes.Hidden), BoxGroup("数据表")] 
         public DataTableVolume volume;
 
         private void CreateDataTable()

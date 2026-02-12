@@ -1,7 +1,7 @@
-using EFramework.Unity.Entity;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using EFramework.Unity.ECS;
 
 namespace EFramework.Unity.UIFramework
 {

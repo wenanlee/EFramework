@@ -288,6 +288,18 @@ namespace EFramework.Unity.Utility
                 .FirstOrDefault();
         }
 
+        public static T FindScriptableObjectByUUID<T>(string uuid) where T : ScriptableObject
+        {
+            if (string.IsNullOrEmpty(uuid))
+            {
+                Debug.LogWarning("资源名称不能为空");
+                return null;
+            }
+
+            return FindAllScriptableObjects<T>()
+                .Where(asset => asset != null && asset.name.Contains(uuid))
+                .FirstOrDefault();
+        }
         /// <summary>
         /// 查找指定类型的第一个 ScriptableObject 资源
         /// </summary>

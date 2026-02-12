@@ -1,5 +1,4 @@
 using EFramework.Unity.DataTable;
-using EFramework.Unity.Entity;
 using EFramework.Unity.Utility;
 using Sirenix.OdinInspector;
 using System;
@@ -10,41 +9,14 @@ using UnityEngine;
 
 namespace EFramework.Unity.Event
 {
-    [LabelText("ÊÂ¼þ±í×é¼þ")]
+    [LabelText("äº‹ä»¶è¡¨ç»„ä»¶")]
     [Serializable]
-    public class EventTableComponent : DataTableBaseComponent
+    public class EventTableComponent : DataTableBaseComponent<EventSO, EventVolume>
     {
-        public override string tableName => "ÊÂ¼þ±í";
-        [ShowInInspector, TableList(NumberOfItemsPerPage = 20, IsReadOnly = true, ShowPaging = true), Searchable]
-        public List<EventTableItemInfo> SOLst = new();
-        public Dictionary<string, EventTableItemInfo> SODict => SOLst.ToDictionary(i => i.uuid);
+        public override string TableName => "äº‹ä»¶è¡¨";
+        public override string Name => "äº‹ä»¶è¡¨ç»„ä»¶";
 
-        [Button]
-        public override void Add()
-        {
-#if UNITY_EDITOR
-            CreateScriptableObjectWindow.OpenWindow<EventSO>(
-                ProjectConfig.Instance.soDataPath + "Events/",
-                (soName) =>
-                {
-                    Refresh();
-                }
-            );
-#endif
-        }
-
-        [Button]
-        public override void Refresh()
-        {
-            SOLst.Clear();
-            var eventSOLst = ScriptableObjectUtility.FindAllScriptableObjects<EventSO>();
-            foreach (var item in eventSOLst)
-            {
-                EventTableItemInfo eventTableItem = new EventTableItemInfo(item);
-                SOLst.Add(eventTableItem);
-            }
-        }
-
+        public override string parentPath => "Events";
         public override void ExportToJson()
         {
             var json = JsonUtility.ToJson(SOLst);
@@ -54,7 +26,7 @@ namespace EFramework.Unity.Event
 
         public override void GenerateToEnumFile()
         {
-            FileUtility.GenerateConstantsFile(ProjectConfig.Instance.projectParentPath,"EventItems",SOLst.ToDictionary(x=>$"{x.eventName}_{x.desc}_{x.uuid}",x=> x.uuid));
+            //FileUtility.GenerateConstantsFile(ProjectConfig.Instance.projectParentPath,"EventItems",SOLst.ToDictionary(x=>$"{x.eve}_{x.desc}_{x.uuid}",x=> x.uuid));
         }
     }
 }

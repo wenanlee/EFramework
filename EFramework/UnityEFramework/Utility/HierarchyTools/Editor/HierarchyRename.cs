@@ -1,5 +1,5 @@
 #if UNITY_EDITOR
-using EFramework.Unity.Entity;
+using EFramework.Unity.ECS;
 using UnityEditor;
 using UnityEngine;
 
@@ -21,7 +21,7 @@ public class HierarchyRename
             if (entityObject.ComponentsVolume == null) return;
             if (string.IsNullOrEmpty(entityObject.ComponentsVolume.Desc)) return;
 
-            string displayName = $"{entityObject.ComponentsVolume.Desc} <{entityObject.ComponentsVolume.Uuid}> ({entityObject.name})";
+            string displayName = $"{entityObject.ComponentsVolume.Desc} <{entityObject.ComponentsVolume.uuid}> ({entityObject.name})";
             bool isSelected = Selection.Contains(go);
             Color textColor = isSelected ? Color.white : EditorStyles.label.normal.textColor;
             if (entityObject.gameObject.activeSelf == false)

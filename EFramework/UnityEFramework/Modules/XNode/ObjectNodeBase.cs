@@ -1,6 +1,6 @@
 using EFramework;
 using EFramework.Unity.DataTable;
-using EFramework.Unity.Entity;
+using EFramework.Unity.ECS;
 using EFramework.Unity.Utility;
 using Sirenix.OdinInspector;
 using System.Collections;
@@ -40,10 +40,11 @@ namespace EFramework.Unity.XNode
             {
                 if (string.IsNullOrEmpty(entityUuid))
                     return null;
-                var itemInfo = ProjectConfig
-                    .Instance.volume.GetComponentVolume<GameEntityTableComponent>().GetEntityTableItemInfoByUUID(entityUuid);
+                //var itemInfo = ProjectConfig
+                //    .Instance.volume.GetComponentVolume<GameEntityTableComponent>().GetEntityTableItemInfoByUUID(entityUuid);
 
-                return itemInfo?.entityObject;
+                //return itemInfo?.entityObject;
+                return null;
             }
         }
         private List<string> GetAllComponents()
